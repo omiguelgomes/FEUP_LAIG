@@ -86,7 +86,6 @@ class MySceneGraph {
         var error;
 
         // Processes each node, verifying errors.
-
         // <scene>
         var index;
         if ((index = nodeNames.indexOf("scene")) == -1)
@@ -226,8 +225,161 @@ class MySceneGraph {
      * Parses the <views> block.
      * @param {view block element} viewsNode
      */
-    parseView(viewsNode) {
-        this.onXMLMinorError("To do: Parse views and create cameras.");
+    parseView(viewsNode) 
+    {
+        var children = viewsNode.children;
+        
+        this.cameras = {};
+        var numViews = 0;
+
+        this.default = this.reader.getString(viewsNode, 'default');
+        if (this.default == null)
+        {
+            this.onXMLError('unable to parse default view');
+        }
+
+        for (var i = 0; i < children.length; i++)
+        {
+            var id = this.reader.getString(children[i], 'id')
+            if (id == null)
+            {
+                this.onXMLError("unable to parse id value for view");
+
+                for (var j = 0; j < this.cameras.length; j++)
+                {
+                    if (this.cameras[j].id = id)
+                    {
+                        this.onXMLError("repeated id");
+                    }
+                }
+
+                var camera;
+
+                //near default value = 0.1 , far default value = 30, angle default value = 45 dg
+                if (children[i].nodeName == perpective)
+                {
+                    var near = this.reader.getFloat(children[i], 'near');
+                    if (!(near == null && !isNaN(near)))
+                    {
+                        near = 0.1;
+                        this.onXMLMinorError("unable to parse perspective near value, default set to 0.1");
+                    }
+
+                    var far = this.reader.getFloat(children[i], 'far');
+                    if (!(far == null && !isNaN(far)))
+                    {
+                        far = 30;
+                        this.onXMLMinorError("unable to parse perspective far value, default set to 30");
+                    }
+
+                    if ( far < near)
+                    {
+                        var temp = near;
+                        near = far;
+                        far = temp;
+                        this.onXMLMinorError("far value lower than near, switched values");
+                    }
+
+                    if (near <= 0)
+                    {
+                        near = 0.1;
+                        this.onXMLMinorError("near value lower than 0, set default 0.1");
+                    }
+
+                    if (far <= 0)
+                    {
+                        far = 30;
+                        this.onXMLMinorError("far value lower than 0, set default 30");
+                    }
+
+                    if (near == far)
+                    {
+                        near = 0.1;
+                        far = 30;
+                    }
+
+                    var angle = this.reader.getFloat(children[i], 'angle');
+                    if (!(angle == null && !isNaN(angle)))
+                    {
+                        angle = MATH.PI / 2;
+                        this.onXMLMinorError("unable to parse perspective far value, default set to 30");
+                    }
+
+                    angle = angle * DEGREE_TO_RAD;
+
+                    var grandChildren = children[i].children;
+                    var nodeNames = [];
+
+                    for (var k = 0; k < grandgrandChildren.length; k++)
+                    {
+                        nodeNames.push(grandChildren[k].nodeName);
+                    }
+
+                    var fromIndex = nodeNames.indexOf('from');
+
+                    from = [20, 20, 20]; //default values of from
+                    if (fromIndex == -1)
+                    {
+                        this.onXMLMinorError("unable to parse from values, assuming [20,20,20]");
+                    }
+                    else 
+                    {
+                        from[0] = this.reader.getFloat(grandChildren[fromIndex], 'x');
+                        from[1] = this.reader.getFloat(grandChildren[fromIndex], 'y');
+                        from[2] = this.reader.getFloat(grandChildren[fromIndex], 'z');
+
+                        if (!(from[0] == null && !isNaN(from[0])))
+                        {
+                            this.onXMLMinorError("unable to parse from[0] value, default set to 20");
+                        }
+
+                        if (!(from[1] == null && !isNaN(from[1])))
+                        {
+                            this.onXMLMinorError("unable to parse from[1] value, default set to 20");
+                        }
+
+                        if (!(from[2] == null && !isNaN(from[2])))
+                        {
+                            this.onXMLMinorError("unable to parse from[2] value, default set to 20");
+                        }
+                    }
+
+                    var toIndex = nodeNames.indexOf('to');
+                    to = [0,0, 0]; //default values of to
+                    if (fromIndex == -1)
+                    {
+                        this.onXMLMinorError("unable to parse to values, assuming [0,0,0]");
+                    }
+                    else 
+                    {
+                        to[0] = this.reader.getFloat(grandChildren[toIndex], 'x');
+                        to[1] = this.reader.getFloat(grandChildren[toIndex], 'y');
+                        to[2] = this.reader.getFloat(grandChildren[toIndex], 'z');
+
+                        if (!(to[0] == null && !isNaN(to[0])))
+                        {
+                            this.onXMLMinorError("unable to parse to[0] value, default set to 0");
+                        }
+
+                        if (!(to[1] == null && !isNaN(to[1])))
+                        {
+                            this.onXMLMinorError("unable to parse to[1] value, default set to 0");
+                        }
+
+                        if (!(to[2] == null && !isNaN(to[2])))
+                        {
+                            this.onXMLMinorError("unable to parse to[2] value, default set to 0");
+                        }
+                    }
+
+
+                }
+                else if (children[i].nodeName == ortho)
+                {
+                    //TODO: ortho parser
+                }
+            }
+        }
 
         return null;
     }
