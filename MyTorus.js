@@ -1,17 +1,12 @@
 /**
- * MyCylinder
+ * MyTorus
  * @constructor
  * @param scene - Reference to MyScene object
  */
-class MyCylinder extends CGFobject {
-    constructor(scene, id, base, top, height, slices, stacks) 
+class MyTorus extends CGFobject {//TODO - it's still a cylinder
+    constructor(scene, id, inner, outer, slices, loops)
     {
         super(scene);
-
-        this.base = base;
-        this.top = top;
-        this.height = height;
-        this.slices = slices;
 
         //slices = nr faces
         if (slices < 5)
@@ -19,8 +14,12 @@ class MyCylinder extends CGFobject {
         else if (slices > 10)
             this.slices = 10;
 
-        //stacks = nr de objetos na vertical
-        this.stacks = stacks;
+        this.slices = slices;
+        /*stacks = nr de objetos na vertical
+        this.stacks = stacks; - Editar  */ 
+        this.inner = inner;
+        this.outer = outer;
+        this.loops = loops;
 		this.initBuffers();
 	}
     initBuffers()
@@ -34,21 +33,21 @@ class MyCylinder extends CGFobject {
         var ang = 0;
         var alphaAng = 2*Math.PI / this.slices; //angulo entre as faces do prisma
 
-        for (var i = 0; i < this.slices; i++)
+        for (var i = 0; i < this.slices; i++) //para transformar em torus -> a cada iteracao rodar em torno de y, de forma a fazer x loops
         {
             var senAng = Math.sin(ang);
             var senAng_Alpha = Math.sin(ang+alphaAng);
             var cosAng = Math.cos(ang);
             var cosAng_Alpha = Math.cos(ang+alphaAng);
 
-            this.vertices.push(cosAng * this.base, 0, -senAng * this.base);
+            this.vertices.push(cosAng * this.inner, 0, -senAng * this.inner);
             this.texCoords.push(0,1);
-            this.vertices.push(cosAng_Alpha * this.base, 0, -senAng_Alpha * this.base); //pontos base c/ y=0
+            this.vertices.push(cosAng_Alpha * this.inner, 0, -senAng_Alpha * this.inner); //pontos base c/ y=0
             this.texCoords.push(1,1);
 
-            this.vertices.push(cosAng * this.top, this.stacks, -senAng * this.top);
+            this.vertices.push(cosAng * this.inner, this.stacks, -senAng * this.inner);
             this.texCoords.push(0,0);
-            this.vertices.push(cosAng_Alpha * this.top, this.stacks, -senAng_Alpha * this.top); //pontos topo c/ y=1
+            this.vertices.push(cosAng_Alpha * this.inner, this.stacks, -senAng_Alpha * this.inner); //pontos topo c/ y=1
             this.texCoords.push(1,0);
 
             // square normal computation
@@ -89,9 +88,17 @@ class MyCylinder extends CGFobject {
         }
         
 		this.primitiveType = this.scene.gl.TRIANGLES;
-        this.initGLBuffers();
-        console.log(this.vertices);
-        console.log(this.indices);
+		this.initGLBuffers();
+    }
+
+    display()
+    {
+        super.display();
+        this.scene.pushMatrix();
+        this.scene.scale(this.inner, 1, this.inner);
+        this.scene.rotate(Math.PI/2, 1, 0, 0);
+        this.scene.rotate(Math.PI, 0, 1, 0);
+        this.scene.popMatrix();
     }
     
     updateBuffers(complexity)
