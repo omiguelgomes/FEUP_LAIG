@@ -48,11 +48,14 @@
             <rectangle x1="-1.5" y1="-2" x2="1.5" y2="2.5" />
         </primitive>
         <primitive id="testCylinder">
-            <cylinder base="2.0" top="2.0" height="5.0" slices="6" stacks="7" />
+            <cylinder base="2.0" top="5.0" height="5.0" slices="10" stacks="5" />
         </primitive>
-        <!-- <primitive id="testSphere">
-            <sphere radius="1.0" slices="2" stacks="3">
-        </primitive> -->
+        <primitive id="testTorus">
+            <torus inner="1.0" outer="3.0" slices="10" loops="3"/>
+        </primitive>
+        <primitive id="testSphere">
+            <sphere radius="1.0" slices="20" stacks="20"/>
+        </primitive>
     </primitives>
 
     <components>
