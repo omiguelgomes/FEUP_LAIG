@@ -108,7 +108,10 @@ class MySceneGraph {
 
             //Parse views block
             if ((error = this.parseView(nodes[index])) != null)
+            {
+                console.log(error);
                 return error;
+            }
         }
 
         // <ambient>
@@ -252,21 +255,22 @@ class MySceneGraph {
                         this.onXMLError("repeated id");
                     }
                 }
+            }
 
                 var camera;
 
                 //near default value = 0.1 , far default value = 30, angle default value = 45 dg
-                if (children[i].nodeName == perpective)
+                if (children[i].nodeName == "perspective")
                 {
-                    var near = this.reader.getFloat(children[i], 'near');
-                    if (!(near == null && !isNaN(near)))
+                    let near = this.reader.getFloat(children[i], "near");
+                    if (!(near != null && !isNaN(near)))
                     {
                         near = 0.1;
                         this.onXMLMinorError("unable to parse perspective near value, default set to 0.1");
                     }
 
-                    var far = this.reader.getFloat(children[i], 'far');
-                    if (!(far == null && !isNaN(far)))
+                    let far = this.reader.getFloat(children[i], 'far');
+                    if (!(far != null && !isNaN(far)))
                     {
                         far = 30;
                         this.onXMLMinorError("unable to parse perspective far value, default set to 30");
@@ -298,10 +302,10 @@ class MySceneGraph {
                         far = 30;
                     }
 
-                    var angle = this.reader.getFloat(children[i], 'angle');
-                    if (!(angle == null && !isNaN(angle)))
+                    let angle = this.reader.getFloat(children[i], 'angle');
+                    if (!(angle != null && !isNaN(angle)))
                     {
-                        angle = MATH.PI / 2;
+                        angle = Math.PI / 2;
                         this.onXMLMinorError("unable to parse perspective far value, default set to 30");
                     }
 
@@ -310,14 +314,14 @@ class MySceneGraph {
                     var grandChildren = children[i].children;
                     var nodeNames = [];
 
-                    for (var k = 0; k < grandgrandChildren.length; k++)
+                    for (var k = 0; k < grandChildren.length; k++)
                     {
                         nodeNames.push(grandChildren[k].nodeName);
                     }
 
                     var fromIndex = nodeNames.indexOf('from');
 
-                    from = [20, 20, 20]; //default values of from
+                    let from = [20, 20, 20]; //default values of from
                     if (fromIndex == -1)
                     {
                         this.onXMLMinorError("unable to parse from values, assuming [20,20,20]");
@@ -328,27 +332,27 @@ class MySceneGraph {
                         from[1] = this.reader.getFloat(grandChildren[fromIndex], 'y');
                         from[2] = this.reader.getFloat(grandChildren[fromIndex], 'z');
 
-                        if (!(from[0] == null && !isNaN(from[0])))
+                        if (!(from[0] != null && !isNaN(from[0])))
                         {
                             this.onXMLMinorError("unable to parse from[0] value, default set to 20");
                         }
 
-                        if (!(from[1] == null && !isNaN(from[1])))
+                        if (!(from[1] != null && !isNaN(from[1])))
                         {
                             this.onXMLMinorError("unable to parse from[1] value, default set to 20");
                         }
 
-                        if (!(from[2] == null && !isNaN(from[2])))
+                        if (!(from[2] != null && !isNaN(from[2])))
                         {
                             this.onXMLMinorError("unable to parse from[2] value, default set to 20");
                         }
                     }
 
                     var toIndex = nodeNames.indexOf('to');
-                    to = [0,0, 0]; //default values of to
+                    let to = [0,0, 0]; //default values of to
                     if (fromIndex == -1)
                     {
-                        this.onXMLMinorError("unable to parse to values, assuming [0,0,0]");
+                        this.onXMLMinorError("unable to parse 'to' values, assuming [0,0,0]");
                     }
                     else 
                     {
@@ -356,30 +360,60 @@ class MySceneGraph {
                         to[1] = this.reader.getFloat(grandChildren[toIndex], 'y');
                         to[2] = this.reader.getFloat(grandChildren[toIndex], 'z');
 
-                        if (!(to[0] == null && !isNaN(to[0])))
+                        if (!(to[0] != null && !isNaN(to[0])))
                         {
-                            this.onXMLMinorError("unable to parse to[0] value, default set to 0");
+                            this.onXMLMinorError("unable to parse to[0] (x) value, default set to 0");
                         }
 
-                        if (!(to[1] == null && !isNaN(to[1])))
+                        if (!(to[1] != null && !isNaN(to[1])))
                         {
-                            this.onXMLMinorError("unable to parse to[1] value, default set to 0");
+                            this.onXMLMinorError("unable to parse to[1] (y) value, default set to 0");
                         }
 
-                        if (!(to[2] == null && !isNaN(to[2])))
+                        if (!(to[2] != null && !isNaN(to[2])))
                         {
-                            this.onXMLMinorError("unable to parse to[2] value, default set to 0");
+                            this.onXMLMinorError("unable to parse to[2] (z) value, default set to 0");
                         }
                     }
+                    
+                    let fromV = vec3.fromValues(from[0], from[1], from[2]);
+                    let toV = vec3.fromValues(to[0], to[1], to[2]);
 
+                    camera = new CGFcamera(angle, near, far, fromV, toV);
 
+                    this.log("Parsed perpective");
                 }
                 else if (children[i].nodeName == ortho)
                 {
-                    //TODO: ortho parser
+                    var near = this.reader.getFloat(children[i], 'near');
+                    if (!(near != null && !isNaN(near)))
+                    {
+                        near = 0.1;
+                        this.onXMLMinorError("unable to parse ortho near value, default set to 0.1");
+                    }
+
+                    var far = this.reader.getFloat(children[i], 'far');
+                    if (!(far != null && !isNaN(far)))
+                    {
+                        far = 0.1;
+                        this.onXMLMinorError("unable to parse ortho far value, default set to 0.1");
+                    }
+                }
+
+                this.cameras[id] = camera;
+                numViews++;
+
+                if (id == this.default)
+                {
+                    this.scene.camera = camera;
+                    this.scene.interface.setActiveCamera(camera);
                 }
             }
-        }
+
+        if (numViews <= 0)
+            return "there must be at least one camera."
+
+        this.log("Parsed Views");
 
         return null;
     }
@@ -542,10 +576,26 @@ class MySceneGraph {
      * Parses the <textures> block. 
      * @param {textures block element} texturesNode
      */
-    parseTextures(texturesNode) {
+    parseTextures(texturesNode) 
+    {
+        var children = texturesNode.children;
+        var numTextures = 0;
 
-        //For each texture in textures block, check ID and file URL
-        this.onXMLMinorError("To do: Parse textures.");
+        for (let i = 0; i < children.length; i++) 
+        {
+
+            if (children[i].nodeName != "texture") {
+                this.onXMLMinorError("unknown tag <" + children[i].nodeName + ">");
+                continue;
+            }
+
+            var textureId = this.reader.getString(texture, 'id');
+            if (textureId == null) 
+            {
+                this.onXMLError("no ID defined for texture");
+            }
+        }
+        
         return null;
     }
 
@@ -597,10 +647,13 @@ class MySceneGraph {
 
         var grandChildren = [];
 
-        // Any number of transformations.
-        for (var i = 0; i < children.length; i++) {
 
-            if (children[i].nodeName != "transformation") {
+        // Any number of transformations.
+        for (var i = 0; i < children.length; i++) 
+        {
+
+            if (children[i].nodeName != "transformation")
+            {
                 this.onXMLMinorError("unknown tag <" + children[i].nodeName + ">");
                 continue;
             }
@@ -619,8 +672,10 @@ class MySceneGraph {
 
             var transfMatrix = mat4.create();
 
-            for (var j = 0; j < grandChildren.length; j++) {
-                switch (grandChildren[j].nodeName) {
+            for (var j = 0; j < grandChildren.length; j++) 
+            {              
+                switch (grandChildren[j].nodeName) 
+                {
                     case 'translate':
                         var coordinates = this.parseCoordinates3D(grandChildren[j], "translate transformation for ID " + transformationID);
                         if (!Array.isArray(coordinates))
@@ -629,11 +684,46 @@ class MySceneGraph {
                         transfMatrix = mat4.translate(transfMatrix, transfMatrix, coordinates);
                         break;
                     case 'scale':
-                        this.onXMLMinorError("To do: Parse scale transformations.");
+                        var scalingAux = this.parseCoordinates3D(grandChildren[j], "translate transformation for ID " + transformationID);
+                        
+                        if (!Array.isArray(scalingAux))
+                            return scalingAux;
+
+                        transfMatrix = mat4.scale(transfMatrix,transfMatrix, scalingAux);
+
                         break;
                     case 'rotate':
-                        // angle
-                        this.onXMLMinorError("To do: Parse rotate transformations.");
+                        var axis = this.reader.getString(grandChildren[j], 'axis');
+                        if (axis == null || (axis != 'x' && axis != 'y' && axis != 'z'))
+                        {
+                            this.onXMLError("unable to parse axis of rotation of" + transformationID);
+                            break;
+                        }
+
+                        var angle = this.reader.getFloat(grandChildren[j], 'angle');
+                        if(!(angle != null && !isNaN(angle)))
+                        {
+                           this.onXMLError("unable to parse angle of rotation of" + transformationID);
+                           break;
+                        }
+
+                        angle = angle * DEGREE_TO_RAD;
+
+                        var axisV;
+                        switch (axis)
+                        {
+                            case 'x':
+                                axisV = vec3.fromValues(1,0,0);
+                                break;
+                            case 'y':
+                                axisV = vec3.fromValues(0,1,0);
+                                break;
+                            case 'z':
+                                axisV = vec3.fromValues(0,0,1);
+                                break;
+                        }
+
+                        transfMatrix = mat4.rotate(transfMatrix, transfMatrix, angle, axisV)
                         break;
                 }
             }
@@ -965,13 +1055,18 @@ class MySceneGraph {
     /**
      * Displays the scene, processing each node, starting in the root node.
      */
-    displayScene() {
+    displayScene() 
+    {
         //To do: Create display loop for transversing the scene graph
       
         //To test the parsing/creation of the primitives, call the display function directly
         // this.primitives['demoRectangle'].display();
         //this.primitives['testCylinder'].display();
         //this.primitives['testSphere'].display();
+<<<<<<< HEAD
          this.primitives['testTorus'].display();
+=======
+        this.primitives['testTorus'].display();
+>>>>>>> 53c0c7174e254420903a10041b07d0155b3f4a9f
     }
 }
