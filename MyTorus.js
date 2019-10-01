@@ -30,7 +30,7 @@ class MyTorus extends CGFobject {
         var ang = 2 * Math.PI / this.slices;
         var alphaAng = 2 * Math.PI / this.slices; //angulo entre as faces do prisma
 
-        var sides = 10; //nr of cylinders
+        var sides = 30; //nr of cylinders
         var angRot = 2 * Math.PI / sides;
         var alphaAngRot = 2 * Math.PI / sides;
 
@@ -93,7 +93,6 @@ class MyTorus extends CGFobject {
                         this.indices.push(this.slices * j + i, this.slices * j + 1 + i, i);//baixo, baixo, cima
                         this.indices.push(i, this.slices * j + 1 + i, i + 1);//cima, baixo, cima
                     }
-
                 }
 
                 ang += alphaAng;
