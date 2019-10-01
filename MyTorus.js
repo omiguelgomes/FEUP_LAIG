@@ -80,7 +80,7 @@ class MyTorus extends CGFobject {
                 this.normals.push(...normal);
                 this.normals.push(...normalNext);
 
-                if (j = sides) {
+                if (j != sides) {
                     this.indices.push(this.slices * j + i, this.slices * j + 1 + i, this.slices * (j + 1) + i);//baixo, baixo, cima
                     this.indices.push(this.slices * (j + 1) + i, this.slices * j + 1 + i, this.slices * (j + 1) + i + 1);//cima, baixo, cima
                 }
