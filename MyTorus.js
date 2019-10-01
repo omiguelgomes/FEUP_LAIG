@@ -38,7 +38,7 @@ class MyTorus extends CGFobject {
 
             angRot += alphaAngRot;//implement creation of several circles to create torus(see sketch)
 
-            for (var i = 0; i < this.slices; i++) {
+            for (var i = 0; i <= this.slices; i++) {
                 var senAng = Math.sin(ang);
                 var senAng_Alpha = Math.sin(ang + alphaAng);
                 var cosAng = Math.cos(ang);
@@ -80,13 +80,20 @@ class MyTorus extends CGFobject {
                 this.normals.push(...normal);
                 this.normals.push(...normalNext);
 
-                if (j != sides) {
+                if (j = sides) {
                     this.indices.push(this.slices * j + i, this.slices * j + 1 + i, this.slices * (j + 1) + i);//baixo, baixo, cima
                     this.indices.push(this.slices * (j + 1) + i, this.slices * j + 1 + i, this.slices * (j + 1) + i + 1);//cima, baixo, cima
                 }
                 else {
-                    this.indices.push(this.slices * j + i, this.slices * j + 1 + i, i);//baixo, baixo, cima
-                    this.indices.push(i, this.slices * j + 1 + i, i + 1);//cima, baixo, cima
+                    if (i == this.slices - 1) {
+                        this.indices.push(this.slices * j + i, this.slices * j + 1 + i, i);//baixo, baixo, cima
+                        this.indices.push(i, this.slices * j + 1 + i, 0);//cima, baixo, cima
+                    }
+                    else {
+                        this.indices.push(this.slices * j + i, this.slices * j + 1 + i, i);//baixo, baixo, cima
+                        this.indices.push(i, this.slices * j + 1 + i, i + 1);//cima, baixo, cima
+                    }
+
                 }
 
                 ang += alphaAng;
@@ -106,4 +113,3 @@ class MyTorus extends CGFobject {
         this.initNormalVizBuffers();
     }
 }
-

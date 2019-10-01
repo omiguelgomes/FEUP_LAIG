@@ -578,7 +578,7 @@ class MySceneGraph {
      */
     parseTextures(texturesNode) 
     {
-        var children = texturesNode.children;
+        /*var children = texturesNode.children;
         var numTextures = 0;
 
         for (let i = 0; i < children.length; i++) 
@@ -594,7 +594,7 @@ class MySceneGraph {
             {
                 this.onXMLError("no ID defined for texture");
             }
-        }
+        }*/
         
         return null;
     }
@@ -1063,10 +1063,8 @@ class MySceneGraph {
         // this.primitives['demoRectangle'].display();
         //this.primitives['testCylinder'].display();
         //this.primitives['testSphere'].display();
-<<<<<<< HEAD
-         this.primitives['testTorus'].display();
-=======
         this.primitives['testTorus'].display();
->>>>>>> 53c0c7174e254420903a10041b07d0155b3f4a9f
+
+
     }
 }
