@@ -5,7 +5,7 @@
  * @param x - Scale of triangle in X - confirmar
  * @param y - Scale of triangle in Y - confirmar
  */
-class MyRectangle extends CGFobject {
+class MyTriangle extends CGFobject {
 	constructor(scene, id, x1, x2, x3, y1, y2, y3, z1, z2, z3) {
 		super(scene);
 		this.x1 = x1;

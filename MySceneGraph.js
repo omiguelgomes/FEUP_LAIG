@@ -1226,11 +1226,43 @@ class MySceneGraph {
         //To do: Create display loop for transversing the scene graph
       
         //To test the parsing/creation of the primitives, call the display function directly
-        // this.primitives['demoRectangle'].display();
-        //this.primitives['testCylinder'].display();
-        this.primitives['testSphere'].display();
-        this.primitives['testTorus'].display();
 
+        /* CAKE */
+        this.scene.pushMatrix();
+        this.scene.rotate(Math.PI/2, 1, 0, 0);
+        this.primitives['cakeTorus'].display();
+        this.scene.popMatrix();
 
+        /* CHERRIES */
+        this.scene.pushMatrix();
+        this.scene.translate(3, 1, 0);//3 = torus.outer
+        this.primitives['cherrieSphere'].display();
+        this.primitives['cherrieStickCylinder'].display();
+        this.scene.translate(-6, 0, 0);
+        this.primitives['cherrieSphere'].display();
+        this.primitives['cherrieStickCylinder'].display();
+        this.scene.translate(3, 0, 3);
+        this.primitives['cherrieSphere'].display();
+        this.primitives['cherrieStickCylinder'].display();
+        this.scene.translate(0, 0, -6);
+        this.primitives['cherrieSphere'].display();
+        this.primitives['cherrieStickCylinder'].display();
+        this.scene.popMatrix();
+
+        /* FRUIT */
+        this.scene.pushMatrix();
+        this.scene.rotate(-Math.PI/2, 1, 0, 0); //y=z; z=-y
+        this.scene.rotate(-Math.PI/4, 0, 0, 1);
+        this.scene.translate(0, 3, 1.01);
+        this.primitives['fruitRectangle'].display();
+        this.scene.translate(0, -6, 0);
+        this.primitives['fruitRectangle'].display();
+        this.scene.rotate(Math.PI/2, 0, 0, 1);
+        this.scene.translate(3, 3, 0);
+        this.primitives['fruitRectangle'].display();
+        this.scene.translate(0, -6, 0);
+        this.primitives['fruitRectangle'].display();
+        
+        this.scene.popMatrix();        
     }
 }
