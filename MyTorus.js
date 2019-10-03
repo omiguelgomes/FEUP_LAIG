@@ -27,32 +27,28 @@ class MyTorus extends CGFobject {
         this.normals = [];
         this.texCoords = [];
 
-        var ang = 0;
+        var ang = 2 * Math.PI / this.slices;
         var alphaAng = 2 * Math.PI / this.slices; //angulo entre as faces do prisma
 
-        var sides = 1; //nr of cylinders
-        var angRot = 0;
-        var alphaAngRot = 360/sides;
+        var sides = 30; //nr of cylinders
+        var angRot = 2 * Math.PI / sides;
+        var alphaAngRot = 2 * Math.PI / sides;
 
-        for (var j = 0; j < sides; j++) {
+        for (var j = 0; j <= sides; j++) {
 
-            angRot+=alphaAngRot;//implement creation of several cylinders to create torus(see sketch)
+            angRot += alphaAngRot;//implement creation of several circles to create torus(see sketch)
 
-            for (var i = 0; i < this.slices; i++) {
+            for (var i = 0; i <= this.slices; i++) {
                 var senAng = Math.sin(ang);
                 var senAng_Alpha = Math.sin(ang + alphaAng);
                 var cosAng = Math.cos(ang);
                 var cosAng_Alpha = Math.cos(ang + alphaAng);
 
-                this.vertices.push(cosAng * this.inner, 0, -senAng * this.inner);
-                this.texCoords.push(0, 1);
-                this.vertices.push(cosAng_Alpha * this.inner, 0, -senAng_Alpha * this.inner); //pontos base c/ y=0
-                this.texCoords.push(1, 1);
+                var senAngRot = Math.sin(angRot);
+                var cosAngRot = Math.cos(angRot);
 
-                this.vertices.push(cosAng * this.inner, 1, -senAng * this.inner);//1 numero generico
-                this.texCoords.push(0, 0);
-                this.vertices.push(cosAng_Alpha * this.inner, 1, -senAng_Alpha * this.inner); //pontos topo c/ y=stacks
-                this.texCoords.push(1, 0);
+                this.vertices.push((this.outer + this.inner * cosAng) * senAngRot, (this.outer + this.inner * cosAng) * cosAngRot, this.inner * senAng);
+                this.texCoords.push(0, 1);
 
                 // square normal computation
                 var normal = [
@@ -84,12 +80,24 @@ class MyTorus extends CGFobject {
                 this.normals.push(...normal);
                 this.normals.push(...normalNext);
 
-                this.indices.push(4 * i, (4 * i + 1), (4 * i + 3));
-                this.indices.push(4 * i, (4 * i + 3), (4 * i + 2));
-
+                if (j != sides) {
+                    this.indices.push(this.slices * j + i, this.slices * j + 1 + i, this.slices * (j + 1) + i);//baixo, baixo, cima
+                    this.indices.push(this.slices * (j + 1) + i, this.slices * j + 1 + i, this.slices * (j + 1) + i + 1);//cima, baixo, cima
+                }
+                else {
+                    if (i == this.slices - 1) {
+                        this.indices.push(this.slices * j + i, this.slices * j + 1 + i, i);//baixo, baixo, cima
+                        this.indices.push(i, this.slices * j + 1 + i, 0);//cima, baixo, cima
+                    }
+                    else {
+                        this.indices.push(this.slices * j + i, this.slices * j + 1 + i, i);//baixo, baixo, cima
+                        this.indices.push(i, this.slices * j + 1 + i, i + 1);//cima, baixo, cima
+                    }
+                }
 
                 ang += alphaAng;
             }
+            console.log(j + " : " + sides);
 
         }
         this.primitiveType = this.scene.gl.TRIANGLES;
@@ -104,4 +112,3 @@ class MyTorus extends CGFobject {
         this.initNormalVizBuffers();
     }
 }
-

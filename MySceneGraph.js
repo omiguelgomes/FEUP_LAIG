@@ -582,6 +582,7 @@ class MySceneGraph {
         var textures = [];
         var textureIDs = [];
 
+
         for (let i = 0; i < children.length; i++) 
         {
 
@@ -1227,7 +1228,9 @@ class MySceneGraph {
         //To test the parsing/creation of the primitives, call the display function directly
         // this.primitives['demoRectangle'].display();
         //this.primitives['testCylinder'].display();
-        //this.primitives['testSphere'].display();
+        this.primitives['testSphere'].display();
         this.primitives['testTorus'].display();
+
+
     }
 }
