@@ -250,7 +250,7 @@ class MySceneGraph {
 
                 for (var j = 0; j < this.cameras.length; j++)
                 {
-                    if (this.cameras[j].id = id)
+                    if (this.cameras[j].id == id)
                     {
                         this.onXMLError("repeated id");
                     }
@@ -579,22 +579,53 @@ class MySceneGraph {
     parseTextures(texturesNode) 
     {
         var children = texturesNode.children;
-        var numTextures = 0;
+        var textures = [];
+        var textureIDs = [];
 
         for (let i = 0; i < children.length; i++) 
         {
 
-            if (children[i].nodeName != "texture") {
+            if (children[i].nodeName != "texture") 
+            {
                 this.onXMLMinorError("unknown tag <" + children[i].nodeName + ">");
                 continue;
             }
 
-            var textureId = this.reader.getString(texture, 'id');
+            var textureId = this.reader.getString(children[i], 'id');
             if (textureId == null) 
             {
                 this.onXMLError("no ID defined for texture");
             }
+
+            if(textureIDs.length>0)
+            {
+                for (var j = 0; j < this.textureIDs.length; j++)
+                {
+                    if (this.textureIDs[j] == textureId)
+                    {
+                        return "repeated id";                    
+                    }
+                }
+            }
+
+            textureIDs.push(textureId);
+
+            var textureFile = this.reader.getString(children[i], 'file');
+            if (textureFile == null) 
+            {
+                this.onXMLError("no file defined for texture");
+            }
+
+            var texture = new CGFtexture(this.scene, textureFile);
+            textures.push(texture);
         }
+
+        if (textures.length <= 0) 
+        {
+             this.onXMLError("there must be at least one texture defined");
+        }
+
+        this.log("Parsed textures");
         
         return null;
     }
@@ -603,36 +634,169 @@ class MySceneGraph {
      * Parses the <materials> node.
      * @param {materials block element} materialsNode
      */
-    parseMaterials(materialsNode) {
+    parseMaterials(materialsNode) 
+    {
         var children = materialsNode.children;
-
         this.materials = [];
+        var numMats = 0;
 
-        var grandChildren = [];
-        var nodeNames = [];
-
-        // Any number of materials.
-        for (var i = 0; i < children.length; i++) {
-
-            if (children[i].nodeName != "material") {
+        for (var i = 0; i < children.length; i++) 
+        {
+            if (children[i].nodeName != "material") 
+            {
                 this.onXMLMinorError("unknown tag <" + children[i].nodeName + ">");
                 continue;
             }
 
-            // Get id of the current material.
             var materialID = this.reader.getString(children[i], 'id');
             if (materialID == null)
                 return "no ID defined for material";
 
-            // Checks for repeated IDs.
             if (this.materials[materialID] != null)
                 return "ID must be unique for each light (conflict: ID = " + materialID + ")";
 
-            //Continue here
-            this.onXMLMinorError("To do: Parse materials.");
+            var materialShininess = this.reader.getString(children[i], 'shininess');
+            if (materialShininess == null) 
+                return "no shininess defined for material";
+
+            var values = children[i].children;
+            var appearance = new CGFappearance(this.scene);
+            appearance.setShininess(materialShininess);
+
+            for (var j = 0; j < values.length; j++)
+            {
+                switch(values[i].nodeName)
+                {
+                    case 'emission':
+                        
+                            var red = this.reader.getFloat(values[i], 'r');
+                            if(!(red != null && !isNaN(red)))
+                            {
+                                return "unable to parse red value of emission of" + materialID;
+                            }
+
+                            var blue = this.reader.getFloat(values[i], 'b');
+                            if(!(blue != null && !isNaN(blue)))
+                            {
+                                return "unable to parse red value of emission of" + materialID;
+                            }
+
+                            var green = this.reader.getFloat(values[i], 'g');
+                            if(!(green != null && !isNaN(green)))
+                            {
+                                return "unable to parse red value of emission of" + materialID;
+                            }
+
+                            var alpha = this.reader.getFloat(values[i], 'a');
+                            if(!(alpha != null && !isNaN(alpha)))
+                            {
+                                return "unable to parse red value of emission of" + materialID;
+                            }
+
+                            appearance.setEmission(red, blue, green, alpha);
+                            break;
+                        
+                    case 'ambient':
+                        
+                            var red = this.reader.getFloat(values[i], 'r');
+                            if(!(red != null && !isNaN(red)))
+                            {
+                                return "unable to parse red value of ambient of" + materialID;
+                            }
+
+                            var blue = this.reader.getFloat(values[i], 'b');
+                            if(!(blue != null && !isNaN(blue)))
+                            {
+                                return "unable to parse red value of ambient of" + materialID;
+                            }
+
+                            var green = this.reader.getFloat(values[i], 'g');
+                            if(!(green != null && !isNaN(green)))
+                            {
+                                return "unable to parse red value of ambient of" + materialID;
+                            }
+
+                            var alpha = this.reader.getFloat(values[i], 'a');
+                            if(!(alpha != null && !isNaN(alpha)))
+                            {
+                                return "unable to parse red value of ambient of" + materialID;
+                            }
+
+                            appearance.setAmbient(red, blue, green, alpha);
+                            break;
+                        
+                    case 'diffuse':
+                        
+                            var red = this.reader.getFloat(values[i], 'r');
+                            if(!(red != null && !isNaN(red)))
+                            {
+                                return "unable to parse red value of diffuse of" + materialID;
+                            }
+
+                            var blue = this.reader.getFloat(values[i], 'b');
+                            if(!(blue != null && !isNaN(blue)))
+                            {
+                                return "unable to parse red value of diffuse of" + materialID;
+                            }
+
+                            var green = this.reader.getFloat(values[i], 'g');
+                            if(!(green != null && !isNaN(green)))
+                            {
+                                return "unable to parse red value of diffuse of" + materialID;
+                            }
+
+                            var alpha = this.reader.getFloat(values[i], 'a');
+                            if(!(alpha != null && !isNaN(alpha)))
+                            {
+                                return "unable to parse red value of diffuse of" + materialID;
+                            }
+
+                            appearance.setDiffuse(red, blue, green, alpha);
+                            break;
+                        
+                    case 'specular':
+                        
+                            var red = this.reader.getFloat(values[i], 'r');
+                            if(!(red != null && !isNaN(red)))
+                            {
+                                return "unable to parse red value of specular of" + materialID;
+                            }
+
+                            var blue = this.reader.getFloat(values[i], 'b');
+                            if(!(blue != null && !isNaN(blue)))
+                            {
+                                return "unable to parse red value of specular of" + materialID;
+                            }
+
+                            var green = this.reader.getFloat(values[i], 'g');
+                            if(!(green != null && !isNaN(green)))
+                            {
+                                return "unable to parse red value of specular of" + materialID;
+                            }
+
+                            var alpha = this.reader.getFloat(values[i], 'a');
+                            if(!(alpha != null && !isNaN(alpha)))
+                            {
+                                return "unable to parse red value of specular of" + materialID;
+                            }
+
+                            appearance.setDiffuse(red, blue, green, alpha);
+                            break;
+                        
+                }
+            }
+
+            this.materials[materialID] = appearance;
+            numMats++;
+
         }
 
-        //this.log("Parsed materials");
+        if(numMats <= 0)
+        {
+            return "there must be at least one defined material";
+        }
+
+        this.log("Parsed materials");
         return null;
     }
 
@@ -640,7 +804,8 @@ class MySceneGraph {
      * Parses the <transformations> block.
      * @param {transformations block element} transformationsNode
      */
-    parseTransformations(transformationsNode) {
+    parseTransformations(transformationsNode)
+    {
         var children = transformationsNode.children;
 
         this.transformations = [];
