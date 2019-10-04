@@ -902,7 +902,6 @@ class MySceneGraph {
             grandChildren = children[i].children;
 
             this.transformations[transformationID] = this.parseTransformation(grandChildren, transformationID);
-            console.log(this.transformations[transformationID]);
         }
 
         this.log("Parsed transformations");
