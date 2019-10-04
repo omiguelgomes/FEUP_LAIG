@@ -41,20 +41,23 @@
             <rotate axis="x" angle="-45" />
             <rotate axis="z" angle="-45" />
         </transformation>
+        <transformation id="cherrieTranslate">
+            <translate x="5" y="1" z="5" />
+        </transformation>
     </transformations>
 
     <primitives>
-        <primitive id="demoRectangle">
-            <rectangle x1="-1.5" y1="-2" x2="1.5" y2="2.5" />
+        <primitive id="fruitRectangle">
+            <rectangle x1="-0.3" y1="-0.7" x2="0.3" y2="0.7" />
         </primitive>
-        <primitive id="testCylinder">
-            <cylinder base="2.0" top="5.0" height="5.0" slices="10" stacks="5" />
+        <primitive id="cherrieStickCylinder">
+            <cylinder base="0.1" top="0.1" height="1.0" slices="10" stacks="1" />
         </primitive>
-        <primitive id="testTorus">
+        <primitive id="cakeTorus">
             <torus inner="1.0" outer="3.0" slices="10" loops="3"/>
         </primitive>
-        <primitive id="testSphere">
-            <sphere radius="1.0" slices="20" stacks="20"/>
+        <primitive id="cherrieSphere">
+            <sphere radius="0.5" slices="20" stacks="20"/>
         </primitive>
     </primitives>
 
@@ -69,7 +72,7 @@
             </materials>
             <texture id="demoTexture"/>
             <children>
-                <primitiveref id="demoRectangle" />
+                <primitiveref id="fruitRectangle" />
             </children>
         </component>
     </components>

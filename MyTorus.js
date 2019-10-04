@@ -94,11 +94,8 @@ class MyTorus extends CGFobject {
                         this.indices.push(i, this.slices * j + 1 + i, i + 1);//cima, baixo, cima
                     }
                 }
-
                 ang += alphaAng;
             }
-            console.log(j + " : " + sides);
-
         }
         this.primitiveType = this.scene.gl.TRIANGLES;
         this.initGLBuffers();
