@@ -23,9 +23,24 @@
     </lights>
 
     <textures>
-        <texture id="demoTexture" file="scenes/images/vidral.jpg" />
+        <texture id="backgroundTexture" file="img/backgroundTexture.jpg" />
+        <texture id="beltTexture" file="img/beltTexture.png" />
+        <texture id="earthTexture" file="img/earthTexture.jpg" />
+        <texture id="jupiterTexture" file="img/earthTexture.jpg" />
+        <texture id="marsTexture" file="img/marsTexture.jpg" />
+        <texture id="mercuryTexture" file="img/mercuryTexture.jpg" />
+        <texture id="neptuneTexture" file="img/neptuneTexture.jpg" />
+        <texture id="saturnRingTexture" file="img/saturnRingTexture.png" />
+        <texture id="saturnTexture" file="img/saturnTexture.jpg" />
+        <texture id="sunTexture" file="img/sunTexture.jpg" />
+        <texture id="uranusTexture" file="img/uranusTexture.jpg" />
+        <texture id="venusTexture" file="img/venusTexture.jpg" />
     </textures>
 
+    <!--O sol devera ser o foco de luz do sistema-->
+    <!--Venus devera ter um material ligeiramente refletor-->
+    <!--Os aneis deverão tambem ser ligeiramente refletores-->
+    <!--Os restantes elementos ou difusos ou sem qualquer tipo de emissão de luz-->
     <materials>
         <material id="demoMaterial" shininess="10">
             <emission r="0.0" g="0.0" b="0.0" a="1.0" />
@@ -110,18 +125,209 @@
     </primitives>
 
     <components>
-        <component id="demoRoot">
+
+        <component id="sun">
             <transformation>
-                <translate x="0" y="0" z="1" />
-                <scale x="2" y="1" z="1" />
+                <!--o sol esta na origem, nao necessita transfs-->
             </transformation>
             <materials>
-                <material id="demoMaterial" />
+                <material id="demoMaterial" /> <!--to be replaced with sunMaterial-->
             </materials>
-            <texture id="demoTexture"/>
+            <texture id="sunTexture"/>
             <children>
-                <primitiveref id="fruitRectangle" />
+                <primitiveref id="sunSphere" />
             </children>
         </component>
+
+        <component id="mercury">
+            <transformation>
+                <translate x="10" y="0" z="0" />
+            </transformation>
+            <materials>
+                <material id="demoMaterial" /> <!--to be replaced with planetMaterial-->
+            </materials>
+            <texture id="mercuryTexture"/>
+            <children>
+                <primitiveref id="mercurySphere" />
+            </children>
+        </component>
+
+        <component id="venus">
+            <transformation>
+                <translate x="20" y="0" z="0" />
+                <rotate axis="y" angle="270" />
+            </transformation>
+            <materials>
+                <material id="demoMaterial" /> <!--to be replaced with venusMaterial-->
+            </materials>
+            <texture id="venusTexture"/>
+            <children>
+                <primitiveref id="venusSphere" />
+            </children>
+        </component>
+
+        <component id="earth">
+            <transformation>
+                <translate x="30" y="0" z="0" />
+                <rotate axis="y" angle="45" />
+            </transformation>
+            <materials>
+                <material id="demoMaterial" /> <!--to be replaced with planetMaterial-->
+            </materials>
+            <texture id="earthTexture"/>
+            <children>
+                <primitiveref id="earthSphere" />
+            </children>
+        </component>
+
+        <component id="mars">
+            <transformation>
+                <translate x="40" y="0" z="0" />
+                <rotate axis="y" angle="180" />
+            </transformation>
+            <materials>
+                <material id="demoMaterial" /> <!--to be replaced with planetMaterial-->
+            </materials>
+            <texture id="marsTexture"/>
+            <children>
+                <primitiveref id="marsSphere" />
+            </children>
+        </component>
+
+        <component id="jupiter">
+            <transformation>
+                <translate x="60" y="0" z="0" />
+                <rotate axis="y" angle="315" />
+            </transformation>
+            <materials>
+                <material id="demoMaterial" /> <!--to be replaced with planetMaterial-->
+            </materials>
+            <texture id="jupiterTexture"/>
+            <children>
+                <primitiveref id="jupiterSphere" />
+            </children>
+        </component>
+
+        <component id="saturnPlanet">
+            <transformation>
+            </transformation>
+            <materials>
+                <material id="demoMaterial" /> <!--to be replaced with planetMaterial-->
+            </materials>
+            <texture id="saturnTexture"/>
+            <children>
+                <primitiveref id="saturnSphere" />
+            </children>
+        </component>
+
+        <component id="saturnRings">
+            <transformation>
+                <scale x="1" y="1" z="0" />
+                <rotate axis="x" angle="60" />
+            </transformation>
+            <materials>
+                <material id="demoMaterial" /> <!--to be replaced with ringsMaterial-->
+            </materials>
+            <texture id="saturnRingTexture"/>
+            <children>
+                <primitiveref id="saturnRingTorus" />
+            </children>
+        </component>
+
+        <component id="saturn">
+            <transformation>
+                <translate x="70" y="0" z="0" />
+                <rotate axis="y" angle="90" />
+            </transformation>
+            <materials>
+                <material id="inherit" /> <!--??-->
+            </materials>
+            <texture id="inherit"/> <!--??-->
+            <children>
+                <componentref id="saturnPlanet" />
+                <componentref id="saturnRings" />
+            </children>
+        </component>
+
+        <component id="uranus">
+            <transformation>
+                <translate x="80" y="0" z="0" />
+                <rotate axis="y" angle="225" />
+            </transformation>
+            <materials>
+                <material id="demoMaterial" /> <!--to be replaced with planetMaterial-->
+            </materials>
+            <texture id="uranusTexture"/>
+            <children>
+                <primitiveref id="uranusSphere" />
+            </children>
+        </component>
+
+        <component id="neptunePlanet">
+            <transformation>
+            </transformation>
+            <materials>
+                <material id="demoMaterial" /> <!--to be replaced with planetMaterial-->
+            </materials>
+            <texture id="neptuneTexture"/>
+            <children>
+                <primitiveref id="neptuneSphere" />
+            </children>
+        </component>
+
+        <component id="neptuneRings">
+            <transformation>
+                <scale x="1" y="1" z="0" />
+                <rotate axis="x" angle="18" />
+            </transformation>
+            <materials>
+                <material id="demoMaterial" /> <!--to be replaced with ringsMaterial-->
+            </materials>
+            <texture id="saturnRingTexture"/>
+            <children>
+                <primitiveref id="neptuneRingTorus" />
+            </children>
+        </component>
+
+        <component id="neptune">
+            <transformation>
+                <translate x="90" y="0" z="0" />
+            </transformation>
+            <materials>
+                <material id="inherit" /> <!--??-->
+            </materials>
+            <texture id="inherit"/> <!--??-->
+            <children>
+                <componentref id="neptunePlanet" />
+                <componentref id="neptuneRings" />
+            </children>
+        </component>
+
+        <component id="kuiperBelt">
+            <transformation>
+                <rotate axis="x" angle="90" />
+            </transformation>
+            <materials>
+                <material id="demoMaterial" /> <!--to be replaced with beltMaterial-->
+            </materials>
+            <texture id="beltTexture"/>
+            <children>
+                <primitiveref id="kuiperBeltTorus" />
+            </children>
+        </component>
+
+        <component id="asteroidBelt">
+            <transformation>
+                <rotate axis="x" angle="90" />
+            </transformation>
+            <materials>
+                <material id="demoMaterial" /> <!--to be replaced with beltMaterial-->
+            </materials>
+            <texture id="beltTexture"/>
+            <children>
+                <primitiveref id="asteroidBeltTorus" />
+            </children>
+        </component>         
+
     </components>
 </lxs>

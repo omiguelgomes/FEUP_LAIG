@@ -580,10 +580,10 @@ class MySceneGraph {
     {
         var children = texturesNode.children;
         this.textures = [];
-        var textureIDs = [];
+        var numTexts = 0;
 
 
-        for (let i = 0; i < children.length; i++) 
+        for (var i = 0; i < children.length; i++) 
         {
 
             if (children[i].nodeName != "texture") 
@@ -598,36 +598,29 @@ class MySceneGraph {
                 return "no ID defined for texture";
             }
 
-            if(textureIDs.length>0)
+            if (this.textures[textureId] != null)
             {
-                for (var j = 0; j < this.textureIDs.length; j++)
-                {
-                    if (this.textureIDs[j] == textureId)
-                    {
-                        return "repeated id";                    
-                    }
-                }
+                return "ID must be unique for each texture (conflict: ID = " + textureID + ")";
             }
-
-            textureIDs.push(textureId);
 
             var textureFile = this.reader.getString(children[i], 'file');
             if (textureFile == null) 
             {
-                this.onXMLError("no file defined for texture");
+                return "no file defined for texture";
             }
 
             var texture = new CGFtexture(this.scene, textureFile);
-            this.textures.push(texture);
+            this.textures[textureId] = texture;
+
+            numTexts++;
         }
 
-        if (this.textures.length <= 0) 
+        if (numTexts == 0) 
         {
-             this.onXMLError("there must be at least one texture defined");
+             return "there must be at least one texture defined";
         }
 
         this.log("Parsed textures");
-        
         return null;
     }
 
@@ -1146,13 +1139,13 @@ class MySceneGraph {
 
             tInfo[1] = this.reader.getFloat(grandChildren[textureIndex], 'length_s', false);
             if (!(tInfo[1] != null && !isNaN(tInfo[1]))) {
-                this.onXMLError("unable to parse the 's' length of texture, assuming default value of 1");
+                this.onXMLMinorError("unable to parse the 's' length of texture, assuming default value of 1");
                 tInfo[1] = 1;
             }
 
             tInfo[2] = this.reader.getFloat(grandChildren[textureIndex], 'length_t', false);
             if (!(tInfo[2] != null && !isNaN(tInfo[2]))) {
-                this.onXMLError("unable to parse the 't' length of texture, assuming default value of 1");
+                this.onXMLMinorError("unable to parse the 't' length of texture, assuming default value of 1");
                 tInfo[2] = 1;
             }
 
@@ -1338,7 +1331,6 @@ class MySceneGraph {
         this.scene.rotate(Math.PI/3, 1, 0, 0);
         this.scene.scale(1, 1, 0);
         this.primitives['saturnRingTorus'].display();
-
         this.scene.popMatrix();
         
         this.scene.pushMatrix();
