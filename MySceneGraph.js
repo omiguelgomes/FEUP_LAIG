@@ -1292,6 +1292,7 @@ class MySceneGraph {
      */
     displayScene() 
     {
+
         //PLANETS
         this.primitives['sunSphere'].display();
 
