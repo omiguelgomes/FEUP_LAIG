@@ -1299,46 +1299,79 @@ class MySceneGraph {
      */
     displayScene() 
     {
-        //To do: Create display loop for transversing the scene graph
-      
-        //To test the parsing/creation of the primitives, call the display function directly
+        //PLANETS
+        this.primitives['sunSphere'].display();
 
-        /* CAKE */
+        this.scene.pushMatrix();
+        this.scene.translate(10, 0, 0);
+        this.primitives['mercurySphere'].display();
+        this.scene.popMatrix();
+
+        this.scene.pushMatrix();
+        this.scene.rotate((Math.PI*3/4)*2, 0, 1, 0);
+        this.scene.translate(20, 0, 0);
+        this.primitives['venusSphere'].display();
+        this.scene.popMatrix();
+        
+        this.scene.pushMatrix();
+        this.scene.rotate((Math.PI*3/4)*3, 0, 1, 0);
+        this.scene.translate(30, 0, 0);
+        this.primitives['earthSphere'].display();
+        this.scene.popMatrix();
+        
+        this.scene.pushMatrix();
+        this.scene.rotate((Math.PI*3/4)*4, 0, 1, 0);
+        this.scene.translate(40, 0, 0);
+        this.primitives['marsSphere'].display();
+        this.scene.popMatrix();
+        
+        this.scene.pushMatrix();
+        this.scene.rotate((Math.PI*3/4)*5, 0, 1, 0);
+        this.scene.translate(60, 0, 0);
+        this.primitives['jupiterSphere'].display();
+        this.scene.popMatrix();
+        
+        this.scene.pushMatrix();
+        this.scene.rotate((Math.PI*3/4)*6, 0, 1, 0);
+        this.scene.translate(70, 0, 0);
+        this.primitives['saturnSphere'].display();
+        this.scene.rotate(Math.PI/3, 1, 0, 0);
+        this.scene.scale(1, 1, 0);
+        this.primitives['saturnRingTorus'].display();
+
+        this.scene.popMatrix();
+        
+        this.scene.pushMatrix();
+        this.scene.rotate((Math.PI*3/4)*7, 0, 1, 0);
+        this.scene.translate(80, 0, 0);
+        this.primitives['uranusSphere'].display();
+        this.scene.popMatrix();
+        
+        this.scene.pushMatrix();
+        this.scene.rotate((Math.PI*3/4)*8, 0, 1, 0);
+        this.scene.translate(90, 0, 0);
+        this.primitives['neptuneSphere'].display();
+        this.scene.rotate(Math.PI/10, 1, 0, 0);
+        this.scene.scale(1, 1, 0);
+        this.primitives['neptuneRingTorus'].display();
+        this.scene.popMatrix();
+
+
+        //ORBIT RINGS
+        for(var i = 1; i <= 9; i++)
+        {
+            this.scene.pushMatrix();
+            this.scene.rotate(Math.PI/2, 1, 0, 0);
+            this.scene.scale(i, i, 1);
+            this.primitives['orbitTorus'].display();
+            this.scene.popMatrix();
+        }
+
+        //BELTS
         this.scene.pushMatrix();
         this.scene.rotate(Math.PI/2, 1, 0, 0);
-        this.primitives['cakeTorus'].display();
+        this.primitives['kuiperBeltTorus'].display();
+        this.primitives['asteroidBeltTorus'].display();
         this.scene.popMatrix();
-
-        /* CHERRIES */
-        this.scene.pushMatrix();
-        this.scene.translate(3, 1, 0);//3 = torus.outer
-        this.primitives['cherrieSphere'].display();
-        this.primitives['cherrieStickCylinder'].display();
-        this.scene.translate(-6, 0, 0);
-        this.primitives['cherrieSphere'].display();
-        this.primitives['cherrieStickCylinder'].display();
-        this.scene.translate(3, 0, 3);
-        this.primitives['cherrieSphere'].display();
-        this.primitives['cherrieStickCylinder'].display();
-        this.scene.translate(0, 0, -6);
-        this.primitives['cherrieSphere'].display();
-        this.primitives['cherrieStickCylinder'].display();
-        this.scene.popMatrix();
-
-        /* FRUIT */
-        this.scene.pushMatrix();
-        this.scene.rotate(-Math.PI/2, 1, 0, 0); //y=z; z=-y
-        this.scene.rotate(-Math.PI/4, 0, 0, 1);
-        this.scene.translate(0, 3, 1.01);
-        this.primitives['fruitRectangle'].display();
-        this.scene.translate(0, -6, 0);
-        this.primitives['fruitRectangle'].display();
-        this.scene.rotate(Math.PI/2, 0, 0, 1);
-        this.scene.translate(3, 3, 0);
-        this.primitives['fruitRectangle'].display();
-        this.scene.translate(0, -6, 0);
-        this.primitives['fruitRectangle'].display();
-        
-        this.scene.popMatrix();        
     }
 }

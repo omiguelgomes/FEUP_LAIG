@@ -47,18 +47,66 @@
     </transformations>
 
     <primitives>
-        <primitive id="fruitRectangle">
-            <rectangle x1="-0.3" y1="-0.7" x2="0.3" y2="0.7" />
+
+        <!-- PLANETS AND SUN -->
+    <primitive id="sunSphere">
+            <sphere radius="7" slices="20" stacks="20"/>
         </primitive>
-        <primitive id="cherrieStickCylinder">
-            <cylinder base="0.1" top="0.1" height="1.0" slices="10" stacks="1" />
+
+        <primitive id="mercurySphere">
+            <sphere radius="1" slices="20" stacks="20"/>
         </primitive>
-        <primitive id="cakeTorus">
-            <torus inner="1.0" outer="3.0" slices="10" loops="3"/>
+
+        <primitive id="venusSphere">
+            <sphere radius="1.5" slices="20" stacks="20"/>
         </primitive>
-        <primitive id="cherrieSphere">
-            <sphere radius="0.5" slices="20" stacks="20"/>
+
+        <primitive id="earthSphere">
+            <sphere radius="1.5" slices="20" stacks="20"/>
         </primitive>
+
+        <primitive id="marsSphere">
+            <sphere radius="1.5" slices="20" stacks="20"/>
+        </primitive>
+
+        <primitive id="jupiterSphere">
+            <sphere radius="4" slices="20" stacks="20"/>
+        </primitive>
+
+        <primitive id="saturnSphere">
+            <sphere radius="3.5" slices="20" stacks="20"/>
+        </primitive>
+
+        <primitive id="uranusSphere">
+            <sphere radius="3" slices="20" stacks="20"/>
+        </primitive>
+
+        <primitive id="neptuneSphere">
+            <sphere radius="3.5" slices="20" stacks="20"/>
+        </primitive>
+   
+            <!-- RINGS   -->
+        <primitive id="saturnRingTorus">
+            <torus inner="1" outer="6" slices="20" loops="7"/>
+        </primitive> 
+
+        <primitive id="neptuneRingTorus">
+            <torus inner="0.5" outer="5" slices="20" loops="7"/>
+        </primitive> 
+
+            <!-- ASTEROID BELTS AND ORBIT -->
+        <primitive id="orbitTorus">
+            <torus inner="0.02" outer="10.0" slices="60" loops="2"/>
+        </primitive>  
+
+        <primitive id="kuiperBeltTorus">
+            <torus inner="3" outer="100.0" slices="60" loops="2"/>
+        </primitive>   
+
+        <primitive id="asteroidBeltTorus">
+            <torus inner="3" outer="50.0" slices="60" loops="2"/>
+        </primitive>   
+
     </primitives>
 
     <components>
