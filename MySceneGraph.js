@@ -1000,7 +1000,7 @@ class MySceneGraph {
 
                 this.primitives[primitiveId] = cylinder;
             }
-            if (primitiveType == 'sphere') { //sphere (gives tag missing error)
+            if (primitiveType == 'sphere') { //sphere
                 radius
                 var radius = this.reader.getFloat(grandChildren[0], 'radius');
                 if (!(radius != null && !isNaN(radius)))
@@ -1176,7 +1176,6 @@ class MySceneGraph {
             }
 
             var comp = new MyComponent(this.scene, componentID, tMatrix, mats, tInfo, primitives, comps);
-            console.log(this.scene, componentID, tMatrix, mats, tInfo, primitives, comps);
             this.components[componentID] = comp;
         }
     }
@@ -1273,6 +1272,7 @@ class MySceneGraph {
      * @param {string} message
      */
     onXMLError(message) {
+        console.log(this.primitives);
         console.error("XML Loading Error: " + message);
         this.loadedOk = false;
     }
@@ -1298,81 +1298,82 @@ class MySceneGraph {
      */
     displayScene() 
     {
-        //PLANETS
-        this.primitives['sunSphere'].display();
+        this.primitives['backgroundFrontRectangle'].display();
+        // //PLANETS
+        // this.primitives['sunSphere'].display();
 
-        this.scene.pushMatrix();
-        this.scene.translate(10, 0, 0);
-        this.primitives['mercurySphere'].display();
-        this.scene.popMatrix();
+        // this.scene.pushMatrix();
+        // this.scene.translate(10, 0, 0);
+        // this.primitives['mercurySphere'].display();
+        // this.scene.popMatrix();
 
-        this.scene.pushMatrix();
-        this.scene.rotate((Math.PI*3/4)*2, 0, 1, 0);
-        this.scene.translate(20, 0, 0);
-        this.primitives['venusSphere'].display();
-        this.scene.popMatrix();
+        // this.scene.pushMatrix();
+        // this.scene.rotate((Math.PI*3/4)*2, 0, 1, 0);
+        // this.scene.translate(20, 0, 0);
+        // this.primitives['venusSphere'].display();
+        // this.scene.popMatrix();
         
-        this.scene.pushMatrix();
-        this.scene.rotate((Math.PI*3/4)*3, 0, 1, 0);
-        this.scene.translate(30, 0, 0);
-        this.primitives['earthSphere'].display();
-        this.scene.popMatrix();
+        // this.scene.pushMatrix();
+        // this.scene.rotate((Math.PI*3/4)*3, 0, 1, 0);
+        // this.scene.translate(30, 0, 0);
+        // this.primitives['earthSphere'].display();
+        // this.scene.popMatrix();
         
-        this.scene.pushMatrix();
-        this.scene.rotate((Math.PI*3/4)*4, 0, 1, 0);
-        this.scene.translate(40, 0, 0);
-        this.primitives['marsSphere'].display();
-        this.scene.popMatrix();
+        // this.scene.pushMatrix();
+        // this.scene.rotate((Math.PI*3/4)*4, 0, 1, 0);
+        // this.scene.translate(40, 0, 0);
+        // this.primitives['marsSphere'].display();
+        // this.scene.popMatrix();
         
-        this.scene.pushMatrix();
-        this.scene.rotate((Math.PI*3/4)*5, 0, 1, 0);
-        this.scene.translate(60, 0, 0);
-        this.primitives['jupiterSphere'].display();
-        this.scene.popMatrix();
+        // this.scene.pushMatrix();
+        // this.scene.rotate((Math.PI*3/4)*5, 0, 1, 0);
+        // this.scene.translate(60, 0, 0);
+        // this.primitives['jupiterSphere'].display();
+        // this.scene.popMatrix();
         
-        this.scene.pushMatrix();
-        this.scene.rotate((Math.PI*3/4)*6, 0, 1, 0);
-        this.scene.translate(70, 0, 0);
-        this.primitives['saturnSphere'].display();
-        this.scene.rotate(Math.PI/3, 1, 0, 0);
-        this.scene.scale(1, 1, 0);
-        this.primitives['saturnRingTorus'].display();
-        this.scene.popMatrix();
+        // this.scene.pushMatrix();
+        // this.scene.rotate((Math.PI*3/4)*6, 0, 1, 0);
+        // this.scene.translate(70, 0, 0);
+        // this.primitives['saturnSphere'].display();
+        // this.scene.rotate(Math.PI/3, 1, 0, 0);
+        // this.scene.scale(1, 1, 0);
+        // this.primitives['saturnRingTorus'].display();
+        // this.scene.popMatrix();
         
-        this.scene.pushMatrix();
-        this.scene.rotate((Math.PI*3/4)*7, 0, 1, 0);
-        this.scene.translate(80, 0, 0);
-        this.primitives['uranusSphere'].display();
-        this.scene.popMatrix();
+        // this.scene.pushMatrix();
+        // this.scene.rotate((Math.PI*3/4)*7, 0, 1, 0);
+        // this.scene.translate(80, 0, 0);
+        // this.primitives['uranusSphere'].display();
+        // this.scene.popMatrix();
         
-        this.scene.pushMatrix();
-        this.scene.rotate((Math.PI*3/4)*8, 0, 1, 0);
-        this.scene.translate(90, 0, 0);
-        this.primitives['neptuneSphere'].display();
-        this.scene.rotate(Math.PI/10, 1, 0, 0);
-        this.scene.scale(1, 1, 0);
-        this.primitives['neptuneRingTorus'].display();
-        this.scene.popMatrix();
+        // this.scene.pushMatrix();
+        // this.scene.rotate((Math.PI*3/4)*8, 0, 1, 0);
+        // this.scene.translate(90, 0, 0);
+        // this.primitives['neptuneSphere'].display();
+        // this.scene.rotate(Math.PI/10, 1, 0, 0);
+        // this.scene.scale(1, 1, 0);
+        // this.primitives['neptuneRingTorus'].display();
+        // this.scene.popMatrix();
 
-        //ORBIT RINGS
-        this.scene.pushMatrix();
-        this.scene.rotate(Math.PI/2, 1, 0, 0);
-        this.primitives['mercuryOrbitTorus'].display();
-        this.primitives['venusOrbitTorus'].display();
-        this.primitives['earthOrbitTorus'].display();
-        this.primitives['marsOrbitTorus'].display();
-        this.primitives['jupiterOrbitTorus'].display();
-        this.primitives['saturnOrbitTorus'].display();
-        this.primitives['uranusOrbitTorus'].display();
-        this.primitives['neptuneOrbitTorus'].display();
-        this.scene.popMatrix();
+        // //ORBIT RINGS
+        // this.scene.pushMatrix();
+        // this.scene.rotate(Math.PI/2, 1, 0, 0);
+        // this.primitives['mercuryOrbitTorus'].display();
+        // this.primitives['venusOrbitTorus'].display();
+        // this.primitives['earthOrbitTorus'].display();
+        // this.primitives['marsOrbitTorus'].display();
+        // this.primitives['jupiterOrbitTorus'].display();
+        // this.primitives['saturnOrbitTorus'].display();
+        // this.primitives['uranusOrbitTorus'].display();
+        // this.primitives['neptuneOrbitTorus'].display();
+        // this.scene.popMatrix();
 
-        //BELTS
-        this.scene.pushMatrix();
-        this.scene.rotate(Math.PI/2, 1, 0, 0);
-        this.primitives['kuiperBeltTorus'].display();
-        this.primitives['asteroidBeltTorus'].display();
-        this.scene.popMatrix();
+        // //BELTS
+        // this.scene.pushMatrix();
+        // this.scene.rotate(Math.PI/2, 1, 0, 0);
+        // this.primitives['kuiperBeltTorus'].display();
+        // this.primitives['asteroidBeltTorus'].display();
+        // this.scene.popMatrix();
 
     }
 }

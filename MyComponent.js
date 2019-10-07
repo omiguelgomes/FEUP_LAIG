@@ -21,11 +21,11 @@ class MyComponent extends CGFobject
         this.primitives = primitivesRef;
         this.components = componentsRef;
         
-        for (var i = 0; i < materials.length; i++)
-        {
-            materials[i].loadTexture(texture)
-            materials[i].setTextureWrap(ls, lt);
-        }
+        // for (var i = 0; i < materials.length; i++)
+        // {
+        //     materials[i].loadTexture(texture)
+        //     materials[i].setTextureWrap(ls, lt);
+        // }
 
 
     }
