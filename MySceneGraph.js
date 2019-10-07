@@ -1174,7 +1174,6 @@ class MySceneGraph {
         }
     }
 
-
     /**
      * Parse the coordinates from a node with ID = id
      * @param {block element} node
@@ -1292,7 +1291,6 @@ class MySceneGraph {
      */
     displayScene() 
     {
-
         //PLANETS
         this.primitives['sunSphere'].display();
 
@@ -1349,16 +1347,18 @@ class MySceneGraph {
         this.primitives['neptuneRingTorus'].display();
         this.scene.popMatrix();
 
-
         //ORBIT RINGS
-        for(var i = 1; i <= 9; i++)
-        {
-            this.scene.pushMatrix();
-            this.scene.rotate(Math.PI/2, 1, 0, 0);
-            this.scene.scale(i, i, 1);
-            this.primitives['orbitTorus'].display();
-            this.scene.popMatrix();
-        }
+        this.scene.pushMatrix();
+        this.scene.rotate(Math.PI/2, 1, 0, 0);
+        this.primitives['mercuryOrbitTorus'].display();
+        this.primitives['venusOrbitTorus'].display();
+        this.primitives['earthOrbitTorus'].display();
+        this.primitives['marsOrbitTorus'].display();
+        this.primitives['jupiterOrbitTorus'].display();
+        this.primitives['saturnOrbitTorus'].display();
+        this.primitives['uranusOrbitTorus'].display();
+        this.primitives['neptuneOrbitTorus'].display();
+        this.scene.popMatrix();
 
         //BELTS
         this.scene.pushMatrix();
@@ -1366,5 +1366,6 @@ class MySceneGraph {
         this.primitives['kuiperBeltTorus'].display();
         this.primitives['asteroidBeltTorus'].display();
         this.scene.popMatrix();
+
     }
 }
