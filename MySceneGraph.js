@@ -1058,7 +1058,8 @@ class MySceneGraph {
    * Parses the <components> block.
    * @param {components block element} componentsNode
    */
-    parseComponents(componentsNode) {
+    parseComponents(componentsNode) 
+    {
         var children = componentsNode.children;
 
         this.components = [];
@@ -1068,7 +1069,8 @@ class MySceneGraph {
         var grandgrandChildren = [];
         var nodeNames = [];
 
-        for (var i = 0; i < children.length; i++) {
+        for (var i = 0; i < children.length; i++) 
+        {
 
             if (children[i].nodeName != "component") {
                 this.onXMLMinorError("unknown tag <" + children[i].nodeName + ">");
@@ -1158,19 +1160,24 @@ class MySceneGraph {
             var comps = [];
 
             grandgrandChildren = grandChildren[childrenIndex].children;
-            for (var j = 0; j < grandgrandChildren.length; j++) {
+            for (var j = 0; j < grandgrandChildren.length; j++) 
+            {
                 var ids = this.reader.getString(grandgrandChildren[j], 'id');
 
                 if (grandgrandChildren[j].nodeName == "componentref") {
-                    comps.push(ids);
+                    comps.push(this.components[ids]);
                 }
                 else if (grandgrandChildren[j].nodeName == "primitiveref") {
-                    primitives.push(ids);
+                    primitives.push(this.primitives[ids]);
                 }
                 else {
-                    this.onXMLMinorError("unknown primitive/component tag of component" + componentID);
+                    return "unknown primitive/component tag of component" + componentID;
                 }
             }
+
+            var comp = new MyComponent(this.scene, componentID, tMatrix, mats, tInfo, primitives, comps);
+            console.log(this.scene, componentID, tMatrix, mats, tInfo, primitives, comps);
+            this.components[componentID] = comp;
         }
     }
 
