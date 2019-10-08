@@ -1101,6 +1101,7 @@ class MySceneGraph {
 
             //Transformations
             var transforms = grandChildren[transformationIndex].children;
+            console.log(transformationIndex);
             for(var j = 0; j < transforms.length; j++)
             {
                 var values = [];
@@ -1163,12 +1164,6 @@ class MySceneGraph {
                 var childrenId = this.reader.getString(child[k], 'id');
                 this.nodes[componentID].pushChild(childrenId);
             }
-<<<<<<< HEAD
-=======
-
-            var comp = new MyComponent(this.scene, componentID, tMatrix, mats, tInfo, primitives, comps);
-            this.components[componentID] = comp;
->>>>>>> b5543c272b2bd5fb919c58646d25af62018b9fc6
         }
     }
 
@@ -1336,12 +1331,6 @@ class MySceneGraph {
      */
     displayScene() 
     {
-<<<<<<< HEAD
-        this.scene.scale(150, 150, 150);
-=======
-<<<<<<< HEAD
-        // console.log(this.idRoot);
-        // console.log(this.nodes[this.idRoot]);
         this.processNode(this.idRoot, this.nodes[this.idRoot].materials, this.nodes[this.idRoot].textureId);
 
         /*
@@ -1460,7 +1449,6 @@ class MySceneGraph {
         // this.primitives['asteroidBeltTorus'].display();
         // this.scene.popMatrix();
 
-<<<<<<< HEAD
         //BELTS
         this.scene.pushMatrix();
         this.scene.rotate(Math.PI/2, 1, 0, 0);
@@ -1468,7 +1456,5 @@ class MySceneGraph {
         this.primitives['asteroidBeltTorus'].display();
         this.scene.popMatrix();
         */
-=======
->>>>>>> b5543c272b2bd5fb919c58646d25af62018b9fc6
     }
 }
