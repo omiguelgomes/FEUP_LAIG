@@ -1298,7 +1298,7 @@ class MySceneGraph {
      */
     displayScene() 
     {
-        this.scene.scale(100, 100, 100);
+        this.scene.scale(150, 150, 150);
         this.scene.translate(-0.5, -0.5, -0.5);
         this.primitives['backgroundRectangle'].display();//xy plane (front)
         this.scene.pushMatrix();

@@ -488,7 +488,7 @@
 
         <component id="backgroundCube">
             <transformation>
-                <scale x="100" y="100" z="100"/>
+                <scale x="150" y="150" z="150"/>
                 <translate x="-0.5" y="-0.5" z="-0.5"/>
             </transformation>
             <materials>
