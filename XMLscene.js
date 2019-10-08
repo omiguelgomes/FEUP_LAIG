@@ -34,6 +34,8 @@ class XMLscene extends CGFscene {
 
         this.axis = new CGFaxis(this);
         this.setUpdatePeriod(100);
+
+        this.matCounter = 0;
     }
 
     /**

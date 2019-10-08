@@ -176,14 +176,33 @@
     </primitives>
 
     <components>
-        <component id="sun">
+        <component id="demoRoot">
             <transformation>
-                <!--o sol esta na origem, nao necessita transfs-->
+            </transformation>
+            <materials>
+                <material id="sunMaterial" /> <!--temp-->
+            </materials>
+            <texture id="backgroundTexture" />
+            <children>
+                <componentref id="sun" />
+                <componentref id="mercury" />
+                <componentref id="venus" />
+                <componentref id="earth" />
+                <componentref id="jupiter" />
+                <componentref id="saturn" />
+                <componentref id="neptune" />
+                <componentref id="uranus" />
+                <componentref id="kuiperBelt" />
+                <componentref id="asteroidBelt" />
+            </children>
+        </component> 
+
+        <component id="sun">
             </transformation>
             <materials>
                 <material id="sunMaterial" />
             </materials>
-            <texture id="sunTexture"/>
+            <texture id="sunTexture" />
             <children>
                 <primitiveref id="sunSphere" />
             </children>
