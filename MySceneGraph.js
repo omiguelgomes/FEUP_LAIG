@@ -1100,7 +1100,9 @@ class MySceneGraph {
             var childrenIndex = nodeNames.indexOf("children");
 
             //Transformations
+            console.log(grandChildren.length);
             var transforms = grandChildren[transformationIndex].children;
+
             for(var j = 0; j < transforms.length; j++)
             {
                 var values = [];
@@ -1141,9 +1143,7 @@ class MySceneGraph {
                 matId = this.reader.getString(grandgrandChildren[k], 'id');
                 mats.push(matId);
             }
-            console.log(componentID);
             this.nodes[componentID].materials = mats;
-            console.log(this.nodes[componentID].materials);
 
             // Texture
             if (textureIndex == -1) {
@@ -1330,129 +1330,6 @@ class MySceneGraph {
      */
     displayScene() 
     {
-        // console.log(this.idRoot);
-        // console.log(this.nodes[this.idRoot]);
         this.processNode(this.idRoot, this.nodes[this.idRoot].materials, this.nodes[this.idRoot].textureId);
-
-        /*
-        //PLANETS
-        this.primitives['sunSphere'].display();
-
-        this.scene.pushMatrix();
-        this.scene.rotate(Math.PI/2, 0, 1, 0);
-        this.scene.translate(-1, 0, 0);
-        this.primitives['backgroundRectangle'].display();//yz plane (left)
-        this.scene.popMatrix();
-
-        this.scene.pushMatrix();
-        this.scene.rotate(-Math.PI/2, 1, 0, 0);
-        this.scene.translate(0, -1, 0);
-        this.primitives['backgroundRectangle'].display();//xz plane (bottom)
-        this.scene.popMatrix();
-
-        this.scene.pushMatrix();
-        this.scene.rotate(Math.PI/2, 1, 0, 0);
-        this.scene.translate(0, 0, -1);
-        this.primitives['backgroundRectangle'].display();//xz plane + 1 (top)
-        this.scene.popMatrix();
-        
-        this.scene.pushMatrix();
-        this.scene.rotate(-Math.PI/2, 0, 1, 0);
-        this.scene.translate(0, 0, -1);
-        this.primitives['backgroundRectangle'].display();//yz plane + 1 (right)
-        this.scene.popMatrix();
-
-        this.scene.pushMatrix();
-        this.scene.rotate(-Math.PI, 0, 1, 0);
-        this.scene.translate(-1, 0, -1);
-        this.primitives['backgroundRectangle'].display();//yx plane + 1 (back)
-        this.scene.popMatrix();
-
-        // //PLANETS
-        // this.primitives['sunSphere'].display();
-
-        // this.scene.pushMatrix();
-        // this.scene.translate(10, 0, 0);
-        // this.primitives['mercurySphere'].display();
-        // this.scene.popMatrix();
-
-        // this.scene.pushMatrix();
-        // this.scene.rotate((Math.PI*3/4)*2, 0, 1, 0);
-        // this.scene.translate(20, 0, 0);
-        // this.primitives['venusSphere'].display();
-        // this.scene.popMatrix();
-        
-        // this.scene.pushMatrix();
-        // this.scene.rotate((Math.PI*3/4)*3, 0, 1, 0);
-        // this.scene.translate(30, 0, 0);
-        // this.primitives['earthSphere'].display();
-        // this.scene.popMatrix();
-        
-        // this.scene.pushMatrix();
-        // this.scene.rotate((Math.PI*3/4)*4, 0, 1, 0);
-        // this.scene.translate(40, 0, 0);
-        // this.primitives['marsSphere'].display();
-        // this.scene.popMatrix();
-        
-        // this.scene.pushMatrix();
-        // this.scene.rotate((Math.PI*3/4)*5, 0, 1, 0);
-        // this.scene.translate(60, 0, 0);
-        // this.primitives['jupiterSphere'].display();
-        // this.scene.popMatrix();
-        
-        // this.scene.pushMatrix();
-        // this.scene.rotate((Math.PI*3/4)*6, 0, 1, 0);
-        // this.scene.translate(70, 0, 0);
-        // this.primitives['saturnSphere'].display();
-        // this.scene.rotate(Math.PI/3, 1, 0, 0);
-        // this.scene.scale(1, 1, 0);
-        // this.primitives['saturnRingTorus'].display();
-        // this.scene.popMatrix();
-        
-        // this.scene.pushMatrix();
-        // this.scene.rotate((Math.PI*3/4)*7, 0, 1, 0);
-        // this.scene.translate(80, 0, 0);
-        // this.primitives['uranusSphere'].display();
-        // this.scene.popMatrix();
-        
-        // this.scene.pushMatrix();
-        // this.scene.rotate((Math.PI*3/4)*8, 0, 1, 0);
-        // this.scene.translate(90, 0, 0);
-        // this.primitives['neptuneSphere'].display();
-        // this.scene.rotate(Math.PI/10, 1, 0, 0);
-        // this.scene.scale(1, 1, 0);
-        // this.primitives['neptuneRingTorus'].display();
-        // this.scene.popMatrix();
-
-        // //ORBIT RINGS
-        // this.scene.pushMatrix();
-        // this.scene.rotate(Math.PI/2, 1, 0, 0);
-        // this.primitives['mercuryOrbitTorus'].display();
-        // this.primitives['venusOrbitTorus'].display();
-        // this.primitives['earthOrbitTorus'].display();
-        // this.primitives['marsOrbitTorus'].display();
-        // this.primitives['jupiterOrbitTorus'].display();
-        // this.primitives['saturnOrbitTorus'].display();
-        // this.primitives['uranusOrbitTorus'].display();
-        // this.primitives['neptuneOrbitTorus'].display();
-        // this.scene.popMatrix();
-
-        // //BELTS
-        // this.scene.pushMatrix();
-        // this.scene.rotate(Math.PI/2, 1, 0, 0);
-        // this.primitives['kuiperBeltTorus'].display();
-        // this.primitives['asteroidBeltTorus'].display();
-        // this.scene.popMatrix();
-
-<<<<<<< HEAD
-        //BELTS
-        this.scene.pushMatrix();
-        this.scene.rotate(Math.PI/2, 1, 0, 0);
-        this.primitives['kuiperBeltTorus'].display();
-        this.primitives['asteroidBeltTorus'].display();
-        this.scene.popMatrix();
-        */
-=======
->>>>>>> b5543c272b2bd5fb919c58646d25af62018b9fc6
     }
 }
