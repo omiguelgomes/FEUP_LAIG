@@ -15,7 +15,7 @@ class MySphere extends CGFobject {
     }
 
 
-    initBuffers() {
+    initBuffers() { 
         this.vertices = [];
         this.indices = [];
         this.normals = [];

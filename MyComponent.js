@@ -11,14 +11,11 @@ class MyComponent
         
             this.nodeID = nodeID;
         
-            // IDs of child nodes.
             this.children = [];
         
         
-            // The materials
             this.materials = [];
         
-            // The texture ID.
             this.textureID = null;
         
             this.transformMatrix = mat4.create();
