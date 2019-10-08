@@ -3,35 +3,30 @@
  * @constructor
  * @param scene - Reference to MyScene object
  */
-class MyComponent extends CGFobject 
+class MyComponent
 {
-    constructor(scene, id, tranfMatrix, materials, tInfo, primitivesRef, componentsRef)
+    constructor(graph, nodeID) 
     {
-        super(scene);
-        this.visited = false;
-
-        this.id = id;
-        this.matrix = tranfMatrix;
-        this.materials = materials; //varios materiais
-
-        this.texture = tInfo[0];
-        this.ls = tInfo[1];
-        this.lt = tInfo[2];
-
-        this.primitives = primitivesRef;
-        this.components = componentsRef;
+            this.graph = graph;
         
-        for (var i = 0; i < materials.length; i++)
-        {
-            materials[i].loadTexture(texture)
-            materials[i].setTextureWrap(ls, lt);
-        }
-
-
+            this.nodeID = nodeID;
+        
+            // IDs of child nodes.
+            this.children = [];
+        
+        
+            // The materials
+            this.materials = [];
+        
+            // The texture ID.
+            this.textureID = null;
+        
+            this.transformMatrix = mat4.create();
+            mat4.identity(this.transformMatrix);
     }
 
-    display()
+    pushChild(nodeID) 
     {
-        
+        this.children.push(nodeID);
     }
 }
