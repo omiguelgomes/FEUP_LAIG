@@ -176,7 +176,6 @@
     </primitives>
 
     <components>
-<<<<<<< HEAD
 
         <component id="demoRoot">
             <transformation>
@@ -199,8 +198,6 @@
             </children>
         </component> 
 
-=======
->>>>>>> b5543c272b2bd5fb919c58646d25af62018b9fc6
         <component id="sun">
             <transformation>
                 <!--o sol esta na origem, nao necessita transfs-->
@@ -406,9 +403,6 @@
             <children>
                 <primitiveref id="asteroidBeltTorus" />
             </children>
-<<<<<<< HEAD
-        </component>        
-=======
         </component>
 
         <component id="orbits">
@@ -513,7 +507,6 @@
                 <primitiveref id="backgroundRectangle" />
             </children>
         </component>
->>>>>>> b5543c272b2bd5fb919c58646d25af62018b9fc6
 
         <component id="backgroundCube">
             <transformation>

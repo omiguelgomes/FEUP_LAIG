@@ -1163,12 +1163,6 @@ class MySceneGraph {
                 var childrenId = this.reader.getString(child[k], 'id');
                 this.nodes[componentID].pushChild(childrenId);
             }
-<<<<<<< HEAD
-=======
-
-            var comp = new MyComponent(this.scene, componentID, tMatrix, mats, tInfo, primitives, comps);
-            this.components[componentID] = comp;
->>>>>>> b5543c272b2bd5fb919c58646d25af62018b9fc6
         }
     }
 
@@ -1336,7 +1330,6 @@ class MySceneGraph {
      */
     displayScene() 
     {
-<<<<<<< HEAD
         // console.log(this.idRoot);
         // console.log(this.nodes[this.idRoot]);
         this.processNode(this.idRoot, this.nodes[this.idRoot].materials, this.nodes[this.idRoot].textureId);
@@ -1345,11 +1338,6 @@ class MySceneGraph {
         //PLANETS
         this.primitives['sunSphere'].display();
 
-=======
-        this.scene.scale(100, 100, 100);
-        this.scene.translate(-0.5, -0.5, -0.5);
-        this.primitives['backgroundRectangle'].display();//xy plane (front)
->>>>>>> b5543c272b2bd5fb919c58646d25af62018b9fc6
         this.scene.pushMatrix();
         this.scene.rotate(Math.PI/2, 0, 1, 0);
         this.scene.translate(-1, 0, 0);
