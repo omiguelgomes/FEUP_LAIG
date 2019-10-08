@@ -3,7 +3,7 @@
 
     <views default="defaultCamera">
         <perspective id="defaultCamera" near="0.1" far="500" angle="45">
-            <from x="150" y="120" z="150" />
+            <from x="10" y="10" z="10" />
             <to x="0" y="0" z="0" />
         </perspective>
     </views>
@@ -43,7 +43,7 @@
     <!--Os aneis deverão tambem ser ligeiramente refletores-->
     <!--Os restantes elementos ou difusos ou sem qualquer tipo de emissão de luz-->
     <materials>
-        <material id="sunMaterial" shininess="10">        <!--  EDIT ALL MATERIALS -->
+        <material id="sunMaterial" shininess="10">            <!--  EDIT ALL MATERIALS -->
             <emission r="0.0" g="0.0" b="0.0" a="1.0" />
             <ambient r="1.0" g="0.0" b="0.0" a="1.0" />
             <diffuse r="0.6" g="0.0" b="0.0" a="1.0" />
@@ -70,7 +70,7 @@
             <diffuse r="0.6" g="0.0" b="0.0" a="1.0" />
             <specular r="0.6" g="0.0" b="0.0" a="1.0" />
         </material>
-        
+
     </materials>
 
     <transformations>
@@ -169,27 +169,7 @@
 
         <!-- BACKGROUND -->
 
-        <primitive id="backgroundFrontRectangle">
-            <rectangle x1="0.0" x2="1.0" y1="0.0" y2="1.0"/>
-        </primitive>
-
-        <primitive id="backgroundBackRectangle">
-            <rectangle x1="0.0" x2="1.0" y1="0.0" y2="1.0"/>
-        </primitive>
-
-        <primitive id="backgroundLeftRectangle">
-            <rectangle x1="0.0" x2="1.0" y1="0.0" y2="1.0"/>
-        </primitive>
-
-        <primitive id="backgroundRightRectangle">
-            <rectangle x1="0.0" x2="1.0" y1="0.0" y2="1.0"/>
-        </primitive>
-
-        <primitive id="backgroundTopRectangle">
-            <rectangle x1="0.0" x2="1.0" y1="0.0" y2="1.0"/>
-        </primitive>
-
-        <primitive id="backgroundBottomRectangle">
+        <primitive id="backgroundRectangle">
             <rectangle x1="0.0" x2="1.0" y1="0.0" y2="1.0"/>
         </primitive>
 
@@ -422,15 +402,99 @@
             </children>
         </component>
 
-        <component id="backgroundCube">
+        <!-- BACKGROUND -->
+
+        <component id="backgroundFrontRectangle">
             <transformation>
-                <rotate axis="x" angle="90" />
             </transformation>
             <materials>
-                <material id="ringMaterial" />
-                <!--to be replaced with backgroundMaterial-->
+                <material id="backgroundMaterial" />
             </materials>
-            <texture id="beltTexture"/>
+            <texture id="backgoundTexture"/>
+            <children>
+                <primitiveref id="backgroundRectangle" />
+            </children>
+        </component>
+
+        <component id="backgroundBackRectangle">
+            <transformation>
+                <rotate axis="y" angle="-180"/>
+                <translate x="-1" y="0" z="-1"/>
+            </transformation>
+            <materials>
+                <material id="backgroundMaterial" />
+            </materials>
+            <texture id="backgoundTexture"/>
+            <children>
+                <primitiveref id="backgroundRectangle" />
+            </children>
+        </component>
+
+        <component id="backgroundRightRectangle">
+            <transformation>
+                <rotate axis="y" angle="-90"/>
+                <translate x="0" y="0" z="-1"/>
+            </transformation>
+            <materials>
+                <material id="backgroundMaterial" />
+            </materials>
+            <texture id="backgoundTexture"/>
+            <children>
+                <primitiveref id="backgroundRectangle" />
+            </children>
+        </component>
+
+        <component id="backgroundLeftRectangle">
+            <transformation>
+                <rotate axis="y" angle="90"/>
+                <translate x="-1" y="0" z="0"/>
+            </transformation>
+            <materials>
+                <material id="backgroundMaterial" />
+            </materials>
+            <texture id="backgoundTexture"/>
+            <children>
+                <primitiveref id="backgroundRectangle" />
+            </children>
+        </component>
+
+        <component id="backgroundTopRectangle">
+            <transformation>
+                <rotate axis="x" angle="90"/>
+                <translate x="0" y="0" z="-1"/>
+            </transformation>
+            <materials>
+                <material id="backgroundMaterial" />
+            </materials>
+            <texture id="backgoundTexture"/>
+            <children>
+                <primitiveref id="backgroundRectangle" />
+            </children>
+        </component>
+
+        <component id="backgroundBottomRectangle">
+            <transformation>
+                <rotate axis="x" angle="-90"/>
+                <translate x="0" y="-1" z="0"/>
+            </transformation>
+            <materials>
+                <material id="backgroundMaterial" />
+            </materials>
+            <texture id="backgoundTexture"/>
+            <children>
+                <primitiveref id="backgroundRectangle" />
+            </children>
+        </component>
+
+        <component id="backgroundCube">
+            <transformation>
+                <scale x="100" y="100" z="100"/>
+                <translate x="-0.5" y="-0.5" z="-0.5"/>
+            </transformation>
+            <materials>
+                <material id="backgroundMaterial" />
+            </materials>
+            <texture id="backgroundTexture"/>
             <children>
                 <primitiveref id="backgroundFrontRectangle" />
                 <primitiveref id="backgroundBackRectangle" />

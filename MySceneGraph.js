@@ -1298,7 +1298,39 @@ class MySceneGraph {
      */
     displayScene() 
     {
-        this.primitives['backgroundFrontRectangle'].display();
+        this.scene.scale(100, 100, 100);
+        this.scene.translate(-0.5, -0.5, -0.5);
+        this.primitives['backgroundRectangle'].display();//xy plane (front)
+        this.scene.pushMatrix();
+        this.scene.rotate(Math.PI/2, 0, 1, 0);
+        this.scene.translate(-1, 0, 0);
+        this.primitives['backgroundRectangle'].display();//yz plane (left)
+        this.scene.popMatrix();
+
+        this.scene.pushMatrix();
+        this.scene.rotate(-Math.PI/2, 1, 0, 0);
+        this.scene.translate(0, -1, 0);
+        this.primitives['backgroundRectangle'].display();//xz plane (bottom)
+        this.scene.popMatrix();
+
+        this.scene.pushMatrix();
+        this.scene.rotate(Math.PI/2, 1, 0, 0);
+        this.scene.translate(0, 0, -1);
+        this.primitives['backgroundRectangle'].display();//xz plane + 1 (top)
+        this.scene.popMatrix();
+        
+        this.scene.pushMatrix();
+        this.scene.rotate(-Math.PI/2, 0, 1, 0);
+        this.scene.translate(0, 0, -1);
+        this.primitives['backgroundRectangle'].display();//yz plane + 1 (right)
+        this.scene.popMatrix();
+
+        this.scene.pushMatrix();
+        this.scene.rotate(-Math.PI, 0, 1, 0);
+        this.scene.translate(-1, 0, -1);
+        this.primitives['backgroundRectangle'].display();//yx plane + 1 (back)
+        this.scene.popMatrix();
+
         // //PLANETS
         // this.primitives['sunSphere'].display();
 
