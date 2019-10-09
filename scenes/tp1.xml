@@ -33,9 +33,10 @@
         <texture id="marsTexture" file="img/marsTexture.jpg" />
         <texture id="jupiterTexture" file="img/jupiterTexture.jpg" />
         <texture id="saturnTexture" file="img/saturnTexture.jpg" />
+        <texture id="saturnRingTexture" file="img/saturnRingTexture.png" />
         <texture id="uranusTexture" file="img/uranusTexture.jpg" />
         <texture id="neptuneTexture" file="img/neptuneTexture.jpg" />
-        <texture id="saturnRingTexture" file="img/saturnRingTexture.png" />
+        <texture id="neptuneRingTexture" file="img/neptuneRingTexture.png" />
     </textures>
 
     <!--O sol devera ser o foco de luz do sistema-->
@@ -43,7 +44,7 @@
     <!--Os aneis deverão tambem ser ligeiramente refletores-->
     <!--Os restantes elementos ou difusos ou sem qualquer tipo de emissão de luz-->
     <materials>
-        <material id="sunMaterial" shininess="10">            <!--  EDIT ALL MATERIALS -->
+        <material id="sunMaterial" shininess="1">            <!--  EDIT ALL MATERIALS -->
             <emission r="0.0" g="0.0" b="0.0" a="1.0" />
             <ambient r="0.0" g="0.0" b="0.0" a="1.0" />
             <diffuse r="0.6" g="0.0" b="0.0" a="1.0" />
@@ -58,7 +59,7 @@
         </material>
 
         <material id="backgroundMaterial" shininess="1">
-            <emission r="0.69" g="0.0" b="0.0" a="1.0" />
+            <emission r="0.0" g="0.0" b="0.0" a="0.0" />
             <ambient r="0.69" g="0.0" b="0.0" a="1.0" />
             <diffuse r="0.69" g="0.0" b="0.0" a="1.0" />
             <specular r="0.69" g="0.0" b="0.0" a="1.0" />
@@ -354,7 +355,7 @@
             <materials>
                 <material id="ringMaterial" />
             </materials>
-            <texture id="beltTexture"/> <!--CHANGE-->
+            <texture id="neptuneRingTexture"/>
             <children>
                 <primitiveref id="neptuneRingTorus" />
             </children>
