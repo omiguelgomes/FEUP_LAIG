@@ -1100,7 +1100,6 @@ class MySceneGraph {
             var childrenIndex = nodeNames.indexOf("children");
 
             //Transformations
-            console.log(grandChildren.length);
             var transforms = grandChildren[transformationIndex].children;
 
             for(var j = 0; j < transforms.length; j++)
@@ -1305,7 +1304,6 @@ class MySceneGraph {
         currentTexture = this.textures[texId];
 
         var currentMaterial = this.materials[mats[(this.scene.matCounter % mats.length)]];
-        console.log(currentMaterial);
 
         for(var i = 0; i < child.length; i++)
         {
