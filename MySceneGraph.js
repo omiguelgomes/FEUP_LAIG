@@ -1282,7 +1282,6 @@ class MySceneGraph {
     {
         var node = this.nodes[nodeID];
         var child = node.children;
-
         var mats = mat;
         var texId = tex;
 
@@ -1310,6 +1309,7 @@ class MySceneGraph {
             var childID = child[i];
             if(this.primitives[childID] != null){
                 currentMaterial.apply();
+                currentTexture.bind();
                 this.scene.pushMatrix();
                 this.primitives[child[i]].display();
                 this.scene.popMatrix();
