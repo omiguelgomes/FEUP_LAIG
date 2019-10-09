@@ -634,6 +634,7 @@ class MySceneGraph {
         this.materials = [];
         var numMats = 0;
 
+        //console.log(children);
         for (var i = 0; i < children.length; i++) 
         {
             if (children[i].nodeName != "material") 
@@ -779,17 +780,13 @@ class MySceneGraph {
                         
                 }
             }
-
             this.materials[materialID] = appearance;
             numMats++;
-
         }
-
         if(numMats <= 0)
         {
             return "there must be at least one defined material";
         }
-
         this.log("Parsed materials");
         return null;
     }

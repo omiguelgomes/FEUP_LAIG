@@ -10,7 +10,7 @@
 
     <ambient>
         <ambient r="1.0" g="1.0" b="1.0" a="1.0" />
-        <background r="0.0" g="0.0" b="0.0" a="1.0" />
+        <background r="0.5" g="0.5" b="0.5" a="1.0" />
     </ambient>
 
     <lights>
@@ -26,16 +26,16 @@
         <texture id="backgroundTexture" file="img/backgroundTexture.jpg" />
         <texture id="beltTexture" file="img/beltTexture.png" />
         <texture id="orbitTexture" file="img/orbitTexture.jpg" />
-        <texture id="earthTexture" file="img/earthTexture.jpg" />
-        <texture id="jupiterTexture" file="img/earthTexture.jpg" />
-        <texture id="marsTexture" file="img/marsTexture.jpg" />
+        <texture id="sunTexture" file="img/sunTexture.jpg" />
         <texture id="mercuryTexture" file="img/mercuryTexture.jpg" />
+        <texture id="venusTexture" file="img/venusTexture.jpg" />
+        <texture id="earthTexture" file="img/earthTexture.jpg" />
+        <texture id="marsTexture" file="img/marsTexture.jpg" />
+        <texture id="jupiterTexture" file="img/jupiterTexture.jpg" />
+        <texture id="saturnTexture" file="img/saturnTexture.jpg" />
+        <texture id="uranusTexture" file="img/uranusTexture.jpg" />
         <texture id="neptuneTexture" file="img/neptuneTexture.jpg" />
         <texture id="saturnRingTexture" file="img/saturnRingTexture.png" />
-        <texture id="saturnTexture" file="img/saturnTexture.jpg" />
-        <texture id="sunTexture" file="img/sunTexture.jpg" />
-        <texture id="uranusTexture" file="img/uranusTexture.jpg" />
-        <texture id="venusTexture" file="img/venusTexture.jpg" />
     </textures>
 
     <!--O sol devera ser o foco de luz do sistema-->
@@ -45,26 +45,26 @@
     <materials>
         <material id="sunMaterial" shininess="10">            <!--  EDIT ALL MATERIALS -->
             <emission r="0.0" g="0.0" b="0.0" a="1.0" />
-            <ambient r="1.0" g="0.0" b="0.0" a="1.0" />
+            <ambient r="0.0" g="0.0" b="0.0" a="1.0" />
             <diffuse r="0.6" g="0.0" b="0.0" a="1.0" />
             <specular r="0.6" g="0.0" b="0.0" a="1.0" />
         </material>
 
-        <material id="venusMaterial" shininess="10">
-            <emission r="0.0" g="0.0" b="0.0" a="1.0" />
-            <ambient r="1.0" g="0.0" b="0.0" a="1.0" />
+        <material id="planetMaterial" shininess="1">
+            <emission r="0.0" g="0.0" b="0.0" a="0.0" />
+            <ambient r="0.0" g="0.0" b="0.0" a="1.0" />
             <diffuse r="0.6" g="0.0" b="0.0" a="1.0" />
             <specular r="0.6" g="0.0" b="0.0" a="1.0" />
         </material>
 
-        <material id="planetMaterial" shininess="10">
-            <emission r="0.0" g="0.0" b="0.0" a="1.0" />
-            <ambient r="1.0" g="0.0" b="0.0" a="1.0" />
-            <diffuse r="0.6" g="0.0" b="0.0" a="1.0" />
-            <specular r="0.6" g="0.0" b="0.0" a="1.0" />
+        <material id="backgroundMaterial" shininess="1">
+            <emission r="0.69" g="0.0" b="0.0" a="1.0" />
+            <ambient r="0.69" g="0.0" b="0.0" a="1.0" />
+            <diffuse r="0.69" g="0.0" b="0.0" a="1.0" />
+            <specular r="0.69" g="0.0" b="0.0" a="1.0" />
         </material>
 
-        <material id="ringMaterial" shininess="10">
+        <material id="ringMaterial" shininess="1">
             <emission r="0.0" g="0.0" b="0.0" a="1.0" />
             <ambient r="1.0" g="0.0" b="0.0" a="1.0" />
             <diffuse r="0.6" g="0.0" b="0.0" a="1.0" />
@@ -117,11 +117,11 @@
 
         <!-- RINGS   -->
         <primitive id="saturnRingTorus">
-            <torus inner="1" outer="6" slices="20" loops="7"/>
+            <torus inner="1" outer="6" slices="20" loops="2"/>
         </primitive>
 
         <primitive id="neptuneRingTorus">
-            <torus inner="0.5" outer="5" slices="20" loops="7"/>
+            <torus inner="0.5" outer="5" slices="20" loops="2"/>
         </primitive>
 
         <!-- ASTEROID BELTS AND ORBITS -->
@@ -188,12 +188,15 @@
                 <componentref id="mercury" />
                 <componentref id="venus" />
                 <componentref id="earth" />
+                <componentref id="mars" />
                 <componentref id="jupiter" />
                 <componentref id="saturn" />
-                <componentref id="neptune" />
                 <componentref id="uranus" />
+                <componentref id="neptune" />
                 <componentref id="kuiperBelt" />
                 <componentref id="asteroidBelt" />
+                <componentref id="orbits" />
+                <componentref id="backgroundCube" />
             </children>
         </component> 
 
@@ -224,11 +227,11 @@
 
         <component id="venus">
             <transformation>
-                <translate x="20" y="0" z="0" />
                 <rotate axis="y" angle="270" />
+                <translate x="20" y="0" z="0" />
             </transformation>
             <materials>
-                <material id="venusMaterial" />
+                <material id="planetMaterial" />
             </materials>
             <texture id="venusTexture"/>
             <children>
@@ -238,8 +241,8 @@
 
         <component id="earth">
             <transformation>
-                <translate x="30" y="0" z="0" />
                 <rotate axis="y" angle="45" />
+                <translate x="30" y="0" z="0" />
             </transformation>
             <materials>
                 <material id="planetMaterial" />
@@ -252,8 +255,8 @@
 
         <component id="mars">
             <transformation>
-                <translate x="40" y="0" z="0" />
                 <rotate axis="y" angle="180" />
+                <translate x="40" y="0" z="0" />
             </transformation>
             <materials>
                 <material id="planetMaterial" />
@@ -266,8 +269,8 @@
 
         <component id="jupiter">
             <transformation>
-                <translate x="60" y="0" z="0" />
                 <rotate axis="y" angle="315" />
+                <translate x="60" y="0" z="0" />
             </transformation>
             <materials>
                 <material id="planetMaterial" />
@@ -292,7 +295,6 @@
 
         <component id="saturnRings">
             <transformation>
-                <scale x="1" y="1" z="0" />
                 <rotate axis="x" angle="60" />
             </transformation>
             <materials>
@@ -306,13 +308,13 @@
 
         <component id="saturn">
             <transformation>
-                <translate x="70" y="0" z="0" />
                 <rotate axis="y" angle="90" />
+                <translate x="70" y="0" z="0" />
             </transformation>
             <materials>
-                <material id="inherit" />
+                <material id="planetMaterial" />
             </materials>
-            <texture id="inherit" length_s="1.0" length_t="1.0"/>
+            <texture id="saturnTexture"/>
             <children>
                 <componentref id="saturnPlanet" />
                 <componentref id="saturnRings" />
@@ -321,8 +323,8 @@
 
         <component id="uranus">
             <transformation>
-                <translate x="80" y="0" z="0" />
                 <rotate axis="y" angle="225" />
+                <translate x="80" y="0" z="0" />
             </transformation>
             <materials>
                 <material id="planetMaterial" />
@@ -347,13 +349,12 @@
 
         <component id="neptuneRings">
             <transformation>
-                <scale x="1" y="1" z="0" />
                 <rotate axis="x" angle="18" />
             </transformation>
             <materials>
                 <material id="ringMaterial" />
             </materials>
-            <texture id="saturnRingTexture"/>
+            <texture id="beltTexture"/> <!--CHANGE-->
             <children>
                 <primitiveref id="neptuneRingTorus" />
             </children>
@@ -364,10 +365,9 @@
                 <translate x="90" y="0" z="0" />
             </transformation>
             <materials>
-                <material id="inherit" />
-                <!--??-->
+                <material id="planetMaterial" />
             </materials>
-            <texture id="inherit" length_s="1.0" length_t="1.0"/>
+            <texture id="neptuneTexture"/>
             <!--??-->
             <children>
                 <componentref id="neptunePlanet" />
@@ -405,6 +405,7 @@
 
         <component id="orbits">
             <transformation>
+                <rotate angle="90" axis="x"/>
             </transformation>
             <materials>
                 <material id="ringMaterial" />
@@ -412,7 +413,7 @@
             <texture id="orbitTexture" />
             <children>
                 <primitiveref id="mercuryOrbitTorus" />
-                <primitiveref id="vensOrbitTorus" />
+                <primitiveref id="venusOrbitTorus" />
                 <primitiveref id="earthOrbitTorus" />
                 <primitiveref id="marsOrbitTorus" />
                 <primitiveref id="jupiterOrbitTorus" />
@@ -430,7 +431,7 @@
             <materials>
                 <material id="backgroundMaterial" />
             </materials>
-            <texture id="backgoundTexture"/>
+            <texture id="backgroundTexture"/>
             <children>
                 <primitiveref id="backgroundRectangle" />
             </children>
@@ -444,7 +445,7 @@
             <materials>
                 <material id="backgroundMaterial" />
             </materials>
-            <texture id="backgoundTexture"/>
+            <texture id="backgroundTexture"/>
             <children>
                 <primitiveref id="backgroundRectangle" />
             </children>
@@ -458,7 +459,7 @@
             <materials>
                 <material id="backgroundMaterial" />
             </materials>
-            <texture id="backgoundTexture"/>
+            <texture id="backgroundTexture"/>
             <children>
                 <primitiveref id="backgroundRectangle" />
             </children>
@@ -472,7 +473,7 @@
             <materials>
                 <material id="backgroundMaterial" />
             </materials>
-            <texture id="backgoundTexture"/>
+            <texture id="backgroundTexture"/>
             <children>
                 <primitiveref id="backgroundRectangle" />
             </children>
@@ -486,7 +487,7 @@
             <materials>
                 <material id="backgroundMaterial" />
             </materials>
-            <texture id="backgoundTexture"/>
+            <texture id="backgroundTexture"/>
             <children>
                 <primitiveref id="backgroundRectangle" />
             </children>
@@ -500,7 +501,7 @@
             <materials>
                 <material id="backgroundMaterial" />
             </materials>
-            <texture id="backgoundTexture"/>
+            <texture id="backgroundTexture"/>
             <children>
                 <primitiveref id="backgroundRectangle" />
             </children>
@@ -508,7 +509,7 @@
 
         <component id="backgroundCube">
             <transformation>
-                <scale x="150" y="150" z="150"/>
+                <scale x="300" y="300" z="300"/>
                 <translate x="-0.5" y="-0.5" z="-0.5"/>
             </transformation>
             <materials>
