@@ -30,6 +30,7 @@
         <texture id="mercuryTexture" file="img/mercuryTexture.jpg" />
         <texture id="venusTexture" file="img/venusTexture.jpg" />
         <texture id="earthTexture" file="img/earthTexture.jpg" />
+        <texture id="moonTexture" file="img/moonTexture.jpg" />
         <texture id="marsTexture" file="img/marsTexture.jpg" />
         <texture id="jupiterTexture" file="img/jupiterTexture.jpg" />
         <texture id="saturnTexture" file="img/saturnTexture.jpg" />
@@ -96,6 +97,10 @@
             <sphere radius="1.5" slices="20" stacks="20"/>
         </primitive>
 
+        <primitive id="moonSphere">
+            <sphere radius="0.5" slices="20" stacks="20"/>
+        </primitive>
+
         <primitive id="marsSphere">
             <sphere radius="1.5" slices="20" stacks="20"/>
         </primitive>
@@ -147,6 +152,10 @@
             <torus inner="0.09" outer="30.0" slices="60" loops="5"/>
         </primitive>
 
+        <primitive id="moonOrbitTorusPrimitive">
+            <torus inner="0.05" outer="5.0" slices="60" loops="5"/>
+        </primitive>
+
         <primitive id="marsOrbitTorus">
             <torus inner="0.09" outer="40.0" slices="60" loops="5"/>
         </primitive>
@@ -189,6 +198,8 @@
                 <componentref id="mercury" />
                 <componentref id="venus" />
                 <componentref id="earth" />
+                <componentref id="moon" />
+                <componentref id="moonOrbit" />
                 <componentref id="mars" />
                 <componentref id="jupiter" />
                 <componentref id="saturn" />
@@ -251,6 +262,35 @@
             <texture id="earthTexture"/>
             <children>
                 <primitiveref id="earthSphere" />
+            </children>
+        </component>
+
+        <component id="moon">
+            <transformation>
+                <rotate axis="y" angle="45" />
+                <translate x="35" y="0" z="0" />
+            </transformation>
+            <materials>
+                <material id="planetMaterial" />
+            </materials>
+            <texture id="moonTexture"/>
+            <children>
+                <primitiveref id="moonSphere" />
+            </children>
+        </component>
+
+        <component id="moonOrbit">
+            <transformation>
+                <rotate axis="x" angle="90" />
+                <rotate axis="z" angle="-45" />
+                <translate x="30" y="0" z="0" />
+            </transformation>
+            <materials>
+                <material id="ringMaterial" />
+            </materials>
+            <texture id="orbitTexture"/>
+            <children>
+                <primitiveref id="moonOrbitTorusPrimitive" />
             </children>
         </component>
 
@@ -510,7 +550,7 @@
 
         <component id="backgroundCube">
             <transformation>
-                <scale x="300" y="300" z="300"/>
+                <scale x="380" y="380" z="380"/>
                 <translate x="-0.5" y="-0.5" z="-0.5"/>
             </transformation>
             <materials>
