@@ -1042,9 +1042,6 @@ class MySceneGraph {
 
                 this.primitives[primitiveId] = torus;
             }
-            else {
-                console.warn("To do: Parse other primitives.");
-            }
         }
 
         this.log("Parsed primitives");
@@ -1124,7 +1121,6 @@ class MySceneGraph {
                 }
             }
 
-
             // Materials
             if (materialsIndex == -1) {
                 return "the '<material>' block should be defined for component " + componentId;
@@ -1160,6 +1156,11 @@ class MySceneGraph {
                 this.nodes[componentID].pushChild(childrenId);
             }
         }
+
+        this.onXMLMinorError("TODO: parse tranformationref");
+        this.onXMLMinorError("TODO: multiple materials with 'M' press");
+        this.onXMLMinorError("TODO: change lights and light tint");
+        this.onXMLMinorError("TODO: edit all materials properties");
     }
 
     /**

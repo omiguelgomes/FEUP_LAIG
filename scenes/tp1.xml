@@ -36,7 +36,7 @@
         <texture id="saturnRingTexture" file="img/saturnRingTexture.png" />
         <texture id="uranusTexture" file="img/uranusTexture.jpg" />
         <texture id="neptuneTexture" file="img/neptuneTexture.jpg" />
-        <texture id="neptuneRingTexture" file="img/neptuneRingTexture.png" />
+        <texture id="neptuneRingTexture" file="img/neptuneRingTexture.jpg" />
     </textures>
 
     <!--O sol devera ser o foco de luz do sistema-->
