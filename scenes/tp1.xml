@@ -550,7 +550,7 @@
 
         <component id="backgroundCube">
             <transformation>
-                <scale x="380" y="380" z="380"/>
+                <scale x="300" y="300" z="300"/>
                 <translate x="-0.5" y="-0.5" z="-0.5"/>
             </transformation>
             <materials>
