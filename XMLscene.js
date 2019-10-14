@@ -85,10 +85,8 @@ class XMLscene extends CGFscene {
         }
     }
 
-    checkKeys()
-    {
-        if (this.gui.isKeyPressed("KeyM"))
-        {
+    checkKeys() {
+        if (this.gui.isKeyPressed("KeyM")) {
             this.matCounter++;
         }
     }
@@ -115,6 +113,7 @@ class XMLscene extends CGFscene {
     }
 
     update() {
+        this.checkKeys();
         if (this.sceneInitiated) {
             this.updateCameras();
             this.updateLights();
@@ -145,11 +144,6 @@ class XMLscene extends CGFscene {
         for (var i = 0; i < this.lights.length; i++) {
             this.lights[i].update();
         }
-    }
-
-    update()
-    {
-        this.checkKeys();
     }
 
     display() {
