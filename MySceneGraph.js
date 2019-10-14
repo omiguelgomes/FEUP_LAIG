@@ -533,7 +533,6 @@ class MySceneGraph {
             this.onXMLMinorError("too many lights defined; WebGL imposes a limit of 8 lights");
 
         this.log("Parsed lights");
-        console.log(this.lights);
         return null;
     }
 
@@ -591,7 +590,6 @@ class MySceneGraph {
         this.materials = [];
         var numMats = 0;
 
-        //console.log(children);
         for (var i = 0; i < children.length; i++) {
             if (children[i].nodeName != "material") {
                 this.onXMLMinorError("unknown tag <" + children[i].nodeName + ">");
