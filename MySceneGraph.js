@@ -1019,19 +1019,83 @@ class MySceneGraph {
 
             //Transformations
             var transforms = grandChildren[transformationIndex].children;
+<<<<<<< HEAD
+            var isExplicit = true;
+            for(var j = 0; j < transforms.length; j++)
+            {
+                var values = [];
+                switch(transforms[j].nodeName)
+                {
+                    case "transformationref":
+                        {
+                            isExplicit = false;
+                            var transID = this.reader.getString(transforms[j], 'id');
+                            console.log(transID);
+                            console.log(componentID);
+                            console.log(this.nodes[componentID].transformMatrix);
+
+                            if(!isExplicit)
+                            {
+                                this.nodes[componentID].transformMatrix = this.transformations[transID];
+                            }
+                            else
+                            {
+                                this.onXMLError("Error: unable to parse explicit and implicit transformations of same component " + componentID);
+                            }
+
+                            break;
+                        }
+=======
 
             for (var j = 0; j < transforms.length; j++) {
                 var values = [];
                 switch (transforms[j].nodeName) {
+>>>>>>> c3cc99227a83f91cb86492780e7721320b01878f
                     case "translate":
-                        values = this.parseCoordinates3D(transforms[j], "Unable to read coordinates for translaction transformation");
-                        mat4.translate(this.nodes[componentID].transformMatrix, this.nodes[componentID].transformMatrix, values)
-                        break;
+                        {
+                            if(isExplicit)
+                            {
+                            values = this.parseCoordinates3D(transforms[j], "Unable to read coordinates for translaction transformation");
+                            mat4.translate(this.nodes[componentID].transformMatrix, this.nodes[componentID].transformMatrix, values)
+                            break;
+                            }
+                            else
+                            {
+                                this.onXMLError("Error: unable to parse explicit and implicit transformations of same component " + componentID);
+                            }
+                        }
                     case "scale":
-                        values = this.parseCoordinates3D(transforms[j], "Unable to read coordinates for scale transformation");
-                        mat4.scale(this.nodes[componentID].transformMatrix, this.nodes[componentID].transformMatrix, values);
-                        break;
+                        {
+                            if(isExplicit)
+                            {
+                            values = this.parseCoordinates3D(transforms[j], "Unable to read coordinates for scale transformation");
+                            mat4.scale(this.nodes[componentID].transformMatrix, this.nodes[componentID].transformMatrix, values);
+                            break;
+                            }
+                            else
+                            {
+                                this.onXMLError("Error: unable to parse explicit and implicit transformations of same component " + componentID);
+                            }
+                        }
                     case "rotate":
+<<<<<<< HEAD
+                        {
+                            if(isExplicit)
+                            {
+                            var angle = this.reader.getFloat(transforms[j], 'angle');
+                            var axis = this.reader.getString(transforms[j], 'axis');
+                            if (axis == 'x') values = [1, 0, 0];
+                            else if (axis == 'y') values = [0, 1, 0];
+                            else values = [0, 0, 1];
+                            mat4.rotate(this.nodes[componentID].transformMatrix, this.nodes[componentID].transformMatrix, DEGREE_TO_RAD * angle, values);
+                            break;
+                            }
+                            else
+                            {
+                                this.onXMLError("Error: unable to parse explicit and implicit transformations of same component " + componentID);
+                            }
+                        }
+=======
                         var angle = this.reader.getFloat(transforms[j], 'angle');
                         var axis = this.reader.getString(transforms[j], 'axis');
                         if (axis == 'x') values = [1, 0, 0];
@@ -1040,6 +1104,7 @@ class MySceneGraph {
                         mat4.rotate(this.nodes[componentID].transformMatrix, this.nodes[componentID].transformMatrix, DEGREE_TO_RAD * angle, values);
                         break;
 
+>>>>>>> c3cc99227a83f91cb86492780e7721320b01878f
                 }
             }
 
@@ -1078,8 +1143,6 @@ class MySceneGraph {
             }
         }
 
-        this.onXMLMinorError("TODO: parse tranformationref");
-        this.onXMLMinorError("TODO: multiple materials with 'M' press");
         this.onXMLMinorError("TODO: change lights and light tint");
         this.onXMLMinorError("TODO: edit all materials properties");
     }
@@ -1175,7 +1238,6 @@ class MySceneGraph {
      * @param {string} message
      */
     onXMLError(message) {
-        console.log(this.primitives);
         console.error("XML Loading Error: " + message);
         this.loadedOk = false;
     }
