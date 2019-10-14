@@ -6,6 +6,16 @@
             <from x="100" y="100" z="100" />
             <to x="0" y="0" z="0" />
         </perspective>
+
+        <perspective id="sunCamera" near="0.1" far="500" angle="45">
+            <from x="20" y="20" z="20" />
+            <to x="0" y="0" z="0" />
+        </perspective>
+
+        <perspective id="earthCamera" near="0.1" far="500" angle="45">
+            <from x="35" y="8" z="-20" /> <!-- HARD CODED, EDIT WHEN WE GET ANIMATIONS -->
+            <to x="20" y="0" z="-20" />
+        </perspective>
     </views>
 
     <ambient>
@@ -19,6 +29,13 @@
             <ambient r="0" g="0" b="0" a="1.0" />
             <diffuse r="1.0" g="1.0" b="1.0" a="1.0" />
             <specular r="1.0" g="1.0" b="1.0" a="1.0" />
+        </omni>
+
+        <omni id="secondLight" enabled="0">
+            <location x="30" y="30" z="30" w="1.0" />
+            <ambient r="1" g="1" b="1" a="1.0" />
+            <diffuse r="0.0" g="0.0" b="0.0" a="1.0" />
+            <specular r="0.0" g="0.0" b="0.0" a="1.0" />
         </omni>
     </lights>
 
