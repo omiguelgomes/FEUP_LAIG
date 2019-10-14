@@ -10,7 +10,9 @@ class XMLscene extends CGFscene {
      */
     constructor(myinterface) {
         super();
-
+        this.earthCamera = false;
+        this.sunCamera = false;
+        this.secondLight = false;
         this.interface = myinterface;
     }
 
@@ -21,7 +23,7 @@ class XMLscene extends CGFscene {
     init(application) {
         super.init(application);
 
-        this.sceneInited = false;
+        this.sceneInitiated = false;
 
         this.initCameras();
 
@@ -42,11 +44,11 @@ class XMLscene extends CGFscene {
      * Initializes the scene cameras.
      */
     initCameras() {
-        this.camera = new CGFcamera(0.4, 0.1, 500, vec3.fromValues(15, 15, 15), vec3.fromValues(0, 0, 0));
-    }
-    /**
-     * Initializes the scene lights with the values read from the XML file.
-     */
+            this.camera = new CGFcamera(0.4, 0.1, 500, vec3.fromValues(15, 15, 15), vec3.fromValues(0, 0, 0));
+        }
+        /**
+         * Initializes the scene lights with the values read from the XML file.
+         */
     initLights() {
         var i = 0;
         // Lights index.
@@ -54,7 +56,7 @@ class XMLscene extends CGFscene {
         // Reads the lights from the scene graph.
         for (var key in this.graph.lights) {
             if (i >= 8)
-                break;              // Only eight lights allowed by WebGL.
+                break; // Only eight lights allowed by WebGL.
 
             if (this.graph.lights.hasOwnProperty(key)) {
                 var light = this.graph.lights[key];
@@ -71,9 +73,9 @@ class XMLscene extends CGFscene {
                 }
 
                 this.lights[i].setVisible(true);
-                if (light[0])
+                if (light[0]) {
                     this.lights[i].enable();
-                else
+                } else
                     this.lights[i].disable();
 
                 this.lights[i].update();
@@ -92,14 +94,14 @@ class XMLscene extends CGFscene {
     }
 
     setDefaultAppearance() {
-        this.setAmbient(0.2, 0.4, 0.8, 1.0);
-        this.setDiffuse(0.2, 0.4, 0.8, 1.0);
-        this.setSpecular(0.2, 0.4, 0.8, 1.0);
-        this.setShininess(10.0);
-    }
-    /** Handler called when the graph is finally loaded. 
-     * As loading is asynchronous, this may be called already after the application has started the run loop
-     */
+            this.setAmbient(0.2, 0.4, 0.8, 1.0);
+            this.setDiffuse(0.2, 0.4, 0.8, 1.0);
+            this.setSpecular(0.2, 0.4, 0.8, 1.0);
+            this.setShininess(10.0);
+        }
+        /** Handler called when the graph is finally loaded. 
+         * As loading is asynchronous, this may be called already after the application has started the run loop
+         */
     onGraphLoaded() {
         this.axis = new CGFaxis(this, this.graph.referenceLength);
 
@@ -109,13 +111,45 @@ class XMLscene extends CGFscene {
 
         this.initLights();
 
-        this.sceneInited = true;
+        this.sceneInitiated = true;
+    }
+
+    update() {
+        if (this.sceneInitiated) {
+            this.updateCameras();
+            this.updateLights();
+        }
+    }
+
+    updateCameras() {
+        if (this.sunCamera) {
+            this.graph.scene.camera = this.graph.cameras["sunCamera"];
+            this.graph.scene.interface.setActiveCamera(this.graph.scene.camera);
+        } else if (this.earthCamera) {
+            this.graph.scene.camera = this.graph.cameras["earthCamera"];
+            this.graph.scene.interface.setActiveCamera(this.graph.scene.camera);
+        } else {
+            this.graph.scene.camera = this.graph.cameras["defaultCamera"];
+            this.graph.scene.interface.setActiveCamera(this.graph.scene.camera);
+        }
+    }
+
+    updateLights() { //only works for 2 lights atm
+        if (this.secondLight) {
+            this.lights[0].disable();
+            this.lights[1].enable();
+        } else {
+            this.lights[1].disable();
+            this.lights[0].enable();
+        }
+        for (var i = 0; i < this.lights.length; i++) {
+            this.lights[i].update();
+        }
     }
 
     update()
     {
         this.checkKeys();
-        console.log(this.matCounter);
     }
 
     display() {
@@ -140,7 +174,7 @@ class XMLscene extends CGFscene {
             this.lights[i].enable();
         }
 
-        if (this.sceneInited) {
+        if (this.sceneInitiated) {
             // Draw axis
             this.setDefaultAppearance();
 
