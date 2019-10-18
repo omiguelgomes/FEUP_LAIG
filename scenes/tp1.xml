@@ -13,7 +13,7 @@
         </perspective>
 
         <perspective id="earthCamera" near="0.1" far="500" angle="45">
-            <from x="35" y="8" z="-20" /> <!-- HARD CODED, EDIT WHEN WE GET ANIMATIONS -->
+            <from x="35" y="8" z="-20" />
             <to x="20" y="0" z="-20" />
         </perspective>
     </views>
@@ -57,12 +57,8 @@
         <texture id="neptuneRingTexture" file="img/neptuneRingTexture.jpg" />
     </textures>
 
-    <!--O sol devera ser o foco de luz do sistema-->
-    <!--Venus devera ter um material ligeiramente refletor-->
-    <!--Os aneis deverão tambem ser ligeiramente refletores-->
-    <!--Os restantes elementos ou difusos ou sem qualquer tipo de emissão de luz-->
     <materials>
-        <material id="sunMaterial" shininess="1">            <!--  EDIT ALL MATERIALS -->
+        <material id="sunMaterial" shininess="1">
             <emission r="0.0" g="0.0" b="0.0" a="1.0" />
             <ambient r="0.0" g="0.0" b="0.0" a="1.0" />
             <diffuse r="0.6" g="0.0" b="0.0" a="1.0" />
@@ -151,7 +147,6 @@
         </primitive>
 
         <!-- ASTEROID BELTS AND ORBITS -->
-
         <primitive id="kuiperBeltTorus">
             <torus inner="3" outer="100.0" slices="60" loops="2"/>
         </primitive>
@@ -197,7 +192,6 @@
         </primitive>
 
         <!-- BACKGROUND -->
-
         <primitive id="backgroundRectangle">
             <rectangle x1="0.0" x2="1.0" y1="0.0" y2="1.0"/>
         </primitive>
@@ -430,7 +424,6 @@
                 <material id="planetMaterial" />
             </materials>
             <texture id="neptuneTexture"/>
-            <!--??-->
             <children>
                 <componentref id="neptunePlanet" />
                 <componentref id="neptuneRings" />
@@ -443,7 +436,6 @@
             </transformation>
             <materials>
                 <material id="ringMaterial" />
-                <!--to be replaced with beltMaterial-->
             </materials>
             <texture id="beltTexture"/>
             <children>
@@ -457,7 +449,6 @@
             </transformation>
             <materials>
                 <material id="ringMaterial" />
-                <!--to be replaced with beltMaterial-->
             </materials>
             <texture id="beltTexture"/>
             <children>
@@ -486,7 +477,6 @@
         </component>
 
         <!-- BACKGROUND -->
-
         <component id="backgroundFrontRectangle">
             <transformation>
             </transformation>
