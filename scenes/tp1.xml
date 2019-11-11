@@ -94,8 +94,17 @@
         </transformation>
     </transformations>
 
-    <primitives>
+    <animations>
+        <animation id="test">
+            <keyframe instant="10.0">
+                <translate x="1.0" y="1.0" z="1.0" />
+                <rotate angle_x="1.0" angle_y="1.0" angle_z="1.0" />
+                <scale x="1.1" y="1.1" z="1.1" />
+            </keyframe>
+        </animation>
+    </animations>
 
+    <primitives>
         <!-- PLANETS AND SUN -->
         <primitive id="sunSphere">
             <sphere radius="7" slices="20" stacks="20"/>
@@ -203,6 +212,7 @@
         <component id="demoRoot">
             <transformation>
             </transformation>
+            <animationref id= "test"/>
             <materials>
                 <material id="sunMaterial" />
             </materials>
@@ -229,6 +239,7 @@
         <component id="sun">
             <transformation>
             </transformation>
+            <animationref id= "test"/>
             <materials>
                 <material id="sunMaterial" />
                 <material id="planetMaterial"/> <!-- for testing purposes-->
@@ -243,6 +254,7 @@
             <transformation>
                 <transformationref id="mercuryT"/>
             </transformation>
+            <animationref id= "test"/>
             <materials>
                 <material id="planetMaterial" />
             </materials>
@@ -257,6 +269,7 @@
                 <rotate axis="y" angle="270" />
                 <translate x="20" y="0" z="0" />
             </transformation>
+            <animationref id= "test"/>
             <materials>
                 <material id="planetMaterial" />
             </materials>
@@ -271,6 +284,7 @@
                 <rotate axis="y" angle="45" />
                 <translate x="30" y="0" z="0" />
             </transformation>
+            <animationref id= "test"/>
             <materials>
                 <material id="planetMaterial" />
             </materials>
@@ -285,6 +299,7 @@
                 <rotate axis="y" angle="45" />
                 <translate x="35" y="0" z="0" />
             </transformation>
+            <animationref id= "test"/>
             <materials>
                 <material id="planetMaterial" />
             </materials>
@@ -300,6 +315,7 @@
                 <rotate axis="z" angle="-45" />
                 <translate x="30" y="0" z="0" />
             </transformation>
+            <animationref id= "test"/>
             <materials>
                 <material id="ringMaterial" />
             </materials>
@@ -314,6 +330,7 @@
                 <rotate axis="y" angle="180" />
                 <translate x="40" y="0" z="0" />
             </transformation>
+            <animationref id= "test"/>
             <materials>
                 <material id="planetMaterial" />
             </materials>
@@ -328,6 +345,7 @@
                 <rotate axis="y" angle="315" />
                 <translate x="60" y="0" z="0" />
             </transformation>
+            <animationref id= "test"/>
             <materials>
                 <material id="planetMaterial" />
             </materials>
@@ -340,6 +358,7 @@
         <component id="saturnPlanet">
             <transformation>
             </transformation>
+            <animationref id= "test"/>
             <materials>
                 <material id="planetMaterial" />
             </materials>
@@ -353,6 +372,7 @@
             <transformation>
                 <rotate axis="x" angle="60" />
             </transformation>
+            <animationref id= "test"/>
             <materials>
                 <material id="ringMaterial" />
             </materials>
@@ -367,6 +387,7 @@
                 <rotate axis="y" angle="90" />
                 <translate x="70" y="0" z="0" />
             </transformation>
+            <animationref id= "test"/>
             <materials>
                 <material id="planetMaterial" />
             </materials>
@@ -382,6 +403,7 @@
                 <rotate axis="y" angle="225" />
                 <translate x="80" y="0" z="0" />
             </transformation>
+            <animationref id= "test"/>
             <materials>
                 <material id="planetMaterial" />
             </materials>
@@ -394,6 +416,7 @@
         <component id="neptunePlanet">
             <transformation>
             </transformation>
+            <animationref id= "test"/>
             <materials>
                 <material id="planetMaterial" />
             </materials>
@@ -407,6 +430,7 @@
             <transformation>
                 <rotate axis="x" angle="18" />
             </transformation>
+            <animationref id= "test"/>
             <materials>
                 <material id="ringMaterial" />
             </materials>
@@ -420,6 +444,7 @@
             <transformation>
                 <translate x="90" y="0" z="0" />
             </transformation>
+            <animationref id= "test"/>
             <materials>
                 <material id="planetMaterial" />
             </materials>
@@ -434,6 +459,7 @@
             <transformation>
                 <rotate axis="x" angle="90" />
             </transformation>
+            <animationref id= "test"/>
             <materials>
                 <material id="ringMaterial" />
             </materials>
@@ -447,6 +473,7 @@
             <transformation>
                 <rotate axis="x" angle="90" />
             </transformation>
+            <animationref id= "test"/>
             <materials>
                 <material id="ringMaterial" />
             </materials>
@@ -460,6 +487,7 @@
             <transformation>
                 <rotate angle="90" axis="x"/>
             </transformation>
+            <animationref id= "test"/>
             <materials>
                 <material id="ringMaterial" />
             </materials>
@@ -480,6 +508,7 @@
         <component id="backgroundFrontRectangle">
             <transformation>
             </transformation>
+            <animationref id= "test"/>
             <materials>
                 <material id="backgroundMaterial" />
             </materials>
@@ -494,6 +523,7 @@
                 <rotate axis="y" angle="-180"/>
                 <translate x="-1" y="0" z="-1"/>
             </transformation>
+            <animationref id= "test"/>
             <materials>
                 <material id="backgroundMaterial" />
             </materials>
@@ -508,6 +538,7 @@
                 <rotate axis="y" angle="-90"/>
                 <translate x="0" y="0" z="-1"/>
             </transformation>
+            <animationref id= "test"/>
             <materials>
                 <material id="backgroundMaterial" />
             </materials>
@@ -522,6 +553,7 @@
                 <rotate axis="y" angle="90"/>
                 <translate x="-1" y="0" z="0"/>
             </transformation>
+            <animationref id= "test"/>
             <materials>
                 <material id="backgroundMaterial" />
             </materials>
@@ -536,6 +568,7 @@
                 <rotate axis="x" angle="90"/>
                 <translate x="0" y="0" z="-1"/>
             </transformation>
+            <animationref id= "test"/>
             <materials>
                 <material id="backgroundMaterial" />
             </materials>
@@ -550,6 +583,7 @@
                 <rotate axis="x" angle="-90"/>
                 <translate x="0" y="-1" z="0"/>
             </transformation>
+            <animationref id= "test"/>
             <materials>
                 <material id="backgroundMaterial" />
             </materials>
@@ -564,6 +598,7 @@
                 <scale x="300" y="300" z="300"/>
                 <translate x="-0.5" y="-0.5" z="-0.5"/>
             </transformation>
+            <animationref id= "test"/>
             <materials>
                 <material id="backgroundMaterial" />
             </materials>
