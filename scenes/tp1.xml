@@ -96,6 +96,10 @@
 
     <primitives>
 
+        <primitive id ="planeC">
+            <plane npartsU ="10" npartsV="10"/>
+        </primitive>
+
         <!-- PLANETS AND SUN -->
         <primitive id="sunSphere">
             <sphere radius="7" slices="20" stacks="20"/>
@@ -208,7 +212,8 @@
             </materials>
             <texture id="backgroundTexture" />
             <children>
-                <componentref id="sun" />
+                <!--<componentref id="sun" /> -->
+                <componentref id="ggplane"/>
                 <componentref id="mercury" />
                 <componentref id="venus" />
                 <componentref id="earth" />
@@ -225,6 +230,19 @@
                 <componentref id="backgroundCube" />
             </children>
         </component> 
+
+        <component id="ggplane">
+            <transformation>
+            </transformation>
+            <materials>
+                <material id="sunMaterial" />
+                <material id="planetMaterial"/> <!-- for testing purposes-->
+            </materials>
+            <texture id="sunTexture" />
+            <children>
+                <primitiveref id="planeC" />
+            </children>
+        </component>
 
         <component id="sun">
             <transformation>
