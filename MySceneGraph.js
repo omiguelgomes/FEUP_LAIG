@@ -1227,9 +1227,6 @@ class MySceneGraph {
                 this.nodes[componentID].pushChild(childrenId);
             }
         }
-
-        this.onXMLMinorError("TODO: change lights and light tint");
-        this.onXMLMinorError("TODO: edit all materials properties");
     }
 
     /**
