@@ -96,6 +96,7 @@
 
     <primitives>
 
+        <!-- New primitives -->
         <primitive id ="planeC">
             <plane npartsU ="10" npartsV="10"/>
         </primitive>
@@ -212,7 +213,7 @@
             </materials>
             <texture id="backgroundTexture" />
             <children>
-                <!--<componentref id="sun" /> -->
+                <componentref id="sun" /> 
                 <componentref id="ggplane"/>
                 <componentref id="mercury" />
                 <componentref id="venus" />
@@ -233,6 +234,7 @@
 
         <component id="ggplane">
             <transformation>
+                <translate x="15" y="0" z="0" />
             </transformation>
             <materials>
                 <material id="sunMaterial" />

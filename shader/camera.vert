@@ -16,6 +16,6 @@ void main() {
 	vertex.y *= 0.5;
 	vertex.y += -1.0;
 
-	gl_Position = vec4(vertex, 1.0);
+	gl_Position =  vec4(vertex, 1.0);
 	vTextureCoord = aTextureCoord;
 }

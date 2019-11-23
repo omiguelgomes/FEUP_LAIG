@@ -12,6 +12,10 @@ class MySecurityCamera extends CGFobject
         this.shader.setUniformsValues({ uSampler: 0 });
     }
 
+    updateLines(t){
+        this.shader.setUniformsValues({ time: t / 100 % 1000});
+    }
+
     display()
     {
         this.scene.setActiveShader(this.shader);

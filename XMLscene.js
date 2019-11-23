@@ -116,12 +116,16 @@ class XMLscene extends CGFscene {
         this.sceneInitiated = true;
     }
 
-    update() {
+    update(t) {
         this.checkKeys();
         if (this.sceneInitiated) {
             this.updateCameras();
             this.updateLights();
         }
+
+        let time = t;
+        //time = time / 100 % 1000;
+        this.cameraObject.updateLines(time);
     }
 
     updateCameras() {
@@ -166,7 +170,7 @@ class XMLscene extends CGFscene {
         this.applyViewMatrix();
 
         this.pushMatrix();
-        this.axis.display();
+        //this.axis.display();
 
         for (var i = 0; i < this.lights.length; i++) {
             this.lights[i].setVisible(true);
