@@ -112,12 +112,20 @@ class XMLscene extends CGFscene {
         this.sceneInitiated = true;
     }
 
-    update() {
+    update(t) {
         this.checkKeys();
         if (this.sceneInitiated) {
             this.updateCameras();
             this.updateLights();
         }
+        this.updateAnimation(t);
+    }
+
+    updateAnimation(t) {
+        for (var i = 0; i < this.graph.nodes.length; i++) {
+            this.graph.animations["test"].update(); //keyframeanimation
+        }
+
     }
 
     updateCameras() {

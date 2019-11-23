@@ -83,6 +83,7 @@ class MySceneGraph {
         for (var i = 0; i < nodes.length; i++) {
             nodeNames.push(nodes[i].nodeName);
         }
+
         var error;
 
         // Processes each node, verifying errors.
@@ -98,7 +99,6 @@ class MySceneGraph {
             if ((error = this.parseScene(nodes[index])) != null)
                 return error;
         }
-
         // <views>
         if ((index = nodeNames.indexOf("views")) == -1)
             return "tag <views> missing";
@@ -753,6 +753,7 @@ class MySceneGraph {
                         return coordinates;
 
                     transfMatrix = mat4.translate(transfMatrix, transfMatrix, coordinates);
+
                     break;
                 case 'scale':
                     var scalingAux = this.parseCoordinates3D(grandChildren[j], "translate transformation for ID " + transformationID);
@@ -841,65 +842,68 @@ class MySceneGraph {
      * @param {ID of animation} animationID 
      */
     parseAnimation(grandChildren, animationID) {
-        var translateMatrix = mat4.create();
-        var scaleMatrix = mat4.create();
-        var rotateMatrix = mat4.create();
+        var keyFrames = [];
+        var instant;
 
-        var keyFrame = this.reader.getString(grandChildren[0], 'instant');
 
-        var grandGrandChildren = grandChildren[0].children;
+        for (var i = 0; i < grandChildren.length; i++) {
+            var values = [];
+            var rValues = [];
+            var sValues = [];
+            var tValues = [];
 
-        for (var j = 0; j < grandGrandChildren.length; j++) {
-            if (grandGrandChildren[j].nodeName == 'translate') {
-                var coordinates = this.parseCoordinates3D(grandGrandChildren[j], "translate animation for ID " + animationID);
-                if (!Array.isArray(coordinates))
-                    return coordinates;
+            var grandGrandChildren = grandChildren[i].children;
+            instant = this.reader.getString(grandChildren[i], 'instant');
 
-                translateMatrix = mat4.translate(translateMatrix, translateMatrix, coordinates);
+            if (grandGrandChildren[0].nodeName == 'translate') {
+                tValues[0] = this.reader.getFloat(grandGrandChildren[0], 'x');
+                tValues[1] = this.reader.getFloat(grandGrandChildren[0], 'y');
+                tValues[2] = this.reader.getFloat(grandGrandChildren[0], 'z');
+
+                values.push(tValues);
             }
-            if (grandGrandChildren[j].nodeName == 'scale') {
-                var scalingAux = this.parseCoordinates3D(grandGrandChildren[j], "translate animation for ID " + animationID);
-                if (!Array.isArray(scalingAux))
-                    return scalingAux;
-                scaleMatrix = mat4.scale(scaleMatrix, scaleMatrix, coordinates);
-            }
-            if (grandGrandChildren[j].nodeName == 'rotate') {
-                var angleX = this.reader.getFloat(grandGrandChildren[j], 'angle_x');
+
+            if (grandGrandChildren[1].nodeName == 'rotate') {
+                var angleX = this.reader.getFloat(grandGrandChildren[1], 'angle_x');
                 if (!(angleX != null && !isNaN(angleX))) {
                     this.onXMLError("unable to parse angleX of rotation of" + animationID);
                     break;
                 }
 
-                var angleY = this.reader.getFloat(grandGrandChildren[j], 'angle_y');
+                var angleY = this.reader.getFloat(grandGrandChildren[1], 'angle_y');
                 if (!(angleY != null && !isNaN(angleY))) {
                     this.onXMLError("unable to parse angleY of rotation of" + animationID);
                     break;
                 }
 
-                var angleZ = this.reader.getFloat(grandGrandChildren[j], 'angle_z');
+                var angleZ = this.reader.getFloat(grandGrandChildren[1], 'angle_z');
                 if (!(angleZ != null && !isNaN(angleZ))) {
                     this.onXMLError("unable to parse angleZ of rotation of" + animationID);
                     break;
                 }
 
-                angleX = angleX * DEGREE_TO_RAD;
-                angleY = angleY * DEGREE_TO_RAD;
-                angleZ = angleZ * DEGREE_TO_RAD;
+                rValues[0] = angleX * DEGREE_TO_RAD;
+                rValues[1] = angleY * DEGREE_TO_RAD;
+                rValues[2] = angleZ * DEGREE_TO_RAD;
 
-                var axisVX, axisVY, axisVZ;
-
-                axisVX = vec3.fromValues(1, 0, 0);
-                axisVY = vec3.fromValues(0, 1, 0);
-                axisVZ = vec3.fromValues(0, 0, 1);
-
-                rotateMatrix = mat4.rotate(rotateMatrix, rotateMatrix, angleX, axisVX);
-                rotateMatrix = mat4.rotate(rotateMatrix, rotateMatrix, angleY, axisVY);
-                rotateMatrix = mat4.rotate(rotateMatrix, rotateMatrix, angleZ, axisVZ);
+                values.push(rValues);
 
             }
+
+            if (grandGrandChildren[2].nodeName == 'scale') {
+
+                sValues[0] = this.reader.getFloat(grandGrandChildren[2], 'x');
+                sValues[1] = this.reader.getFloat(grandGrandChildren[2], 'y');
+                sValues[2] = this.reader.getFloat(grandGrandChildren[2], 'z');
+
+                values.push(sValues);
+
+            }
+            keyFrames[i] = [instant, values];
         }
-        var matrices = [keyFrame, translateMatrix, scaleMatrix, rotateMatrix];
-        return matrices;
+        var animation = new MyKeyFrameAnimation(this.scene, animationID, keyFrames);
+
+        return animation;
     }
 
     /**
@@ -907,7 +911,7 @@ class MySceneGraph {
      * @param {animations block element} animationsNode
      */
     parseAnimations(animationsNode) {
-        var children = animationsNode.children;
+        var children = animationsNode.children; //each element is an animation
 
         this.animations = [];
 
@@ -920,7 +924,6 @@ class MySceneGraph {
                 this.onXMLMinorError("unknown tag <" + children[i].nodeName + ">");
                 continue;
             }
-
             // Get id of the current animations.
             var animationID = this.reader.getString(children[i], 'id');
             if (animationID == null)
@@ -930,11 +933,10 @@ class MySceneGraph {
             if (this.animations[animationID] != null)
                 return "ID must be unique for each animation (conflict: ID = " + animationID + ")";
 
-            grandChildren = children[i].children; //keyframe
+            grandChildren = children[i].children; //list of all animations, temp
 
             this.animations[animationID] = this.parseAnimation(grandChildren, animationID);
         }
-
         this.log("Parsed animations");
         return null;
     }
@@ -1126,9 +1128,6 @@ class MySceneGraph {
 
             var transformationIndex = nodeNames.indexOf("transformation");
             var animationIndex = nodeNames.indexOf("animationref");
-            if (animationIndex == -1) {
-                animationIndex = nodeNames.indexOf("animations");
-            }
             var materialsIndex = nodeNames.indexOf("materials");
             var textureIndex = nodeNames.indexOf("texture");
             var childrenIndex = nodeNames.indexOf("children");
@@ -1190,8 +1189,18 @@ class MySceneGraph {
             }
 
             //Animations
-            var anims = grandChildren[animationIndex];
-            //parses correctly, needs to access info and update
+
+            var anims = [];
+
+            if (animationIndex != -1) {
+                grandChildren = children[i].children;
+
+                var grandGrandChildren = grandChildren[animationIndex];
+                var animID = this.reader.getString(grandGrandChildren, 'id');
+                anims.push(animID);
+            }
+
+            this.nodes[componentID].animations = anims;
 
             // Materials
             if (materialsIndex == -1) {
@@ -1340,11 +1349,12 @@ class MySceneGraph {
         console.log("   " + message);
     }
 
-    processNode(nodeID, mat, tex) {
+    processNode(nodeID, mat, tex, anim) {
         var node = this.nodes[nodeID];
         var child = node.children;
         var mats = mat;
         var texId = tex;
+
 
         if (node.textureID != "inherit") {
             texId = node.textureID;
@@ -1352,6 +1362,11 @@ class MySceneGraph {
 
         if (node.materials[0] != "inherit") {
             mats = node.materials;
+        }
+
+        //animation
+        if (node.animations.length == 1) { //acho que e suposto ter so uma
+            this.animations[node.animations[0]].update();
         }
 
         //scene transformations
@@ -1368,21 +1383,24 @@ class MySceneGraph {
             if (this.primitives[childID] != null) {
                 currentMaterial.apply();
                 currentTexture.bind();
-                this.scene.pushMatrix();
+
                 this.primitives[child[i]].display();
-                this.scene.popMatrix();
+
             } else {
                 this.scene.pushMatrix();
-                this.processNode(child[i], mats, texId);
+
+                this.processNode(child[i], mats, texId, anim);
+
                 this.scene.popMatrix();
             }
         }
+
     }
 
     /**
      * Displays the scene, processing each node, starting in the root node.
      */
     displayScene() {
-        this.processNode(this.idRoot, this.nodes[this.idRoot].materials, this.nodes[this.idRoot].textureId);
+        this.processNode(this.idRoot, this.nodes[this.idRoot].materials, this.nodes[this.idRoot].textureId, this.nodes[this.idRoot].animations);
     }
 }
