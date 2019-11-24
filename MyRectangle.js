@@ -6,7 +6,7 @@
  * @param y - Scale of rectangle in Y
  */
 class MyRectangle extends CGFobject {
-	constructor(scene, id, x1, x2, y1, y2) {
+	constructor(scene, x1, x2, y1, y2) {
 		super(scene);
 		this.x1 = x1;
 		this.x2 = x2;
@@ -38,16 +38,6 @@ class MyRectangle extends CGFobject {
 			0, 0, 1
 		];
 		
-		/*
-		Texture coords (s,t)
-		+----------> s
-        |
-        |
-		|
-		v
-        t
-        */
-
 		this.texCoords = [
 			0, 1,
 			1, 1,

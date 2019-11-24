@@ -38,6 +38,10 @@ class XMLscene extends CGFscene {
         this.setUpdatePeriod(100);
 
         this.matCounter = 0;
+
+        //secCam
+        this.cameraObject = new MySecurityCamera(this);
+        this.cameraTexture = new CGFtextureRTT(this,  this.gl.canvas.width, this.gl.canvas.height);
     }
 
     /**
@@ -118,6 +122,12 @@ class XMLscene extends CGFscene {
             this.updateCameras();
             this.updateLights();
         }
+
+        //lines in secCam
+        let time = t;
+        //time = time / 100 % 1000;
+        this.cameraObject.updateLines(time);
+        
         this.updateAnimation(t);
     }
 
@@ -125,7 +135,6 @@ class XMLscene extends CGFscene {
         for (var i = 0; i < this.graph.nodes.length; i++) {
             this.graph.animations["test"].update(); //keyframeanimation
         }
-
     }
 
     updateCameras() {
@@ -154,7 +163,8 @@ class XMLscene extends CGFscene {
         }
     }
 
-    display() {
+    render()
+    {
         // ---- BEGIN Background, camera and axis setup
 
         // Clear image and depth buffer everytime we update the scene
@@ -169,7 +179,7 @@ class XMLscene extends CGFscene {
         this.applyViewMatrix();
 
         this.pushMatrix();
-        this.axis.display();
+        //this.axis.display();
 
         for (var i = 0; i < this.lights.length; i++) {
             this.lights[i].setVisible(true);
@@ -185,6 +195,22 @@ class XMLscene extends CGFscene {
         }
 
         this.popMatrix();
+    }
+
+    display() {
+        
+        this.render();
+
+        this.cameraTexture.attachToFrameBuffer();
+        this.render();
+        this.cameraTexture.detachFromFrameBuffer();
+
+        this.gl.disable(this.gl.DEPTH_TEST);
+        this.cameraObject.display();
+        this.gl.enable(this.gl.DEPTH_TEST); 
+        
+        this.setActiveShader(this.defaultShader);
+
         // ---- END Background, camera and axis setup
     }
 }
