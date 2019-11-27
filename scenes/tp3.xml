@@ -1,0 +1,474 @@
+<lxs>
+    <scene root="demoRoot" axis_length="5"/>
+
+    <views default="defaultCamera">
+        <perspective id="defaultCamera" near="0.1" far="500" angle="45">
+            <from x="100" y="100" z="100" />
+            <to x="0" y="0" z="0" />
+        </perspective>
+
+        <perspective id="sunCamera" near="0.1" far="500" angle="45">
+            <from x="20" y="10" z="20" />
+            <to x="0" y="0" z="0" />
+        </perspective>
+
+        <perspective id="earthCamera" near="0.1" far="500" angle="45">
+            <from x="35" y="8" z="-20" />
+            <to x="20" y="0" z="-20" />
+        </perspective>
+    </views>
+
+    <ambient>
+        <ambient r="1.0" g="1.0" b="1.0" a="1.0" />
+        <background r="0.5" g="0.5" b="0.5" a="1.0" />
+    </ambient>
+
+    <lights>
+        <omni id="demoLight" enabled="1">
+            <location x="25" y="25" z="25" w="1.0" />
+            <ambient r="1.0" g="1.0" b="1.0" a="1.0" />
+            <diffuse r="1.0" g="1.0" b="1.0" a="1.0" />
+            <specular r="1.0" g="1.0" b="1.0" a="1.0" />
+        </omni>
+
+        <omni id="secondLight" enabled="0">
+            <location x="30" y="30" z="30" w="1.0" />
+            <ambient r="1" g="1" b="1" a="1.0" />
+            <diffuse r="0.0" g="0.0" b="0.0" a="1.0" />
+            <specular r="0.0" g="0.0" b="0.0" a="1.0" />
+        </omni>
+    </lights>
+
+    <textures>
+        <texture id="backgroundTexture" file="img/backgroundTexture.jpg" />
+        <texture id="leftBackgroundTexture" file="img/leftBackgroundTexture.jpg" />
+        <texture id="cuboidTexture" file="img/cuboidTexture.jpg" />
+    </textures>
+
+    <materials>
+        <material id="planetMaterial" shininess="1">
+            <emission r="0.0" g="0.0" b="0.0" a="0.0" />
+            <ambient r="0.0" g="0.0" b="0.0" a="1.0" />
+            <diffuse r="0.6" g="0.0" b="0.0" a="1.0" />
+            <specular r="0.6" g="0.0" b="0.0" a="1.0" />
+        </material>
+
+        <material id="backgroundMaterial" shininess="1">
+            <emission r="0.0" g="0.0" b="0.0" a="0.0" />
+            <ambient r="0.0" g="0.0" b="0.0" a="1.0" />
+            <diffuse r="0.0" g="0.0" b="0.0" a="1.0" />
+            <specular r="0.0" g="0.0" b="0.0" a="1.0" />
+        </material>
+
+        <material id="beltMaterial" shininess="1">
+            <emission r="0.0" g="0.0" b="0.0" a="1.0" />
+            <ambient r="1.0" g="0.0" b="0.0" a="1.0" />
+            <diffuse r="0.6" g="0.0" b="0.0" a="1.0" />
+            <specular r="0.6" g="0.0" b="0.0" a="1.0" />
+        </material>
+
+        <material id="cuboidMaterial" shininess="1">
+            <emission r="0.0" g="0.0" b="0.0" a="1.0" />
+            <ambient r="1.0" g="0.0" b="0.0" a="1.0" />
+            <diffuse r="0.6" g="0.0" b="0.0" a="1.0" />
+            <specular r="0.6" g="0.0" b="0.0" a="1.0" />
+        </material>
+
+    </materials>
+
+    <transformations>
+        <transformation id="mercuryT">
+            <translate x="10" y="0" z="0" />
+        </transformation>
+    </transformations>
+
+    <animations>
+        <animation id="test">
+            <keyframe instant="10.0">
+                <translate x="20.0" y="0.0" z="0.0" />
+                <rotate angle_x="0.0" angle_y="120.0" angle_z="0.0" />
+                <scale x="1.5" y="1.5" z="1.5" />
+            </keyframe>
+            <keyframe instant="20.0">
+                <translate x="60.0" y="0.0" z="0.0" />
+                <rotate angle_x="0.0" angle_y="240.0" angle_z="0.0" />
+                <scale x="0.5" y="0.5" z="0.5" />
+            </keyframe>
+            <keyframe instant="30.0">
+                <translate x="0.0" y="0.0" z="0.0" />
+                <rotate angle_x="0.0" angle_y="360.0" angle_z="0.0" />
+                <scale x="1.0" y="1.0" z="1.0" />
+            </keyframe>
+        </animation>
+
+        <animation id="orbit">
+            <keyframe instant="10.0">
+                <translate x="0.0" y="0.0" z="0.0" />
+                <rotate angle_x="0.0" angle_y="720.0" angle_z="0.0" />
+                <scale x="1.0" y="1.0" z="1.0" />
+            </keyframe>
+        </animation>
+    </animations>
+
+    <primitives>
+        
+        <!-- BACKGROUND -->
+        <primitive id="backgroundRectangle">
+            <rectangle x1="0.0" x2="1.0" y1="0.0" y2="1.0"/>
+        </primitive>
+
+        <!-- CUBOID -->
+        <primitive id="cuboidRectangle">
+            <rectangle x1="0.0" x2="1.0" y1="0.0" y2="1.0"/>
+        </primitive>
+
+    </primitives>
+
+    <components>
+
+        <component id="demoRoot">
+            <transformation>
+            </transformation>
+            <animation>
+            </animation>
+            <materials>
+                <material id="planetMaterial" />
+            </materials>
+            <texture id="backgroundTexture" />
+            <children>
+                <componentref id="backgroundCube" />
+                <componentref id="table" />
+            </children>
+        </component> 
+
+
+        <!-- BACKGROUND -->
+        <component id="backgroundFrontRectangle">
+            <transformation>
+            </transformation>
+            <animation>
+            </animation>
+            <materials>
+                <material id="backgroundMaterial" />
+            </materials>
+            <texture id="backgroundTexture"/>
+            <children>
+                <primitiveref id="backgroundRectangle" />
+            </children>
+        </component>
+
+        <component id="backgroundBackRectangle">
+            <transformation>
+                <rotate axis="y" angle="-180"/>
+                <translate x="-1" y="0" z="-1"/>
+            </transformation>
+            <animation>
+            </animation>
+            <materials>
+                <material id="backgroundMaterial" />
+            </materials>
+            <texture id="backgroundTexture"/>
+            <children>
+                <primitiveref id="backgroundRectangle" />
+            </children>
+        </component>
+
+        <component id="backgroundRightRectangle">
+            <transformation>
+                <rotate axis="y" angle="-90"/>
+                <translate x="0" y="0" z="-1"/>
+            </transformation>
+            <animation>
+            </animation>
+            <materials>
+                <material id="backgroundMaterial" />
+            </materials>
+            <texture id="backgroundTexture"/>
+            <children>
+                <primitiveref id="backgroundRectangle" />
+            </children>
+        </component>
+
+        <component id="backgroundLeftRectangle">
+            <transformation>
+                <rotate axis="y" angle="90"/>
+                <translate x="-1" y="0" z="0"/>
+            </transformation>
+            <animation>
+            </animation>
+            <materials>
+                <material id="backgroundMaterial" />
+            </materials>
+            <texture id="backgroundTexture"/>
+            <children>
+                <primitiveref id="backgroundRectangle" />
+            </children>
+        </component>
+
+        <component id="backgroundTopRectangle">
+            <transformation>
+                <rotate axis="x" angle="90"/>
+                <translate x="0" y="0" z="-1"/>
+            </transformation>
+            <animation>
+            </animation>
+            <materials>
+                <material id="backgroundMaterial" />
+            </materials>
+            <texture id="backgroundTexture"/>
+            <children>
+                <primitiveref id="backgroundRectangle" />
+            </children>
+        </component>
+
+        <component id="backgroundBottomRectangle">
+            <transformation>
+                <rotate axis="x" angle="-90"/>
+                <translate x="0" y="-1" z="0"/>
+            </transformation>
+            <animation>
+            </animation>
+            <materials>
+                <material id="backgroundMaterial" />
+            </materials>
+            <texture id="cuboidTexture"/>
+            <children>
+                <primitiveref id="backgroundRectangle" />
+            </children>
+        </component>
+
+        <component id="backgroundCube">
+            <transformation>
+                <scale x="30" y="30" z="30"/>
+            </transformation>
+            <animation>
+            </animation>
+            <materials>
+                <material id="backgroundMaterial" />
+            </materials>
+            <texture id="backgroundTexture"/>
+            <children>
+                <primitiveref id="backgroundFrontRectangle" />
+                <primitiveref id="backgroundBackRectangle" />
+                <primitiveref id="backgroundLeftRectangle" />
+                <primitiveref id="backgroundRightRectangle" />
+                <primitiveref id="backgroundTopRectangle" />
+                <primitiveref id="backgroundBottomRectangle" />
+            </children>
+        </component>
+
+        <!-- CUBOID -->
+
+        <component id="cuboidFrontRectangle">
+            <transformation>
+                <translate x="0" y="0" z="1"/>
+            </transformation>
+            <animation>
+            </animation>
+            <materials>
+                <material id="cuboidMaterial" />
+            </materials>
+            <texture id="cuboidTexture"/>
+            <children>
+                <primitiveref id="cuboidRectangle" />
+            </children>
+        </component>
+
+        <component id="cuboidBackRectangle">
+            <transformation>
+                <rotate axis="y" angle="-180"/>
+                <translate x="-1" y="0" z="0"/>
+            </transformation>
+            <animation>
+            </animation>
+            <materials>
+                <material id="cuboidMaterial" />
+            </materials>
+            <texture id="cuboidTexture"/>
+            <children>
+                <primitiveref id="cuboidRectangle" />
+            </children>
+        </component>
+
+        <component id="cuboidLeftRectangle">
+            <transformation>
+                <rotate axis="y" angle="-90"/>
+            </transformation>
+            <animation>
+            </animation>
+            <materials>
+                <material id="cuboidMaterial" />
+            </materials>
+            <texture id="cuboidTexture"/>
+            <children>
+                <primitiveref id="cuboidRectangle" />
+            </children>
+        </component>
+
+        <component id="cuboidRightRectangle">
+            <transformation>
+                <rotate axis="y" angle="90"/>
+                <translate x="-1" y="0" z="1"/>
+            </transformation>
+            <animation>
+            </animation>
+            <materials>
+                <material id="cuboidMaterial" />
+            </materials>
+            <texture id="cuboidTexture"/>
+            <children>
+                <primitiveref id="cuboidRectangle" />
+            </children>
+        </component>
+
+        <component id="cuboidBottomRectangle">
+            <transformation>
+                <rotate axis="x" angle="90"/>
+            </transformation>
+            <animation>
+            </animation>
+            <materials>
+                <material id="cuboidMaterial" />
+            </materials>
+            <texture id="cuboidTexture"/>
+            <children>
+                <primitiveref id="cuboidRectangle" />
+            </children>
+        </component>
+
+        <component id="cuboidTopRectangle">
+            <transformation>
+                <rotate axis="x" angle="-90"/>
+                <translate x="0" y="-1" z="1"/>
+            </transformation>
+            <animation>
+            </animation>
+            <materials>
+                <material id="cuboidMaterial" />
+            </materials>
+            <texture id="cuboidTexture"/>
+            <children>
+                <primitiveref id="cuboidRectangle" />
+            </children>
+        </component>
+
+        <component id="cuboid">
+            <transformation>
+                <translate x="-0.5" y="-0.5" z="-0.5"/>
+            </transformation>
+            <animation>
+            </animation>
+            <materials>
+                <material id="cuboidMaterial" />
+            </materials>
+            <texture id="cuboidTexture"/>
+            <children>
+                <primitiveref id="cuboidFrontRectangle" />
+                <primitiveref id="cuboidBackRectangle" />
+                <primitiveref id="cuboidLeftRectangle" />
+                <primitiveref id="cuboidRightRectangle" />
+                <primitiveref id="cuboidTopRectangle" />
+                <primitiveref id="cuboidBottomRectangle" />
+            </children>
+        </component>
+
+
+        <!-- TABLE -->
+
+
+        <component id="table">
+            <transformation>
+                <translate x="2" y="2" z="2"/>
+            </transformation>
+            <animation>
+            </animation>
+            <materials>
+                <material id="cuboidMaterial" />
+            </materials>
+            <texture id="cuboidTexture"/>
+            <children>
+                <primitiveref id="tableTop"/>
+                <primitiveref id="tableLeg"/>
+                <primitiveref id="tableLeg1"/>
+                <primitiveref id="tableLeg2"/>
+                <primitiveref id="tableLeg3"/>
+            </children>
+        </component>
+
+        <component id="tableLeg">
+            <transformation>
+                <scale x="1" y="4" z="1"/>
+            </transformation>
+            <animation>
+            </animation>
+            <materials>
+                <material id="cuboidMaterial" />
+            </materials>
+            <texture id="cuboidTexture"/>
+            <children>
+                <primitiveref id="cuboid"/>
+            </children>
+        </component>
+
+        <component id="tableLeg1">
+            <transformation>
+                <translate x="5.0" y="0.0" z="0.0"/>
+            </transformation>
+            <animation>
+            </animation>
+            <materials>
+                <material id="cuboidMaterial" />
+            </materials>
+            <texture id="cuboidTexture"/>
+            <children>
+                <primitiveref id="tableLeg"/>
+            </children>
+        </component>
+
+        <component id="tableLeg2">
+            <transformation>
+                <translate x="5.0" y="0.0" z="10.0"/>
+            </transformation>
+            <animation>
+            </animation>
+            <materials>
+                <material id="cuboidMaterial" />
+            </materials>
+            <texture id="cuboidTexture"/>
+            <children>
+                <primitiveref id="tableLeg"/>
+            </children>
+        </component>
+
+        <component id="tableLeg3">
+            <transformation>
+                <translate x="0.0" y="0.0" z="10.0"/>
+            </transformation>
+            <animation>
+            </animation>
+            <materials>
+                <material id="cuboidMaterial" />
+            </materials>
+            <texture id="cuboidTexture"/>
+            <children>
+                <primitiveref id="tableLeg"/>
+            </children>
+        </component>
+
+        <component id="tableTop">
+            <transformation>
+                <scale x="8" y="1" z="12"/>
+                <translate x="0.3" y="2.0" z="0.4"/>
+            </transformation>
+            <animation>
+            </animation>
+            <materials>
+                <material id="cuboidMaterial" />
+            </materials>
+            <texture id="cuboidTexture"/>
+            <children>
+                <primitiveref id="cuboid"/>
+            </children>
+        </component>
+    </components>
+</lxs>
