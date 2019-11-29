@@ -976,8 +976,8 @@ class MySceneGraph {
             if (grandChildren.length != 1 ||
                 (grandChildren[0].nodeName != 'rectangle' && grandChildren[0].nodeName != 'triangle' &&
                     grandChildren[0].nodeName != 'cylinder' && grandChildren[0].nodeName != 'sphere' &&
-                    grandChildren[0].nodeName != 'torus' && grandChildren[0].nodeName != 'plane' 
-                    && grandChildren[0].nodeName != 'patch' && grandChildren[0].nodeName != 'cylinder2')) {
+                    grandChildren[0].nodeName != 'torus' && grandChildren[0].nodeName != 'plane' &&
+                    grandChildren[0].nodeName != 'patch' && grandChildren[0].nodeName != 'cylinder2')) {
                 console.log(children);
                 return "There must be exactly 1 primitive type (rectangle, triangle, cylinder, sphere or torus)"
             }
@@ -1089,7 +1089,7 @@ class MySceneGraph {
             }
 
             if (primitiveType == 'plane') { //plane
-                
+
                 // U divisions
                 var uDivs = this.reader.getFloat(grandChildren[0], 'npartsU');
                 if (!(uDivs != null && !isNaN(uDivs)) || uDivs % 1 != 0)
@@ -1105,35 +1105,29 @@ class MySceneGraph {
                 this.primitives[primitiveId] = plane;
             }
 
-            if(primitiveType == 'patch')
-            {
+            if (primitiveType == 'patch') {
                 this.primitives[primitiveId] = parsePatch(grandChildren[0]);
             }
 
-            if(primitiveType == 'cylinder2')
-            {
-                var baseRadius = this.reader.getFloat(cylinder2Node, 'base');
-                if (!(baseRadius != null && !isNaN(baseRadius))) 
-                {
-                baseRadius = 1;
-                this.onXMLMinorError("unable to parse value for base plane; assuming 'base = 1'");
+            if (primitiveType == 'cylinder2') {
+                var baseRadius = this.reader.getFloat(cylinder2, 'base');
+                if (!(baseRadius != null && !isNaN(baseRadius))) {
+                    baseRadius = 1;
+                    this.onXMLMinorError("unable to parse value for base plane; assuming 'base = 1'");
                 }
 
-                if(baseRadius <= 0)
-                {
-                baseRadius = 1;
-                this.onXMLMinorError("base radius can't be equal to or lower than 0, assuming 'base = 1'");
+                if (baseRadius <= 0) {
+                    baseRadius = 1;
+                    this.onXMLMinorError("base radius can't be equal to or lower than 0, assuming 'base = 1'");
                 }
-                
+
                 var topRadius = this.reader.getFloat(cylinder2Node, 'top');
-                if (!(topRadius != null && !isNaN(topRadius))) 
-                {
+                if (!(topRadius != null && !isNaN(topRadius))) {
                     topRadius = 1;
                     this.onXMLMinorError("unable to parse value for top plane; assuming 'top = 1'");
                 }
 
-                if(topRadius <= 0) 
-                {
+                if (topRadius <= 0) {
                     topRadius = 1;
                     this.onXMLMinorError("top can't be equal to or lower than 0, assuming 'top = 1'");
                 }
@@ -1180,22 +1174,22 @@ class MySceneGraph {
         return null;
     }
 
-    parsePatch(patchNode){
+    parsePatch(patchNode) {
         var children = patchNode.children;
 
         var uPoints = this.reader.getFloat(patchNode, 'npointsU');
-        if (!(uPoints != null && !isNaN(uPoints))) 
+        if (!(uPoints != null && !isNaN(uPoints)))
             this.onXMLError("unable to parse value for nPointsU plane");
-        if(uPoints < 1 || uPoints % 1 != 0)
+        if (uPoints < 1 || uPoints % 1 != 0)
             this.onXMLError("nPointsU can't be 0 or floats");
 
         var vPoints = this.reader.getFloat(patchNode, 'npointsV');
         if (!(vPoints != null && !isNaN(vPoints)))
             this.onXMLError("unable to parse value for nPointsV plane");
-        if(vPoints < 1 || vPoints % 1 != 0)
+        if (vPoints < 1 || vPoints % 1 != 0)
             this.onXMLError("nPointsV can't be 0 or floats");
 
-        if(children.length != uPoints*vPoints)
+        if (children.length != uPoints * vPoints)
             this.onXMLError("nPointsV can't be 0 or floats");
 
         var uDivs = this.reader.getFloat(patchNode, 'npartsU');
@@ -1203,7 +1197,7 @@ class MySceneGraph {
             uDivs = 5;
             this.onXMLMinorError("unable to parse value for nPartsU plane; assuming 'nPartsU = 5'");
         }
-        if(uDivs < 1 || uDivs % 1 != 0) {
+        if (uDivs < 1 || uDivs % 1 != 0) {
             uDivs = 5;
             this.onXMLMinorError("nPartsU can't be 0 or floats, assuming 'nPartsU = 5'");
         }
@@ -1213,7 +1207,7 @@ class MySceneGraph {
             vParts = 5;
             this.onXMLMinorError("unable to parse value for nPartsV plane; assuming 'nPartsV = 5'");
         }
-        if(vParts < 1 || vParts % 1 != 0) {
+        if (vParts < 1 || vParts % 1 != 0) {
             vParts = 5;
             this.onXMLMinorError("nPartsV can't be 0 or floats, assuming 'nPartsV = 5'");
         }
@@ -1226,7 +1220,7 @@ class MySceneGraph {
                 xx = 10;
                 this.onXMLMinorError("unable to parse value for xx plane; assuming 'xx = 10'");
             }
-            
+
             var yy = this.reader.getFloat(children[i], 'yy');
             if (!(yy != null && !isNaN(yy))) {
                 yy = 10;
