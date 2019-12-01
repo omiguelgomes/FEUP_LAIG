@@ -900,6 +900,7 @@ class MySceneGraph {
 
             }
             keyFrames[i] = [instant, values];
+            //values = [matrixTransl, matrixRotate, matrixScale]
         }
         var animation = new MyKeyFrameAnimation(this.scene, animationID, keyFrames);
 
@@ -1514,7 +1515,7 @@ class MySceneGraph {
         }
 
         //animation
-        if (node.animations.length == 1) { //acho que e suposto ter so uma
+        if (node.animations.length == 1) { //each component has only 1 animation
             this.animations[node.animations[0]].update();
         }
 
