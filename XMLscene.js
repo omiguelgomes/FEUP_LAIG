@@ -45,7 +45,7 @@ class XMLscene extends CGFscene {
 
         //aqui faz-se o render to texture com o tamanho da scene de modo a se poder colocar a secCam no sitio
         //certo. esta é a textura que se vai fazer 'bind' à cena mais tarde
-        this.cameraTexture = new CGFtextureRTT(this,  this.gl.canvas.width, this.gl.canvas.height);
+        this.cameraTexture = new CGFtextureRTT(this, this.gl.canvas.width, this.gl.canvas.height);
     }
 
     /**
@@ -127,10 +127,18 @@ class XMLscene extends CGFscene {
             this.updateLights();
         }
 
+        //lines in secCam
         let time = t;
         //time = time / 100 % 1000;
-        //animacao das linhas
-        this.cameraObject.updateLines(time);
+        //this.cameraObject.updateLines(time);
+
+        this.updateAnimation(t);
+    }
+
+    updateAnimation(t) {
+        for (var i = 0; i < this.graph.nodes.length; i++) {
+            this.graph.animations["test"].update(); //keyframeanimation
+        }
     }
 
     updateCameras() {
@@ -159,8 +167,7 @@ class XMLscene extends CGFscene {
         }
     }
 
-    render()
-    {
+    render() {
         // ---- BEGIN Background, camera and axis setup
 
         // Clear image and depth buffer everytime we update the scene
@@ -194,7 +201,7 @@ class XMLscene extends CGFscene {
     }
 
     display() {
-        
+
         this.render();
 
         //o frameBuffer tem a informacao de core, pixeis e distancias da cena
@@ -207,9 +214,9 @@ class XMLscene extends CGFscene {
         //para perceber esta parte o melhor é mesmo ver os slides que eles deram que nem eu percebo 
         //mto bem esta parte...
         this.gl.disable(this.gl.DEPTH_TEST);
-        this.cameraObject.display();
-        this.gl.enable(this.gl.DEPTH_TEST); 
-        
+        //this.cameraObject.display();
+        this.gl.enable(this.gl.DEPTH_TEST);
+
         this.setActiveShader(this.defaultShader);
 
         // ---- END Background, camera and axis setup

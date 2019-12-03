@@ -38,16 +38,6 @@ class MyRectangle extends CGFobject {
 			0, 0, 1
 		];
 		
-		/*
-		Texture coords (s,t)
-		+----------> s
-        |
-        |
-		|
-		v
-        t
-        */
-
 		this.texCoords = [
 			0, 1,
 			1, 1,
