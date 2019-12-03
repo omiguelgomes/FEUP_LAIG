@@ -132,14 +132,10 @@ class XMLscene extends CGFscene {
         //time = time / 100 % 1000;
         //this.cameraObject.updateLines(time);
 
-        this.updateAnimation(t);
+        //this.updateAnimation(t);
     }
 
-    updateAnimation(t) {
-        for (var i = 0; i < this.graph.nodes.length; i++) {
-            this.graph.animations["test"].update(); //keyframeanimation
-        }
-    }
+
 
     updateCameras() {
         if (this.sunCamera) {
