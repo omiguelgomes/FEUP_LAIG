@@ -35,6 +35,8 @@ class MyPlane extends CGFobject{
             [0.5,  0, -0.5, 1 ]]]);	//U = 1 , V = 1
     }
 
+    //aqui como o patch tem que ser sempre do mesmo tamanho, os valores são hardcoded, mas o raciocinio é o msm
+    //que no cilindro e no patch
     makeSurface(degree1, degree2, controlvertexes) {
 
         this.nurbsSurface = new CGFnurbsSurface(degree1, degree2, controlvertexes);
