@@ -40,7 +40,11 @@ class XMLscene extends CGFscene {
         this.matCounter = 0;
 
         //secCam
+        //o objeto cameraObject é basicamente um retangulo com um shader por cima
         this.cameraObject = new MySecurityCamera(this);
+
+        //aqui faz-se o render to texture com o tamanho da scene de modo a se poder colocar a secCam no sitio
+        //certo. esta é a textura que se vai fazer 'bind' à cena mais tarde
         this.cameraTexture = new CGFtextureRTT(this, this.gl.canvas.width, this.gl.canvas.height);
     }
 
@@ -125,8 +129,13 @@ class XMLscene extends CGFscene {
 
         //lines in secCam
         let time = t;
-        this.cameraObject.updateLines(time);
+        //time = time / 100 % 1000;
+        //this.cameraObject.updateLines(time);
+
+        //this.updateAnimation(t);
     }
+
+
 
     updateCameras() {
         if (this.sunCamera) {
@@ -191,10 +200,15 @@ class XMLscene extends CGFscene {
 
         this.render();
 
+        //o frameBuffer tem a informacao de core, pixeis e distancias da cena
+        //aqui dizemos que queremos que a cameratexture seja justaposta a este buffer
+        // criando assim a camara dentro da cena que replica a cena em si
         this.cameraTexture.attachToFrameBuffer();
         this.render();
         this.cameraTexture.detachFromFrameBuffer();
 
+        //para perceber esta parte o melhor é mesmo ver os slides que eles deram que nem eu percebo 
+        //mto bem esta parte...
         this.gl.disable(this.gl.DEPTH_TEST);
         //this.cameraObject.display();
         this.gl.enable(this.gl.DEPTH_TEST);
