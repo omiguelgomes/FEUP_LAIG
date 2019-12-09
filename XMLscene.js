@@ -36,16 +36,9 @@ class XMLscene extends CGFscene {
 
         this.axis = new CGFaxis(this);
         this.setUpdatePeriod(100);
+        this.setPickEnabled(true);
 
         this.matCounter = 0;
-
-        //secCam
-        //o objeto cameraObject é basicamente um retangulo com um shader por cima
-        this.cameraObject = new MySecurityCamera(this);
-
-        //aqui faz-se o render to texture com o tamanho da scene de modo a se poder colocar a secCam no sitio
-        //certo. esta é a textura que se vai fazer 'bind' à cena mais tarde
-        this.cameraTexture = new CGFtextureRTT(this, this.gl.canvas.width, this.gl.canvas.height);
     }
 
     /**
@@ -105,9 +98,7 @@ class XMLscene extends CGFscene {
             this.setSpecular(0.2, 0.4, 0.8, 1.0);
             this.setShininess(10.0);
         }
-        /** Handler called when the graph is finally loaded. 
-         * As loading is asynchronous, this may be called already after the application has started the run loop
-         */
+
     onGraphLoaded() {
         this.axis = new CGFaxis(this, this.graph.referenceLength);
 
@@ -126,16 +117,7 @@ class XMLscene extends CGFscene {
             this.updateCameras();
             this.updateLights();
         }
-
-        //lines in secCam
-        let time = t;
-        //time = time / 100 % 1000;
-        //this.cameraObject.updateLines(time);
-
-        //this.updateAnimation(t);
     }
-
-
 
     updateCameras() {
         if (this.sunCamera) {
@@ -150,7 +132,7 @@ class XMLscene extends CGFscene {
         }
     }
 
-    updateLights() { //only works for 2 lights atm
+    updateLights() {
         if (this.secondLight) {
             this.lights[0].disable();
             this.lights[1].enable();
@@ -163,18 +145,14 @@ class XMLscene extends CGFscene {
         }
     }
 
-    render() {
-        // ---- BEGIN Background, camera and axis setup
+    display() {
 
-        // Clear image and depth buffer everytime we update the scene
         this.gl.viewport(0, 0, this.gl.canvas.width, this.gl.canvas.height);
         this.gl.clear(this.gl.COLOR_BUFFER_BIT | this.gl.DEPTH_BUFFER_BIT);
 
-        // Initialize Model-View matrix as identity (no transformation
         this.updateProjectionMatrix();
         this.loadIdentity();
 
-        // Apply transformations corresponding to the camera position relative to the origin
         this.applyViewMatrix();
 
         this.pushMatrix();
@@ -186,35 +164,13 @@ class XMLscene extends CGFscene {
         }
 
         if (this.sceneInitiated) {
-            // Draw axis
             this.setDefaultAppearance();
-
-            // Displays the scene (MySceneGraph function).
             this.graph.displayScene();
         }
 
         this.popMatrix();
-    }
 
-    display() {
-
-        this.render();
-
-        //o frameBuffer tem a informacao de core, pixeis e distancias da cena
-        //aqui dizemos que queremos que a cameratexture seja justaposta a este buffer
-        // criando assim a camara dentro da cena que replica a cena em si
-        this.cameraTexture.attachToFrameBuffer();
-        this.render();
-        this.cameraTexture.detachFromFrameBuffer();
-
-        //para perceber esta parte o melhor é mesmo ver os slides que eles deram que nem eu percebo 
-        //mto bem esta parte...
         this.gl.disable(this.gl.DEPTH_TEST);
-        //this.cameraObject.display();
         this.gl.enable(this.gl.DEPTH_TEST);
-
-        this.setActiveShader(this.defaultShader);
-
-        // ---- END Background, camera and axis setup
     }
 }

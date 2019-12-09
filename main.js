@@ -44,7 +44,7 @@ serialInclude(['../lib/CGF.js', 'XMLscene.js', 'MySceneGraph.js',
     'MyInterface.js', 'MyRectangle.js', 'MySphere.js', 'MyCylinder.js',
     'MyTorus.js', 'MyTriangle.js', 'MyComponent.js', 'MyAnimation.js',
     'MyKeyFrameAnimation.js', 'MyPlane.js', 'MyPatch.js', 'MyCylinder2.js',
-    'MySecurityCamera.js',
+    'MyTile.js', 'MyCuboid.js',
 
     main = function() {
         // Standard application, scene and interface setup
