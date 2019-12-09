@@ -15,13 +15,16 @@ class MyPatch extends CGFobject {
 
     makesurface()
     {
+        //para o patch o raciocinio é o mesmo que para o cilindro 2, so que com nr de pontos de controlo
+        //criados dinamicamente, dai ter dois 'for' nested um no outro para criar para cada ponto 'u'
+        //é mais facil para perceber isto tudo simplesmente ler o pdf que o prof deu
         this.auxControlPoints = [];
 
         for(var i = 0; i < this.uPoints; i ++)
         {
             var aux = [];
         
-            for(let j = 0; j < this.uPoints; j ++)
+            for(let j = 0; j < this.vPoints; j ++)
             {
                 aux.push([this.controlPoints[i*this.vPoints+j][0], 
                     this.controlPoints[i*this.vPoints+j][1],

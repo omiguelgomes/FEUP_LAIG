@@ -8,6 +8,7 @@ class MySecurityCamera extends CGFobject
         this.view = new MyRectangle(this.scene, 1, 0, 1, 0);
 
         //shader stuff
+        //as variaveis de tipo 'uniform' têm que ser dados valores usando o setUniformValues
         this.shader = new CGFshader(this.scene.gl, 'shader/camera.vert', 'shader/camera.frag');
         this.shader.setUniformsValues({ uSampler: 0 });
     }
