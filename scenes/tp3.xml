@@ -609,7 +609,7 @@
             </materials>
             <texture id="inherit"/>
             <children>
-                <primtiveref id="torus"/>
+                <primitiveref id="torus"/>
             </children>
         </component>
 
@@ -644,7 +644,7 @@
             </materials>
             <texture id="inherit"/>
             <children>
-                <primtiveref id="cuboid"/>
+                <primitiveref id="cuboid"/>
             </children>
         </component>
 
@@ -660,7 +660,7 @@
             </materials>
             <texture id="inherit"/>
             <children>
-                <primtiveref id="cylinder"/>
+                <primitiveref id="cylinder"/>
             </children>
         </component>
 
@@ -676,7 +676,7 @@
             </materials>
             <texture id="inherit"/>
             <children>
-                <primtiveref id="cuboid"/>
+                <primitiveref id="cuboid"/>
             </children>
         </component>
 
@@ -692,7 +692,7 @@
             </materials>
             <texture id="inherit"/>
             <children>
-                <primtiveref id="cuboid"/>
+                <primitiveref id="cuboid"/>
             </children>
         </component>
 
@@ -710,7 +710,7 @@
             </materials>
             <texture id="boatTexture"/>
             <children>
-                <primtiveref id="sphere"/>
+                <primitiveref id="sphere"/>
                 <componentref id="boat3Chimney"/>
             </children>
         </component>
@@ -727,7 +727,7 @@
             </materials>
             <texture id="inherit"/>
             <children>
-                <primtiveref id="cuboid"/>
+                <primitiveref id="cuboid"/>
             </children>
         </component>
 
