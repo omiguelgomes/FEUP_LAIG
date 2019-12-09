@@ -20,23 +20,23 @@
     </views>
 
     <ambient>
-        <ambient r="0.1" g="1.0" b="1.0" a="1.0" />
-        <background r="0.1" g="0.5" b="0.5" a="1.0" />
+        <ambient r="1.0" g="1.0" b="1.0" a="1.0" />
+        <background r="0.5" g="0.5" b="0.5" a="1.0" />
     </ambient>
 
     <lights>
         <omni id="demoLight" enabled="1">
             <location x="25" y="25" z="25" w="1.0" />
-            <ambient r="0.1" g="1.0" b="1.0" a="1.0" />
-            <diffuse r="0.1" g="1.0" b="1.0" a="1.0" />
-            <specular r="0.1" g="1.0" b="1.0" a="1.0" />
+            <ambient r="1.0" g="1.0" b="1.0" a="1.0" />
+            <diffuse r="1.0" g="1.0" b="1.0" a="1.0" />
+            <specular r="1.0" g="1.0" b="1.0" a="1.0" />
         </omni>
 
         <omni id="secondLight" enabled="0">
             <location x="30" y="30" z="30" w="1.0" />
-            <ambient r="0.5" g="1" b="1" a="1.0" />
-            <diffuse r="0.5" g="0.0" b="0.0" a="1.0" />
-            <specular r="0.5" g="0.0" b="0.0" a="1.0" />
+            <ambient r="1" g="1" b="1" a="1.0" />
+            <diffuse r="0.0" g="0.0" b="0.0" a="1.0" />
+            <specular r="0.0" g="0.0" b="0.0" a="1.0" />
         </omni>
     </lights>
 
@@ -50,11 +50,25 @@
     </textures>
 
     <materials>
+        <material id="planetMaterial" shininess="1">
+            <emission r="0.0" g="0.0" b="0.0" a="0.0" />
+            <ambient r="0.0" g="0.0" b="0.0" a="1.0" />
+            <diffuse r="0.6" g="0.0" b="0.0" a="1.0" />
+            <specular r="0.6" g="0.0" b="0.0" a="1.0" />
+        </material>
+
         <material id="backgroundMaterial" shininess="1">
             <emission r="0.0" g="0.0" b="0.0" a="0.0" />
             <ambient r="0.0" g="0.0" b="0.0" a="1.0" />
             <diffuse r="0.0" g="0.0" b="0.0" a="1.0" />
             <specular r="0.0" g="0.0" b="0.0" a="1.0" />
+        </material>
+
+        <material id="beltMaterial" shininess="1">
+            <emission r="0.0" g="0.0" b="0.0" a="1.0" />
+            <ambient r="1.0" g="0.0" b="0.0" a="1.0" />
+            <diffuse r="0.6" g="0.0" b="0.0" a="1.0" />
+            <specular r="0.6" g="0.0" b="0.0" a="1.0" />
         </material>
 
         <material id="cuboidMaterial" shininess="1">
@@ -67,9 +81,6 @@
     </materials>
 
     <transformations>
-        <transformation id="mercuryT">
-            <translate x="10" y="0" z="0" />
-        </transformation>
     </transformations>
 
     <animations>
@@ -100,11 +111,6 @@
             <rectangle x1="0.0" x2="1.0" y1="0.0" y2="1.0"/>
         </primitive>
 
-        <!-- CUBOID -->
-        <primitive id="cuboidRectangle">
-            <rectangle x1="0.0" x2="1.0" y1="0.0" y2="1.0"/>
-        </primitive>
-
         <!-- SPHERE -->
         <primitive id="sphere">
             <sphere radius="1.0" slices="10.0" stacks="10.0"/>
@@ -117,6 +123,11 @@
         <primitive id="torus">
             <torus inner="0.5" outer="1.1" slices="10" loops="5"/>
         </primitive>
+
+        <primitive id="cuboid">
+            <cuboid/>
+        </primitive>
+
     </primitives>
 
     <components>
@@ -127,11 +138,11 @@
             <animation>
             </animation>
             <materials>
-                <material id="cuboidTexture" />
+                <material id="planetMaterial" />
             </materials>
             <texture id="backgroundTexture" />
             <children>
-                <componentref id="backgroundCube" />
+                <componentref id="backgroundCube" />-->
                 <componentref id="table" />
                 <componentref id="board"/>
                 <componentref id="board2"/>
@@ -155,7 +166,7 @@
             <materials>
                 <material id="backgroundMaterial" />
             </materials>
-            <texture id="inherit"/>
+            <texture id="backgroundTexture"/>
             <children>
                 <primitiveref id="backgroundRectangle" />
             </children>
@@ -171,7 +182,7 @@
             <materials>
                 <material id="backgroundMaterial" />
             </materials>
-            <texture id="inherit"/>
+            <texture id="backgroundTexture"/>
             <children>
                 <primitiveref id="backgroundRectangle" />
             </children>
@@ -187,7 +198,7 @@
             <materials>
                 <material id="backgroundMaterial" />
             </materials>
-            <texture id="inherit"/>
+            <texture id="backgroundTexture"/>
             <children>
                 <primitiveref id="backgroundRectangle" />
             </children>
@@ -203,7 +214,7 @@
             <materials>
                 <material id="backgroundMaterial" />
             </materials>
-            <texture id="inherit"/>
+            <texture id="backgroundTexture"/>
             <children>
                 <primitiveref id="backgroundRectangle" />
             </children>
@@ -219,7 +230,7 @@
             <materials>
                 <material id="backgroundMaterial" />
             </materials>
-            <texture id="inherit"/>
+            <texture id="backgroundTexture"/>
             <children>
                 <primitiveref id="backgroundRectangle" />
             </children>
@@ -235,7 +246,7 @@
             <materials>
                 <material id="backgroundMaterial" />
             </materials>
-            <texture id="inherit"/>
+            <texture id="cuboidTexture"/>
             <children>
                 <primitiveref id="backgroundRectangle" />
             </children>
@@ -262,128 +273,11 @@
             </children>
         </component>
 
-        <!-- CUBOID -->
-
-        <component id="cuboidFrontRectangle">
-            <transformation>
-                <translate x="0" y="0" z="1"/>
-            </transformation>
-            <animation>
-            </animation>
-            <materials>
-                <material id="cuboidMaterial" />
-            </materials>
-            <texture id="inherit"/>
-            <children>
-                <primitiveref id="cuboidRectangle" />
-            </children>
-        </component>
-
-        <component id="cuboidBackRectangle">
-            <transformation>
-                <rotate axis="y" angle="-180"/>
-                <translate x="-1" y="0" z="0"/>
-            </transformation>
-            <animation>
-            </animation>
-            <materials>
-                <material id="cuboidMaterial" />
-            </materials>
-            <texture id="inherit"/>
-            <children>
-                <primitiveref id="cuboidRectangle" />
-            </children>
-        </component>
-
-        <component id="cuboidLeftRectangle">
-            <transformation>
-                <rotate axis="y" angle="-90"/>
-            </transformation>
-            <animation>
-            </animation>
-            <materials>
-                <material id="cuboidMaterial" />
-            </materials>
-            <texture id="inherit"/>
-            <children>
-                <primitiveref id="cuboidRectangle" />
-            </children>
-        </component>
-
-        <component id="cuboidRightRectangle">
-            <transformation>
-                <rotate axis="y" angle="90"/>
-                <translate x="-1" y="0" z="1"/>
-            </transformation>
-            <animation>
-            </animation>
-            <materials>
-                <material id="cuboidMaterial" />
-            </materials>
-            <texture id="inherit"/>
-            <children>
-                <primitiveref id="cuboidRectangle" />
-            </children>
-        </component>
-
-        <component id="cuboidBottomRectangle">
-            <transformation>
-                <rotate axis="x" angle="90"/>
-            </transformation>
-            <animation>
-            </animation>
-            <materials>
-                <material id="cuboidMaterial" />
-            </materials>
-            <texture id="inherit"/>
-            <children>
-                <primitiveref id="cuboidRectangle" />
-            </children>
-        </component>
-
-        <component id="cuboidTopRectangle">
-            <transformation>
-                <rotate axis="x" angle="-90"/>
-                <translate x="0" y="-1" z="1"/>
-            </transformation>
-            <animation>
-            </animation>
-            <materials>
-                <material id="cuboidMaterial" />
-            </materials>
-            <texture id="inherit"/>
-            <children>
-                <primitiveref id="cuboidRectangle" />
-            </children>
-        </component>
-
-        <component id="cuboid">
-            <transformation>
-                <translate x="-0.5" y="-0.5" z="-0.5"/>
-            </transformation>
-            <animation>
-            </animation>
-            <materials>
-                <material id="cuboidMaterial" />
-            </materials>
-            <texture id="inherit"/>
-            <children>
-                <primitiveref id="cuboidFrontRectangle" />
-                <primitiveref id="cuboidBackRectangle" />
-                <primitiveref id="cuboidLeftRectangle" />
-                <primitiveref id="cuboidRightRectangle" />
-                <primitiveref id="cuboidTopRectangle" />
-                <primitiveref id="cuboidBottomRectangle" />
-            </children>
-        </component>
-
-
         <!-- TABLE -->
-
 
         <component id="table">
             <transformation>
-                <translate x="-2.5" y="2" z="-5"/>
+                <translate x="2" y="2" z="2"/>
             </transformation>
             <animation>
             </animation>
@@ -489,7 +383,7 @@
             </materials>
             <texture id="boardTexture"/>
             <children>
-                <componentref id="cuboid"/>
+                <primitiveref id="cuboid"/>
             </children>
         </component>
 
@@ -506,7 +400,7 @@
             </materials>
             <texture id="boardTexture"/>
             <children>
-                <combonentref id="cuboid"/>
+                <primitiveref id="cuboid"/>
             </children>
         </component>
 
@@ -542,7 +436,6 @@
                 <componentref id="boardPlayerGrid"/>
             </children>
         </component>
-
 
         <!-- BOATS -->
 

@@ -977,7 +977,8 @@ class MySceneGraph {
                 (grandChildren[0].nodeName != 'rectangle' && grandChildren[0].nodeName != 'triangle' &&
                     grandChildren[0].nodeName != 'cylinder' && grandChildren[0].nodeName != 'sphere' &&
                     grandChildren[0].nodeName != 'torus' && grandChildren[0].nodeName != 'plane' &&
-                    grandChildren[0].nodeName != 'patch' && grandChildren[0].nodeName != 'cylinder2')) {
+                    grandChildren[0].nodeName != 'patch' && grandChildren[0].nodeName != 'cylinder2'
+                    && grandChildren[0].nodeName != 'cuboid')) {
                 console.log(children);
                 return "There must be exactly 1 primitive type (rectangle, triangle, cylinder, sphere or torus)"
             }
@@ -1088,21 +1089,11 @@ class MySceneGraph {
                 this.primitives[primitiveId] = torus;
             }
 
-            if (primitiveType == 'plane') { //plane
+            if (primitiveType == 'cuboid') { //plane
 
-                // U divisions
-                var uDivs = this.reader.getFloat(grandChildren[0], 'npartsU');
-                if (!(uDivs != null && !isNaN(uDivs)) || uDivs % 1 != 0)
-                    return "unable to parse npartsU of the primitive ID = " + primitiveId;
+                var board = new MyCuboid(this.scene);
 
-                // V divisions
-                var vDivs = this.reader.getFloat(grandChildren[0], 'npartsV');
-                if (!(vDivs != null && !isNaN(vDivs)) || vDivs % 1 != 0)
-                    return "unable to parse npartsV of the primitive ID = " + primitiveId;
-
-                var plane = new MyPlane(this.scene, uDivs, vDivs);
-
-                this.primitives[primitiveId] = plane;
+                this.primitives[primitiveId] = board;
             }
 
             if (primitiveType == 'patch') {
