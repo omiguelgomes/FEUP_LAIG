@@ -130,7 +130,7 @@ class XMLscene extends CGFscene {
         //lines in secCam
         let time = t;
         //time = time / 100 % 1000;
-        //this.cameraObject.updateLines(time);
+        this.cameraObject.updateLines(time);
 
         //this.updateAnimation(t);
     }
@@ -209,8 +209,10 @@ class XMLscene extends CGFscene {
 
         //para perceber esta parte o melhor é mesmo ver os slides que eles deram que nem eu percebo 
         //mto bem esta parte...
+        //para de facto fazer display do cameraObject tem que se desligar o depth test
+        //isto pq senão o programa não sabe reagir a como ter um novo ecra a distancia 0
         this.gl.disable(this.gl.DEPTH_TEST);
-        //this.cameraObject.display();
+        this.cameraObject.display();
         this.gl.enable(this.gl.DEPTH_TEST);
 
         this.setActiveShader(this.defaultShader);

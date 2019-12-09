@@ -24,11 +24,17 @@ class MyCylinder2 extends CGFobject {
         //o peso (w) pode ser qualquer valor positivo, quanto mais perto de 0, mais recta será a linha
         //quanto mais perto de 1, mais circular será, acima de 1, formará um vertice "arredondado" perto do ponto de controlo
         //ver: https://moodle.up.pt/pluginfile.php/61237/mod_resource/content/4/Non-uniform%20rational%20B-spline.LAIG.20181107.pdf
+
         this.controlPoints = [
             [
                 [-this.topRadius, 0.0, this.height, 1], //u = 0 , v = 0
                 [-this.baseRadius, 0.0, 0.0, 1]
             ], //u = 0 , v = 1
+
+            [
+                [-this.topRadius, (4 / 3) * this.topRadius, this.height, 1], //u = 1 , v = 0
+                [-this.base, (4 / 3) * this.base, 0.0, 1]
+            ], //u = 1 , v = 1
 
             [
                 [-this.topRadius, (4 / 3) * this.topRadius, this.height, 1], //u = 1 , v = 0
