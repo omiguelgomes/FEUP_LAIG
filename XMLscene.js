@@ -40,7 +40,7 @@ class XMLscene extends CGFscene {
         this.matCounter = 0;
 
         //secCam
-        //this.cameraObject = new MySecurityCamera(this);
+        this.cameraObject = new MySecurityCamera(this);
         this.cameraTexture = new CGFtextureRTT(this, this.gl.canvas.width, this.gl.canvas.height);
     }
 
@@ -125,16 +125,7 @@ class XMLscene extends CGFscene {
 
         //lines in secCam
         let time = t;
-        //time = time / 100 % 1000;
-        //this.cameraObject.updateLines(time);
-
-        this.updateAnimation(t);
-    }
-
-    updateAnimation(t) {
-        for (var i = 0; i < this.graph.nodes.length; i++) {
-            this.graph.animations["test"].update(); //keyframeanimation
-        }
+        this.cameraObject.updateLines(time);
     }
 
     updateCameras() {
@@ -178,7 +169,7 @@ class XMLscene extends CGFscene {
         this.applyViewMatrix();
 
         this.pushMatrix();
-        //this.axis.display();
+        this.axis.display();
 
         for (var i = 0; i < this.lights.length; i++) {
             this.lights[i].setVisible(true);

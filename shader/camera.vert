@@ -11,7 +11,7 @@ varying vec3 vertex;
 
 void main() {
 	vec3 vertex = aVertexPosition;
-	vertex.x *= 0.5;
+	vertex.x *= 0.5;//vertices de desolcacao do rectangle da security camera
 	vertex.x += 0.5;
 	vertex.y *= 0.5;
 	vertex.y += -1.0;

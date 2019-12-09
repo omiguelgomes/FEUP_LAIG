@@ -1,7 +1,5 @@
-class MySecurityCamera extends CGFobject 
-{
-    constructor(scene)
-    {
+class MySecurityCamera extends CGFobject {
+    constructor(scene) {
         super(scene);
         this.scene = scene;
 
@@ -12,12 +10,12 @@ class MySecurityCamera extends CGFobject
         this.shader.setUniformsValues({ uSampler: 0 });
     }
 
-    updateLines(t){
-        this.shader.setUniformsValues({ time: t / 100 % 1000});
+    updateLines(t) {
+        //t indica velocidade das linhas, e chamada em update(t) da scene
+        this.shader.setUniformsValues({ time: t / 100 % 1000 });
     }
 
-    display()
-    {
+    display() {
         this.scene.setActiveShader(this.shader);
 
         this.scene.pushMatrix();

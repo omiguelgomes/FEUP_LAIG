@@ -900,7 +900,6 @@ class MySceneGraph {
 
             }
             keyFrames[i] = [instant, values];
-            //values = [matrixTransl, matrixRotate, matrixScale]
         }
         var animation = new MyKeyFrameAnimation(this.scene, animationID, keyFrames);
 

@@ -3,12 +3,12 @@
 
     <views default="defaultCamera">
         <perspective id="defaultCamera" near="0.1" far="500" angle="45">
-            <from x="20" y="20" z="20" />
-            <to x="0" y="0" z="0" />
+            <from x="0" y="12" z="12" />
+            <to x="0" y="0" z="-5" />
         </perspective>
 
         <perspective id="sunCamera" near="0.1" far="500" angle="45">
-            <from x="20" y="10" z="20" />
+            <from x="0" y="12" z="-15" />
             <to x="0" y="0" z="0" />
         </perspective>
 
@@ -43,29 +43,16 @@
         <texture id="backgroundTexture" file="img/backgroundTexture.jpg" />
         <texture id="leftBackgroundTexture" file="img/leftBackgroundTexture.jpg" />
         <texture id="cuboidTexture" file="img/cuboidTexture.jpg" />
+        <texture id="boardTexture" file="img/board.png"/>
         <texture id="submarineTexture" file="img/submarineTexture.jpg" />
     </textures>
 
     <materials>
-        <material id="planetMaterial" shininess="1">
-            <emission r="0.0" g="0.0" b="0.0" a="0.0" />
-            <ambient r="0.0" g="0.0" b="0.0" a="1.0" />
-            <diffuse r="0.6" g="0.0" b="0.0" a="1.0" />
-            <specular r="0.6" g="0.0" b="0.0" a="1.0" />
-        </material>
-
         <material id="backgroundMaterial" shininess="1">
             <emission r="0.0" g="0.0" b="0.0" a="0.0" />
             <ambient r="0.0" g="0.0" b="0.0" a="1.0" />
             <diffuse r="0.0" g="0.0" b="0.0" a="1.0" />
             <specular r="0.0" g="0.0" b="0.0" a="1.0" />
-        </material>
-
-        <material id="beltMaterial" shininess="1">
-            <emission r="0.0" g="0.0" b="0.0" a="1.0" />
-            <ambient r="1.0" g="0.0" b="0.0" a="1.0" />
-            <diffuse r="0.6" g="0.0" b="0.0" a="1.0" />
-            <specular r="0.6" g="0.0" b="0.0" a="1.0" />
         </material>
 
         <material id="cuboidMaterial" shininess="1">
@@ -101,14 +88,6 @@
                 <scale x="1.0" y="1.0" z="1.0" />
             </keyframe>
         </animation>
-
-        <animation id="orbit">
-            <keyframe instant="10.0">
-                <translate x="0.0" y="0.0" z="0.0" />
-                <rotate angle_x="0.0" angle_y="720.0" angle_z="0.0" />
-                <scale x="1.0" y="1.0" z="1.0" />
-            </keyframe>
-        </animation>
     </animations>
 
     <primitives>
@@ -135,7 +114,6 @@
         <primitive id="torus">
             <torus inner="0.5" outer="1.1" slices="10" loops="5"/>
         </primitive>
-
     </primitives>
 
     <components>
@@ -146,12 +124,14 @@
             <animation>
             </animation>
             <materials>
-                <material id="planetMaterial" />
+                <material id="cuboidTexture" />
             </materials>
             <texture id="backgroundTexture" />
             <children>
                 <componentref id="backgroundCube" />
                 <componentref id="submarine" />
+                <componentref id="board"/>
+                <componentref id="board2"/>
             </children>
         </component> 
 
@@ -165,7 +145,7 @@
             <materials>
                 <material id="backgroundMaterial" />
             </materials>
-            <texture id="backgroundTexture"/>
+            <texture id="inherit"/>
             <children>
                 <primitiveref id="backgroundRectangle" />
             </children>
@@ -181,7 +161,7 @@
             <materials>
                 <material id="backgroundMaterial" />
             </materials>
-            <texture id="backgroundTexture"/>
+            <texture id="inherit"/>
             <children>
                 <primitiveref id="backgroundRectangle" />
             </children>
@@ -197,7 +177,7 @@
             <materials>
                 <material id="backgroundMaterial" />
             </materials>
-            <texture id="backgroundTexture"/>
+            <texture id="inherit"/>
             <children>
                 <primitiveref id="backgroundRectangle" />
             </children>
@@ -213,7 +193,7 @@
             <materials>
                 <material id="backgroundMaterial" />
             </materials>
-            <texture id="backgroundTexture"/>
+            <texture id="inherit"/>
             <children>
                 <primitiveref id="backgroundRectangle" />
             </children>
@@ -229,7 +209,7 @@
             <materials>
                 <material id="backgroundMaterial" />
             </materials>
-            <texture id="backgroundTexture"/>
+            <texture id="inherit"/>
             <children>
                 <primitiveref id="backgroundRectangle" />
             </children>
@@ -245,7 +225,7 @@
             <materials>
                 <material id="backgroundMaterial" />
             </materials>
-            <texture id="cuboidTexture"/>
+            <texture id="inherit"/>
             <children>
                 <primitiveref id="backgroundRectangle" />
             </children>
@@ -484,6 +464,74 @@
                 <primitiveref id="cuboid"/>
             </children>
         </component>
+
+         <!--game board-->
+        <component id="boardPlayerGrid">
+            <transformation>
+                <scale x="5" y="0.2" z="5"/>
+                <translate x="0" y="0" z="0"/>
+            </transformation>
+            <animation>
+            </animation>
+            <materials>
+                <material id="cuboidMaterial" />
+            </materials>
+            <texture id="boardTexture"/>
+            <children>
+                <componentref id="cuboid"/>
+            </children>
+        </component>
+
+        <component id="boardEnemyGrid">
+            <transformation>
+                <translate x="0" y="1.8" z="-4.2"/>
+                <rotate axis="x" angle="45"/>
+                <scale x="5" y="0.2" z="5"/>
+            </transformation>
+            <animation>
+            </animation>
+            <materials>
+                <material id="cuboidMaterial"/>
+            </materials>
+            <texture id="boardTexture"/>
+            <children>
+                <combonentref id="cuboid"/>
+            </children>
+        </component>
+
+        <component id="board">
+            <transformation>
+                <translate x="0" y="4.6" z="4"/>
+            </transformation>
+            <animation>
+            </animation>
+            <materials>
+                <material id="cuboidMaterial" />
+            </materials>
+            <texture id="inherit"/>
+            <children>
+                <componentref id="boardEnemyGrid"/>
+                <componentref id="boardPlayerGrid"/>
+            </children>
+        </component>
+
+        <component id="board2">
+            <transformation>
+                <translate x="0" y="4.6" z="-8"/>
+                <rotate axis="y" angle="180"/>
+            </transformation>
+            <animation>
+            </animation>
+            <materials>
+                <material id="cuboidMaterial"/>
+            </materials>
+            <texture id="inherit"/>
+            <children>
+                <componentref id="boardEnemyGrid"/>
+                <componentref id="boardPlayerGrid"/>
+            </children>
+        </component>
+
 
         <!-- BOATS -->
 
