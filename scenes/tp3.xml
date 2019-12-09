@@ -45,7 +45,8 @@
         <texture id="leftBackgroundTexture" file="img/leftBackgroundTexture.jpg" />
         <texture id="cuboidTexture" file="img/cuboidTexture.jpg" />
         <texture id="boardTexture" file="img/board.png"/>
-        <texture id="submarineTexture" file="img/submarineTexture.jpg" />
+        <texture id="boatTexture" file="img/boatTexture.jpg" />
+        <texture id="redPinTexture" file="img/redPinTexture.jpg" />
     </textures>
 
     <materials>
@@ -101,13 +102,6 @@
             </keyframe>
         </animation>
 
-        <animation id="orbit">
-            <keyframe instant="10.0">
-                <translate x="0.0" y="0.0" z="0.0" />
-                <rotate angle_x="0.0" angle_y="720.0" angle_z="0.0" />
-                <scale x="1.0" y="1.0" z="1.0" />
-            </keyframe>
-        </animation>
     </animations>
 
     <primitives>
@@ -153,6 +147,12 @@
                 <componentref id="board"/>
                 <componentref id="board2"/>
                 <componentref id="submarine" />
+                <componentref id="carrier"/>
+                <componentref id="boat3"/>
+                <componentref id="boat4"/>
+                <componentref id="boat5"/>
+                <componentref id="whitePin"/>
+                <componentref id="redPin"/>
             </children>
         </component> 
 
@@ -439,17 +439,18 @@
 
         <!-- BOATS -->
 
+        <!-- SUBMARINE -->
+
         <component id="submarine">
             <transformation>
-                <translate x="5" y="5" z="5"/>
-                <scale x="0.2" y="0.2" z="0.2"/>
+                <translate x="0.2" y="5" z="4"/>
             </transformation>
             <animation>
             </animation>
             <materials>
                 <material id="cuboidMaterial" />
             </materials>
-            <texture id="submarineTexture"/>
+            <texture id="boatTexture"/>
             <children>
                 <componentref id="submarineBody"/>
                 <componentref id="submarineChimney"/>
@@ -459,7 +460,7 @@
 
         <component id="submarineBody">
             <transformation>
-                <scale x="5" y="1" z="1"/>
+                <scale x="0.8" y="0.15" z="0.15"/>
             </transformation>
             <animation>
             </animation>
@@ -474,8 +475,8 @@
 
         <component id="submarineChimney">
             <transformation>
-                <scale x="1" y="3" z="1"/>
-                <translate x="2" y="0" z="0"/>
+                <translate x="0.4" y="0" z="0"/>
+                <scale x="0.1" y="0.4" z="0.1"/>
             </transformation>
             <animation>
             </animation>
@@ -490,7 +491,8 @@
 
         <component id="submarineMotor">
             <transformation>
-                <translate x="-3.5" y="0" z="0"/>
+                <scale x="0.15" y="0.15" z="0.15"/>
+                <translate x="-3" y="0" z="0"/>
                 <rotate angle="90" axis="y"/>
             </transformation>
             <animation>
@@ -503,5 +505,259 @@
                 <primtiveref id="torus"/>
             </children>
         </component>
+
+        <!-- CARRIER -->
+
+        <component id="carrier">
+            <transformation>
+                <translate x="0" y="5" z="3.5"/>    <!-- TEMP -->
+            </transformation>
+            <animation>
+            </animation>
+            <materials>
+                <material id="cuboidMaterial" />
+            </materials>
+            <texture id="boatTexture"/>
+            <children>
+                <componentref id="carrierBody"/>
+                <componentref id="carrierChimney"/>
+                <componentref id="carrierTower"/>
+                <componentref id="carrierTower2"/>
+            </children>
+        </component>
+
+        <component id="carrierBody">
+            <transformation>
+                <scale x="1.8" y="0.1" z="0.2"/>
+            </transformation>
+            <animation>
+            </animation>
+            <materials>
+                <material id="cuboidMaterial" />
+            </materials>
+            <texture id="inherit"/>
+            <children>
+                <primtiveref id="cuboid"/>
+            </children>
+        </component>
+
+        <component id="carrierChimney">
+            <transformation>
+                <translate x="0.65" y="0" z="0"/>
+                <scale x="0.2" y="0.3" z="0.2"/>
+            </transformation>
+            <animation>
+            </animation>
+            <materials>
+                <material id="cuboidMaterial" />
+            </materials>
+            <texture id="inherit"/>
+            <children>
+                <primtiveref id="cylinder"/>
+            </children>
+        </component>
+
+        <component id="carrierTower">
+            <transformation>
+                <translate x="-0.5" y="0.05" z="0"/>
+                <scale x="0.5" y="0.1" z="0.1"/>
+            </transformation>
+            <animation>
+            </animation>
+            <materials>
+                <material id="cuboidMaterial" />
+            </materials>
+            <texture id="inherit"/>
+            <children>
+                <primtiveref id="cuboid"/>
+            </children>
+        </component>
+
+        <component id="carrierTower2">
+            <transformation>
+                <translate x="0.2" y="0.05" z="0"/>
+                <scale x="0.5" y="0.1" z="0.1"/>
+            </transformation>
+            <animation>
+            </animation>
+            <materials>
+                <material id="cuboidMaterial" />
+            </materials>
+            <texture id="inherit"/>
+            <children>
+                <primtiveref id="cuboid"/>
+            </children>
+        </component>
+
+        <!-- BOAT3 -->
+
+        <component id="boat3">
+            <transformation>
+                <translate x="0.2" y="5" z="3"/>    <!-- TEMP -->
+                <scale x="0.8" y="0.1" z="0.2"/>
+            </transformation>
+            <animation>
+            </animation>
+            <materials>
+                <material id="cuboidMaterial" />
+            </materials>
+            <texture id="boatTexture"/>
+            <children>
+                <primtiveref id="sphere"/>
+                <componentref id="boat3Chimney"/>
+            </children>
+        </component>
+
+        <component id="boat3Chimney">
+            <transformation>
+                <translate x="0.3" y="1" z="0"/>
+                <scale x="0.2" y="1" z="1"/>
+            </transformation>
+            <animation>
+            </animation>
+            <materials>
+                <material id="cuboidMaterial" />
+            </materials>
+            <texture id="inherit"/>
+            <children>
+                <primtiveref id="cuboid"/>
+            </children>
+        </component>
+
+        <!-- BOAT4 -->
+
+        <component id="boat4">
+            <transformation>
+                <translate x="1.7" y="0" z="0"/>    <!--TEMP-->
+                <scale x="0.5" y="1" z="1"/>
+            </transformation>
+            <animation>
+            </animation>
+            <materials>
+                <material id="cuboidMaterial" />
+            </materials>
+                <texture id="boatTexture"/>
+            <children>
+                <componentref id="boat3"/>
+            </children>
+        </component>
+
+        
+        <!-- BOAT5 -->
+
+        <component id="boat5">
+            <transformation>
+                <translate x="0" y="5" z="5"/>    <!--TEMP-->
+                <scale x="0.4" y="0.2" z="0.1"/>
+                <rotate axis="x" angle="90" />
+            </transformation>
+            <animation>
+            </animation>
+            <materials>
+                <material id="cuboidMaterial" />
+            </materials>
+                <texture id="boatTexture"/>
+            <children>
+                <primitiveref id="torus"/>
+                <componentref id="boat5Floor"/>
+            </children>
+        </component>
+
+        <component id="boat5Floor">
+            <transformation>
+                <scale x="2" y="1.5" z="0.5"/>
+            </transformation>
+            <animation>
+            </animation>
+            <materials>
+                <material id="cuboidMaterial" />
+            </materials>
+                <texture id="inherit"/>
+            <children>
+                <primitiveref id="cuboid"/>
+            </children>
+        </component>
+
+
+        <!-- PINS -->
+
+        <component id="redPin"> 
+            <transformation>
+                <translate x="1" y="5" z="5"/>   <!--TEMP-->
+            </transformation>
+            <animation>
+            </animation>
+            <materials>
+                <material id="cuboidMaterial" />
+            </materials>
+                <texture id="redPinTexture"/>
+            <children>
+                <componentref id="pin"/>
+            </children>
+        </component>
+
+        <component id="whitePin"> 
+            <transformation>
+                <translate x="0" y="5" z="5"/>  <!--TEMP-->
+            </transformation>
+            <animation>
+            </animation>
+            <materials>
+                <material id="cuboidMaterial" />
+            </materials>
+                <texture id="boatTexture"/>
+            <children>
+                <componentref id="pin"/>
+            </children>
+        </component>
+
+        <component id="pin"> 
+            <transformation>
+                <scale x="0.15" y="0.15" z="0.15"/>
+            </transformation>
+            <animation>
+            </animation>
+            <materials>
+                <material id="cuboidMaterial" />
+            </materials>
+                <texture id="inherit"/>
+            <children>
+                <componentref id="pinHead"/>
+                <componentref id="pinBody"/>
+            </children>
+        </component>
+
+        <component id="pinHead"> 
+            <transformation>
+                <translate x="0" y="1.5" z="0"/>
+                <scale x="0.5" y="0.5" z="0.5"/>
+            </transformation>
+            <animation>
+            </animation>
+            <materials>
+                <material id="cuboidMaterial" />
+            </materials>
+                <texture id="inherit"/>
+            <children>
+                <primitiveref id="sphere"/>
+                
+            </children>
+        </component>
+
+        <component id="pinBody"> 
+            <transformation>
+                <scale x="0.5" y="1.5" z="0.5"/>
+            </transformation>
+            <animation>
+            </animation>
+            <materials>
+                <material id="cuboidMaterial" />
+            </materials>
+                <texture id="inherit"/>
+            <children>
+                <primitiveref id="cylinder"/>
+            </children>
+        </component>
+
     </components>
 </lxs>
