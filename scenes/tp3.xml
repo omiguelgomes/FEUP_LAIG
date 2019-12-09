@@ -20,23 +20,23 @@
     </views>
 
     <ambient>
-        <ambient r="1.0" g="1.0" b="1.0" a="1.0" />
-        <background r="0.5" g="0.5" b="0.5" a="1.0" />
+        <ambient r="0.1" g="1.0" b="1.0" a="1.0" />
+        <background r="0.1" g="0.5" b="0.5" a="1.0" />
     </ambient>
 
     <lights>
         <omni id="demoLight" enabled="1">
             <location x="25" y="25" z="25" w="1.0" />
-            <ambient r="1.0" g="1.0" b="1.0" a="1.0" />
-            <diffuse r="1.0" g="1.0" b="1.0" a="1.0" />
-            <specular r="1.0" g="1.0" b="1.0" a="1.0" />
+            <ambient r="0.1" g="1.0" b="1.0" a="1.0" />
+            <diffuse r="0.1" g="1.0" b="1.0" a="1.0" />
+            <specular r="0.1" g="1.0" b="1.0" a="1.0" />
         </omni>
 
         <omni id="secondLight" enabled="0">
             <location x="30" y="30" z="30" w="1.0" />
-            <ambient r="1" g="1" b="1" a="1.0" />
-            <diffuse r="0.0" g="0.0" b="0.0" a="1.0" />
-            <specular r="0.0" g="0.0" b="0.0" a="1.0" />
+            <ambient r="0.5" g="1" b="1" a="1.0" />
+            <diffuse r="0.5" g="0.0" b="0.0" a="1.0" />
+            <specular r="0.5" g="0.0" b="0.0" a="1.0" />
         </omni>
     </lights>
 
@@ -45,7 +45,6 @@
         <texture id="leftBackgroundTexture" file="img/leftBackgroundTexture.jpg" />
         <texture id="cuboidTexture" file="img/cuboidTexture.jpg" />
         <texture id="boardTexture" file="img/board.png"/>
-        <texture id="submarineTexture" file="img/submarineTexture.jpg" />
         <texture id="boatTexture" file="img/boatTexture.jpg" />
         <texture id="redPinTexture" file="img/redPinTexture.jpg" />
     </textures>
@@ -544,10 +543,7 @@
             </children>
         </component>
 
-<<<<<<< HEAD
 
-=======
->>>>>>> 221164a53dd04a30de48e43c1685574506d5dc80
         <!-- BOATS -->
 
         <!-- SUBMARINE -->

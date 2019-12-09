@@ -11,23 +11,13 @@ class MySecurityCamera extends CGFobject {
         this.shader.setUniformsValues({ uSampler: 0 });
     }
 
-<<<<<<< HEAD
     updateLines(t) {
-        //t indica velocidade das linhas, e chamada em update(t) da scene
+        //para criar o movimento das linhas, a funcao é chamada no update(t) da Scene
         this.shader.setUniformsValues({ time: t / 100 % 1000 });
     }
 
     display() {
-=======
-    updateLines(t){
-        //para criar o movimento das linhas, a funcao é chamada no update(t) da Scene
-        this.shader.setUniformsValues({ time: t / 100 % 1000});
-    }
-
-    display()
-    {
         //diz que shader deve ser usado
->>>>>>> 221164a53dd04a30de48e43c1685574506d5dc80
         this.scene.setActiveShader(this.shader);
 
         //codigo tirado do exemplo do ano passado de shader (have no idea what it does)
