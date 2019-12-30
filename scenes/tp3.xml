@@ -151,8 +151,8 @@
             </materials>
             <texture id="backgroundTexture" />
             <children>
-                <componentref id="backgroundCube" />
-                <componentref id="table" />
+               <!-- <componentref id="backgroundCube" />
+                <componentref id="table" />-->
                 <componentref id="board"/>
                 <!--<componentref id="board2"/>
                 <componentref id="submarine" />
