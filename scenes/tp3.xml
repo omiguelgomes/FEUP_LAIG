@@ -476,7 +476,7 @@
             </materials>
             <texture id="inherit"/>
             <children>
-                <primtiveref id="torus"/>
+                <primitiveref id="torus"/>
             </children>
         </component>
 
@@ -511,7 +511,7 @@
             </materials>
             <texture id="inherit"/>
             <children>
-                <primtiveref id="cuboid"/>
+                <primitiveref id="cuboid"/>
             </children>
         </component>
 
