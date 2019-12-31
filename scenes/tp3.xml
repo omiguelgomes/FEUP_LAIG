@@ -128,6 +128,15 @@
             <cuboid/>
         </primitive>
 
+        <primitive id="pBoard1">
+            <board/>
+        </primitive>
+
+        <primitive id="pBoard2">
+            <board/>
+        </primitive>
+
+
     </primitives>
 
     <components>
@@ -142,17 +151,28 @@
             </materials>
             <texture id="backgroundTexture" />
             <children>
+<<<<<<< HEAD
                 <componentref id="backgroundCube" /> <!-- DONT FIX BOAD, FIX BOATS-->
                 <!-- <componentref id="table" /> -->
                 <componentref id="board"/>
                 <!-- <componentref id="board2"/>
+=======
+               <!-- <componentref id="backgroundCube" />
+                <componentref id="table" />-->
+                <componentref id="board"/>
+                <!--<componentref id="board2"/>
+>>>>>>> 196e051325ec430ead1cbb69d6c2604e1520103c
                 <componentref id="submarine" />
                 <componentref id="carrier"/>
                 <componentref id="boat3"/>
                 <componentref id="boat4"/>
                 <componentref id="boat5"/>
                 <componentref id="whitePin"/>
+<<<<<<< HEAD
                 <componentref id="redPin"/> -->
+=======
+                <componentref id="redPin"/>-->
+>>>>>>> 196e051325ec430ead1cbb69d6c2604e1520103c
             </children>
         </component> 
 
@@ -370,6 +390,7 @@
         </component>
 
         <!--game board-->
+<<<<<<< HEAD
 
         <component id="board">
             <transformation>
@@ -403,6 +424,9 @@
         </component>
 
         <component id="boardPlayerGrid">
+=======
+        <component id="board">
+>>>>>>> 196e051325ec430ead1cbb69d6c2604e1520103c
             <transformation>
                 <scale x="5" y="0.2" z="5"/>
             </transformation>
@@ -413,22 +437,35 @@
             </materials>
             <texture id="boardTexture"/>
             <children>
+<<<<<<< HEAD
                 <primitiveref id="cuboid"/>
+=======
+                <primitiveref id="pBoard1"/>
+>>>>>>> 196e051325ec430ead1cbb69d6c2604e1520103c
             </children>
         </component>
 
         <component id="boardEnemyGrid">
             <transformation>
+<<<<<<< HEAD
                 <rotate axis="x" angle="-135"/> <!--NEEDS SLIGHT FIX-->
+=======
+                <translate x="5" y="4.6" z="-4"/>
+                <rotate axis="y" angle="180"/>
+>>>>>>> 196e051325ec430ead1cbb69d6c2604e1520103c
             </transformation>
             <animation>
             </animation>
             <materials>
                 <material id="cuboidMaterial"/>
             </materials>
-            <texture id="inherit"/>
+            <texture id="boardTexture"/>
             <children>
+<<<<<<< HEAD
                 <componentref id="boardPlayerGrid"/>
+=======
+                <primitiveref id="pBoard2"/>
+>>>>>>> 196e051325ec430ead1cbb69d6c2604e1520103c
             </children>
         </component>
 
