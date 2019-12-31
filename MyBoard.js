@@ -46,7 +46,6 @@ class MyBoard extends CGFobject{
                 this.scene.pushMatrix();
                 this.scene.rotate(-Math.PI / 4, 1, 0, 0);
                 this.scene.translate(0.7 + 0.415 * row, 4 - 0.415 * col, 0.25);
-                this.scene.registerForPick( (row * 10 + col) + this.dif + 100,  this.tile);
                 this.tile.display();
                 this.scene.popMatrix();
             }
