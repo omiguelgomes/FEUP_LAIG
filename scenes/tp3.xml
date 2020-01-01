@@ -3,7 +3,7 @@
 
     <views default="defaultCamera">
         <perspective id="defaultCamera" near="0.1" far="500" angle="45">
-            <from x="0" y="4" z="4" />
+            <from x="0" y="10" z="10" />
             <to x="0" y="0" z="0" />
         </perspective>
 
@@ -149,6 +149,7 @@
                 <componentref id="board"/>
                 <componentref id="whitePieces"/>
                 <componentref id="blackPieces"/>
+                <componentref id="table"/>
             </children>
         </component>
 
@@ -271,8 +272,10 @@
 
         <!-- TABLE -->
 
-        <component id="table"><!-- NOT SURE IF IT'S CENTERED-->
+        <component id="table">
             <transformation>
+                <translate x="-2.4" y="-4" z="-4"/>
+                <scale x="0.8" y="0.8" z="0.8"/>
             </transformation>
             <animation>
             </animation>
@@ -382,21 +385,6 @@
         </component>
 
         <!--GAME PIECES-->
-        <component id="whitePiece">
-            <transformation>
-                <translate x="1" y="0.2" z="0"/>
-            </transformation>
-            <animation>
-            </animation>
-            <materials>
-                <material id="cuboidMaterial" />
-            </materials>
-            <texture id="whiteTexture"/>
-            <children>
-                <primitiveref id="cylinder"/>
-            </children>
-        </component>
-
         <component id="whitePieces">
             <transformation>
                 <rotate angle="180" axis="y"/>
