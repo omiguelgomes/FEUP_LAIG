@@ -150,6 +150,7 @@
                 <componentref id="whitePieces"/>
                 <componentref id="blackPieces"/>
                 <componentref id="table"/>
+                <componentref id="backgroundCube"/>
             </children>
         </component>
 
@@ -251,8 +252,8 @@
 
         <component id="backgroundCube">
             <transformation>
-                <translate x="-15" y="0" z="-15"/>
-                <scale x="30" y="30" z="30"/>
+                <scale x="50" y="15" z="50"/>
+                <translate x="-0.5" y="-0.25" z="-0.5"/>
             </transformation>
             <animation>
             </animation>
@@ -295,6 +296,7 @@
         <component id="tableLeg">
             <transformation>
                 <scale x="1" y="4" z="1"/>
+                <translate x="0" y="0" z="-0.5"/>
             </transformation>
             <animation>
             </animation>
