@@ -1,5 +1,5 @@
 class MyCylinder2 extends CGFobject {
-    constructor(scene, baseRadius, topRadius, height, slices, stacks) {
+    constructor(scene, id, baseRadius, topRadius, height, slices, stacks) {
         super(scene);
 
         //estas variáveis são as mesmas que as do cilindro normal

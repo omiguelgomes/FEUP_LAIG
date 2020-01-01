@@ -19,9 +19,9 @@ class MyBoard extends CGFobject {
             for (let col = 0; col < 8; col++) {
                 this.scene.pushMatrix();
                 this.scene.rotate(-Math.PI / 2, 1, 0, 0);
-                this.scene.translate(0.4 + 0.525 * row, -1 - 0.515 * col, 0.25);
+                this.scene.translate(0.4 + 0.525 * row, -1 - 0.515 * col, 0.25); //not 100% in place
                 this.scene.registerForPick((row * 10 + col) + this.dif, this.tile);
-                this.tile.display();
+                //this.tile.display();
                 this.scene.popMatrix();
             }
         }

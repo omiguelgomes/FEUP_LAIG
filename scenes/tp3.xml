@@ -45,8 +45,8 @@
         <texture id="leftBackgroundTexture" file="img/leftBackgroundTexture.jpg" />
         <texture id="cuboidTexture" file="img/cuboidTexture.jpg" />
         <texture id="boardTexture" file="img/board.png"/>
-        <texture id="boatTexture" file="img/boatTexture.jpg" />
-        <texture id="redPinTexture" file="img/redPinTexture.jpg" />
+        <texture id="blackTexture" file="img/black.png" />
+        <texture id="whiteTexture" file="img/white.png" />
     </textures>
 
     <materials>
@@ -105,7 +105,7 @@
     </animations>
 
     <primitives>
-        
+
         <!-- BACKGROUND -->
         <primitive id="backgroundRectangle">
             <rectangle x1="0.0" x2="1.0" y1="0.0" y2="1.0"/>
@@ -117,7 +117,7 @@
         </primitive>
 
         <primitive id="cylinder">
-            <cylinder base="0.5" top="0.5" height="1.0" slices="10" stacks="1"/>
+            <cylinder base="0.2" top="0.2" height="0.1" slices="10" stacks="1"/>
         </primitive>
 
         <primitive id="torus">
@@ -135,7 +135,7 @@
     </primitives>
 
     <components>
-
+        <!-- DEMO ROOT -->
         <component id="demoRoot">
             <transformation>
             </transformation>
@@ -146,19 +146,11 @@
             </materials>
             <texture id="backgroundTexture" />
             <children>
-               <!-- <componentref id="backgroundCube" />
-                <componentref id="table" />-->
                 <componentref id="board"/>
-                <!--<componentref id="board2"/>
-                <componentref id="submarine" />
-                <componentref id="carrier"/>
-                <componentref id="boat3"/>
-                <componentref id="boat4"/>
-                <componentref id="boat5"/>
-                <componentref id="whitePin"/>
-                <componentref id="redPin"/>-->
+                <componentref id="whitePieces"/>
+                <componentref id="blackPieces"/>
             </children>
-        </component> 
+        </component>
 
 
         <!-- BACKGROUND -->
@@ -279,7 +271,7 @@
 
         <!-- TABLE -->
 
-        <component id="table"> <!-- NOT SURE IF IT'S CENTERED-->
+        <component id="table"><!-- NOT SURE IF IT'S CENTERED-->
             <transformation>
             </transformation>
             <animation>
@@ -376,8 +368,7 @@
         <!--GAME BOARD-->
         <component id="board">
             <transformation>
-                <translate x="-2" y="0" z="-3"/>
-                <scale x="1" y="1" z="1"/>
+                <translate x="-2.5" y="0" z="-2.5"/>
             </transformation>
             <animation>
             </animation>
@@ -389,5 +380,259 @@
                 <primitiveref id="pBoard1"/>
             </children>
         </component>
+
+        <!--GAME PIECES-->
+        <component id="whitePiece">
+            <transformation>
+                <translate x="1" y="0.2" z="0"/>
+            </transformation>
+            <animation>
+            </animation>
+            <materials>
+                <material id="cuboidMaterial" />
+            </materials>
+            <texture id="whiteTexture"/>
+            <children>
+                <primitiveref id="cylinder"/>
+            </children>
+        </component>
+
+        <component id="whitePieces">
+            <transformation>
+                <rotate angle="180" axis="y"/>
+                <translate x="0" y="0" z="0"/>
+            </transformation>
+            <animation>
+            </animation>
+            <materials>
+                <material id="cuboidMaterial" />
+            </materials>
+            <texture id="whiteTexture"/>
+            <children>
+                <componentref id="pieces"/>
+                <!-- ALL WHITE PIECES -->
+            </children>
+        </component>
+
+        <component id="blackPieces">
+            <transformation>
+            </transformation>
+            <animation>
+            </animation>
+            <materials>
+                <material id="cuboidMaterial" />
+            </materials>
+            <texture id="blackTexture"/>
+            <children>
+                <componentref id="pieces"/>
+            </children>
+        </component>
+
+        <component id="pieces">
+            <transformation>
+                <translate x="0" y="0.2" z="0"/>
+            </transformation>
+            <animation>
+            </animation>
+            <materials>
+                <material id="cuboidMaterial" />
+            </materials>
+            <texture id="inherit"/>
+            <children>
+                <componentref id="blackPieceA1"/>
+                <componentref id="blackPieceC1"/>
+                <componentref id="blackPieceE1"/>
+                <componentref id="blackPieceG1"/>
+                <componentref id="blackPieceB2"/>
+                <componentref id="blackPieceD2"/>
+                <componentref id="blackPieceF2"/>
+                <componentref id="blackPieceH2"/>
+                <componentref id="blackPieceA3"/>
+                <componentref id="blackPieceC3"/>
+                <componentref id="blackPieceE3"/>
+                <componentref id="blackPieceG3"/>
+            </children>
+        </component>
+
+        <component id="blackPieceA1">
+            <transformation>
+                <translate x="-1.8" y="0" z="1.8"/>
+            </transformation>
+            <animation>
+            </animation>
+            <materials>
+                <material id="cuboidMaterial" />
+            </materials>
+            <texture id="inherit"/>
+            <children>
+                <componentref id="cylinder"/>
+            </children>
+        </component>
+
+        <component id="blackPieceC1">
+            <transformation>
+                <translate x="-0.8" y="0" z="1.8"/>
+            </transformation>
+            <animation>
+            </animation>
+            <materials>
+                <material id="cuboidMaterial" />
+            </materials>
+            <texture id="inherit"/>
+            <children>
+                <componentref id="cylinder"/>
+            </children>
+        </component>
+
+        <component id="blackPieceE1">
+            <transformation>
+                <translate x="0.25" y="0" z="1.8"/>
+            </transformation>
+            <animation>
+            </animation>
+            <materials>
+                <material id="cuboidMaterial" />
+            </materials>
+            <texture id="inherit"/>
+            <children>
+                <componentref id="cylinder"/>
+            </children>
+        </component>
+
+        <component id="blackPieceG1">
+            <transformation>
+                <translate x="1.3" y="0" z="1.8"/>
+            </transformation>
+            <animation>
+            </animation>
+            <materials>
+                <material id="cuboidMaterial" />
+            </materials>
+            <texture id="inherit"/>
+            <children>
+                <componentref id="cylinder"/>
+            </children>
+        </component>
+
+        <component id="blackPieceB2">
+            <transformation>
+                <translate x="-1.3" y="0" z="1.3"/>
+            </transformation>
+            <animation>
+            </animation>
+            <materials>
+                <material id="cuboidMaterial" />
+            </materials>
+            <texture id="inherit"/>
+            <children>
+                <componentref id="cylinder"/>
+            </children>
+        </component>
+
+        <component id="blackPieceD2">
+            <transformation>
+                <translate x="-0.25" y="0" z="1.3"/>
+            </transformation>
+            <animation>
+            </animation>
+            <materials>
+                <material id="cuboidMaterial" />
+            </materials>
+            <texture id="inherit"/>
+            <children>
+                <componentref id="cylinder"/>
+            </children>
+        </component>
+
+        <component id="blackPieceF2">
+            <transformation>
+                <translate x="0.8" y="0" z="1.3"/>
+            </transformation>
+            <animation>
+            </animation>
+            <materials>
+                <material id="cuboidMaterial" />
+            </materials>
+            <texture id="inherit"/>
+            <children>
+                <componentref id="cylinder"/>
+            </children>
+        </component>
+
+        <component id="blackPieceH2">
+            <transformation>
+                <translate x="1.8" y="0" z="1.3"/>
+            </transformation>
+            <animation>
+            </animation>
+            <materials>
+                <material id="cuboidMaterial" />
+            </materials>
+            <texture id="inherit"/>
+            <children>
+                <componentref id="cylinder"/>
+            </children>
+        </component>
+
+        <component id="blackPieceA3">
+            <transformation>
+                <translate x="-1.8" y="0" z="0.8"/>
+            </transformation>
+            <animation>
+            </animation>
+            <materials>
+                <material id="cuboidMaterial" />
+            </materials>
+            <texture id="inherit"/>
+            <children>
+                <componentref id="cylinder"/>
+            </children>
+        </component>
+
+        <component id="blackPieceC3">
+            <transformation>
+                <translate x="-0.8" y="0" z="0.8"/>
+            </transformation>
+            <animation>
+            </animation>
+            <materials>
+                <material id="cuboidMaterial" />
+            </materials>
+            <texture id="inherit"/>
+            <children>
+                <componentref id="cylinder"/>
+            </children>
+        </component>
+
+        <component id="blackPieceE3">
+            <transformation>
+                <translate x="0.25" y="0" z="0.8"/>
+            </transformation>
+            <animation>
+            </animation>
+            <materials>
+                <material id="cuboidMaterial" />
+            </materials>
+            <texture id="inherit"/>
+            <children>
+                <componentref id="cylinder"/>
+            </children>
+        </component>
+
+        <component id="blackPieceG3">
+            <transformation>
+                <translate x="1.3" y="0" z="0.8"/>
+            </transformation>
+            <animation>
+            </animation>
+            <materials>
+                <material id="cuboidMaterial" />
+            </materials>
+            <texture id="inherit"/>
+            <children>
+                <componentref id="cylinder"/>
+            </children>
+        </component>
+
     </components>
 </lxs>
