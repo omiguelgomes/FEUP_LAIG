@@ -18,27 +18,20 @@ class MyGameOrchestrator extends CGFobject {
         this.pieces = [];
     }
 
-    checkPicking() 
-    {
-        if (this.scene.pickMode == false) 
-        {
-            if (this.scene.pickResults != null && this.scene.pickResults.length > 0) 
-            {
-                for (let i = 0; i < this.scene.pickResults.length; i++) 
-                {
+    checkPicking() {
+        if (this.scene.pickMode == false) {
+            if (this.scene.pickResults != null && this.scene.pickResults.length > 0) {
+                for (let i = 0; i < this.scene.pickResults.length; i++) {
                     let obj = this.scene.pickResults[i][0];
-                    if (obj) 
-                    {
+                    if (obj) {
                         let customId = this.scene.pickResults[i][1];
 
-                        if(costumId < 200)
-                        {
+                        if (costumId < 200) {
                             var row = customId % 10;
                             var col = Math.floor(customId / 10);
-                        }
-                        else{
+                        } else {
                             var row = (customId - 200) % 10;
-                            var col = Math.floor((customId - 200) / 10); 
+                            var col = Math.floor((customId - 200) / 10);
                         }
                         this.changeMove([row, col]);
                         this.pause = true;
@@ -50,7 +43,7 @@ class MyGameOrchestrator extends CGFobject {
     }
 
     update(t) {
-        
+
         this.animator.update(t);
     }
 
@@ -65,9 +58,10 @@ class MyGameOrchestrator extends CGFobject {
     }
 
     //TODO: miguel, do your magic here 
-    createAnimation(turn, move){
+
+    createAnimation(turn, move) {
         let animation = new MyKeyFrameAnimation(this.scene, 5);
-        
+
         //TODO: actual animation handler here (see moodle for more)
         this.animator.addAnimation(animation);
     }
@@ -79,11 +73,10 @@ class MyGameOrchestrator extends CGFobject {
         this.move.push(this.turn);
         this.gameSequence.addMove(move);
 
-        setTimeout(() => 
-            { 
-                this.turn = Math.abs(this.turn - 1); 
-                this.scene.setPickEnabled(true); 
-            }, 5000);
+        setTimeout(() => {
+            this.turn = Math.abs(this.turn - 1);
+            this.scene.setPickEnabled(true);
+        }, 5000);
 
         this.createAnimation(this.turn, this.move);
     }
