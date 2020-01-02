@@ -1,5 +1,9 @@
 class MyCylinderBase extends CGFobject {
-
+    /**
+     * MyCylinderBase
+     * @constructor
+     * @param scene - Reference to MyScene object
+     */
     constructor(scene, slices) {
         super(scene);
         this.slices = slices;

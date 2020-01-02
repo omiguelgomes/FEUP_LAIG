@@ -25,14 +25,14 @@ class MyCylinder extends CGFobject {
     display() {
         this.baseCap = new MyCylinderBase(this.scene, this.slices);
         this.topCap = new MyCylinderBase(this.scene, this.slices);
-        this.body = new MyCylinderBody(this.scene, this.id, this.base, this.top, this.height, this.slices, this.stacks);
+        this.body = new MyCylinderBody(this.scene, this.base, this.top, this.height, this.slices, this.stacks);
         this.scene.pushMatrix();
         this.body.display();
         this.scene.scale(this.base, 1, this.base);
         this.scene.rotate(Math.PI / 2, 1, 0, 0);
         this.baseCap.display();
         this.scene.scale(this.top / this.base, 1, this.top / this.base);
-        this.scene.rotate(Math.PI, 1, 0, 0);
+        this.scene.rotate(Math.PI, 0, 1, 0);
         this.scene.translate(0, 0, this.height);
         this.topCap.display();
         this.scene.popMatrix();

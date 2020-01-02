@@ -54,7 +54,7 @@ class MyGameOrchestrator extends CGFobject {
 
         //creates all 24 pieces and defines to whose player they belong to
         for (let j = 0; j < 24; j++) {
-            this.pieces[j] = new MyPiece(this.scene, 0.2, 0.2, 0.1, 10, 1);
+            this.pieces[j] = new MyPiece(this.scene, 0.2, 0.2, 0.1, 10, 10);
             this.squares[this.position[j]] = j <= 11 ? 1 : -1;
         }
 
