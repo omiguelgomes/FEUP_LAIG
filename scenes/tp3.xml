@@ -3,8 +3,8 @@
 
     <views default="defaultCamera">
         <perspective id="defaultCamera" near="0.1" far="500" angle="45">
-            <from x="10" y="0" z="0" />
-            <to x="0" y="0" z="0" />
+            <from x="0" y="6" z="10" />
+            <to x="0" y="0" z="-3" />
         </perspective>
 
         <perspective id="sunCamera" near="0.1" far="500" angle="45">
@@ -86,17 +86,17 @@
     <animations>
         <animation id="moveTest">
             <keyframe instant="1.0">
-                <translate x="0.0" y="0.3" z="0.0" />
+                <translate x="0.0" y="0.0" z="0.0" />
                 <rotate angle_x="0" angle_y="0" angle_z="0" />
-                <scale x="1" y="1" z="1" />
+                <scale x="1" y="2" z="1" />
             </keyframe>
             <keyframe instant="2.0">
-                <translate x="-0.52" y="0.3" z="-0.52" /><!--0.52 per tile-->
-                <rotate angle_x="0" angle_y="0" angle_z="0" />
-                <scale x="1" y="1" z="1" />
+                <translate x="1.0" y="1.0" z="1.0" /><!--0.52 per tile-->
+                <rotate angle_x="0" angle_y="90" angle_z="0" />
+                <scale x="1" y="3" z="1" />
             </keyframe>
             <keyframe instant="3.0">
-                <translate x="-0.52" y="0.0" z="-0.52" />
+                <translate x="0.0" y="0.0" z="0.0" />
                 <rotate angle_x="0" angle_y="0" angle_z="0" />
                 <scale x="1" y="1" z="1" />
             </keyframe>
@@ -152,9 +152,75 @@
                 <componentref id="board"/>
                 <componentref id="table"/>
                 <componentref id="backgroundCube"/>
+                <componentref id="scoreboard"/>
             </children>
         </component>
 
+        <!-- SCOREBOARD -->
+        <component id="scoreboard">
+            <transformation>
+                <translate x="0" y="0" z="-25"/>
+            </transformation>
+            <animation>
+            </animation>
+            <materials>
+                <material id="backgroundMaterial" />
+            </materials>
+            <texture id="whiteTexture"/>
+            <children>
+                <componentref id="p1Score"/>
+                <componentref id="dash"/>
+                <componentref id="p2Score"/>
+            </children>
+        </component>
+
+        <!----> <component id="p1Score">
+            <transformation>
+                <translate x="-5" y="-1.5" z="0"/>
+                <scale x="4" y="4" z="1"/>
+            </transformation>
+            <animation>
+            </animation>
+            <materials>
+                <material id="backgroundMaterial" />
+            </materials>
+            <texture id="whiteTexture"/>
+            <children>
+                <primitiveref id="cuboid"/>
+            </children>
+        </component>
+
+        <component id="dash">
+            <transformation>
+                <translate x="-1.5" y="0" z="0"/>
+                <scale x="3" y="0.3" z="0.1"/>
+            </transformation>
+            <animation>
+            </animation>
+            <materials>
+                <material id="backgroundMaterial" />
+            </materials>
+            <texture id="blackTexture"/>
+            <children>
+                <primitiveref id="cuboid"/>
+            </children>
+        </component>
+
+        <component id="p2Score">
+            <transformation>
+                <translate x="1" y="-1.5" z="0"/>
+                <scale x="4" y="4" z="1"/>
+            </transformation>
+            <animation>
+            </animation>
+            <materials>
+                <material id="backgroundMaterial" />
+            </materials>
+            <texture id="whiteTexture"/>
+            <children>
+                <primitiveref id="cuboid"/>
+            </children>
+        </component> 
 
         <!-- BACKGROUND -->
         <component id="backgroundFrontRectangle">
@@ -279,6 +345,7 @@
                 <translate x="-3.6" y="-5.3" z="-5.5"/>
                 <scale x="1.2" y="1.1" z="1.2"/>
             </transformation>
+            <!-- <animationref id="moveTest"/> -->
             <animation>
             </animation>
             <materials>
