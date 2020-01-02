@@ -146,11 +146,11 @@
             </materials>
             <texture id="backgroundTexture" />
             <children>
-                <componentref id="board"/>
+                <!--<componentref id="board"/>
                 <componentref id="whitePieces"/>
                 <componentref id="blackPieces"/>
                 <componentref id="table"/>
-                <componentref id="backgroundCube"/>
+                <componentref id="backgroundCube"/>-->
             </children>
         </component>
 

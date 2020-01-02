@@ -36,9 +36,13 @@ class XMLscene extends CGFscene {
 
         this.axis = new CGFaxis(this);
         this.setUpdatePeriod(100);
-        this.setPickEnabled(true);
 
         this.matCounter = 0;
+
+        //Game
+        this.setPickEnabled(true);
+        this.game = new MyGameOrchestrator(this);
+        this.board = new MyBoard(this);
     }
 
     /**
@@ -117,6 +121,8 @@ class XMLscene extends CGFscene {
             this.updateCameras();
             this.updateLights();
         }
+
+        this.game.update(t);
     }
 
     updateCameras() {
@@ -145,7 +151,29 @@ class XMLscene extends CGFscene {
         }
     }
 
+    logPicking()
+    {
+        if (this.pickMode == false) {
+            if (this.pickResults != null && this.pickResults.length > 0) {
+                for (var i = 0; i < this.pickResults.length; i++) {
+                    var obj = this.pickResults[i][0];
+                    if (obj)
+                    {
+                        //sets the new customId dependant on what we are picking
+                        this.customId = this.pickResults[i][1];				
+                        console.log("Picked object: " + obj + ", with pick id " + this.customId);
+                    }
+                }
+                this.pickResults.splice(0,this.pickResults.length);
+            }		
+        }
+    }
+
     display() {
+        
+        //picking
+        this.logPicking();
+	    this.clearPickRegistration();
 
         this.gl.viewport(0, 0, this.gl.canvas.width, this.gl.canvas.height);
         this.gl.clear(this.gl.COLOR_BUFFER_BIT | this.gl.DEPTH_BUFFER_BIT);
@@ -172,5 +200,11 @@ class XMLscene extends CGFscene {
 
         this.gl.disable(this.gl.DEPTH_TEST);
         this.gl.enable(this.gl.DEPTH_TEST);
+
+        this.pushMatrix();
+		this.translate(0, -1, 3);
+		this.scale(0.8,0.8,0.8);
+		this.game.display(this.customId);
+	    this.popMatrix();
     }
 }

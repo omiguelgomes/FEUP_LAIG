@@ -37,11 +37,11 @@ class MyGameOrchestrator extends CGFobject {
                     14,0,14];
         
         //TODO: deal with animations
-        this.move = new LinearAnimation(this.scene, this.points, this.moveTime * 7);
+        //this.move = new LinearAnimation(this.scene, this.points, this.moveTime * 7);
         
         //creates a quad (tile) for every cell of the board (8x8)
         for (let i = 0; i < 64; i++) {
-            this.cells[i] = new MyQuad(this.scene);
+            this.cells[i] = new MyTile(this.scene);
             this.squares[i] = 0;
         }
 
@@ -323,7 +323,7 @@ class MyGameOrchestrator extends CGFobject {
         this.defaultdisp(mode);
 
         this.init = new Date();
-        this.move = new LinearAnimation(this.scene, this.points, this.moveTime * 10);
+        //this.move = new LinearAnimation(this.scene, this.points, this.moveTime * 10);
     }
 
     pickedsquare(mode)
