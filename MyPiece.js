@@ -5,6 +5,8 @@ class MyPiece extends CGFobject {
         this.piece = new MyCylinder(this.scene, base, top, height, slices, stacks);
     }
     display() {
+        this.scene.pushMatrix();
         this.piece.display();
+        this.scene.popMatrix();
     }
 }

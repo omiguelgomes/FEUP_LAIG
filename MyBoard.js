@@ -9,7 +9,6 @@ class MyBoard extends CGFobject {
 
     display() {
         this.scene.pushMatrix();
-        this.scene.scale(5, 0.2, 5);
         this.playerBoard.display();
         this.scene.popMatrix();
     }

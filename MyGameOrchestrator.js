@@ -35,15 +35,17 @@ class MyGameOrchestrator extends CGFobject {
             17, 19, 21, 23,
             40, 42, 44, 46,
             49, 51, 53, 55,
-            56, 58, 60, 62];
+            56, 58, 60, 62
+        ];
 
         this.moveTime = 1;
         this.points = [0, 0, 0,
-                    14, 0, 14];
+            14, 0, 14
+        ];
 
         //TODO: deal with animations
         this.move = new MyLinearAnimation(this.scene, this.points, this.moveTime * 7);
-        
+
         //creates a quad (tile) for every cell of the board (8x8)
         for (let i = 0; i < 64; i++) {
             this.cells[i] = new MyTile(this.scene);
@@ -52,7 +54,7 @@ class MyGameOrchestrator extends CGFobject {
 
         //creates all 24 pieces and defines to whose player they belong to
         for (let j = 0; j < 24; j++) {
-            this.pieces[j] = new MyPiece(this.scene, 2, 2, 2, 2, 2);
+            this.pieces[j] = new MyPiece(this.scene, 0.2, 0.2, 0.1, 10, 1);
             this.squares[this.position[j]] = j <= 11 ? 1 : -1;
         }
 
@@ -163,7 +165,8 @@ class MyGameOrchestrator extends CGFobject {
             else
                 this.boxBappearance.apply();
 
-            this.scene.rotate(Math.PI / 2, 1, 0, 0);
+            this.scene.translate(-3.5, 2, -7.2);
+            this.scene.rotate(-Math.PI / 2, 1, 0, 0);
             this.cells[i].display();
             this.scene.popMatrix();
             if (mode == 5)
@@ -174,11 +177,10 @@ class MyGameOrchestrator extends CGFobject {
     drawPieces(mode) {
         var kickcount = [-1, -1];
         var zshift;
-        console.log(mode);
-        console.log(this.savePick);
+        // console.log(mode);
+        // console.log(this.savePick);
 
-        for (let i = 0; i < this.pieces.length; i++) 
-        {
+        for (let i = 0; i < this.pieces.length; i++) {
             this.scene.pushMatrix();
 
             if (mode == 1 && i == (this.savePick - 101))
@@ -199,18 +201,13 @@ class MyGameOrchestrator extends CGFobject {
                 zshift = i >= 12 ? 1 : 0;
                 kickcount[zshift]++;
                 this.scene.translate(kickcount[zshift] % 2, Math.floor(kickcount[zshift] / 2) * 0.4, -1 * zshift);
-                this.scene.rotate(Math.PI / 2, 1, 0, 0);
-                this.scene.scale(0.4, 0.4, 0.4, 1);
                 this.pieces[i].display();
             } else if (i == (this.savePick - 101) && mode == 2) {
 
                 this.move.apply(this.player, this.left);
-                this.scene.rotate(Math.PI / 2, 1, 0, 0);
-                this.scene.scale(0.4, 0.4, 0.4, 1);
                 this.pieces[i].display();
             } else {
-                this.scene.rotate(Math.PI / 2, 1, 0, 0);
-                this.scene.scale(0.4, 0.4, 0.4, 1);
+                this.scene.translate(-3.5, 2, -7.2);
                 this.pieces[i].display();
             }
 
@@ -317,7 +314,6 @@ class MyGameOrchestrator extends CGFobject {
 
         this.init = new Date();
         this.move = new MyLinearAnimation(this.scene, this.points, this.moveTime * 10);
-        console.log("hi");
     }
 
     pickedsquare(mode) {
@@ -342,7 +338,7 @@ class MyGameOrchestrator extends CGFobject {
 
             //Jumping elimination
             if (Math.abs(Math.floor(this.savePick2 / 8) - Math.floor(pos / 8)) == 2) {
-                for (i = 0; i < 24; i++)
+                for (let i = 0; i < 24; i++)
                     if (this.position[i] == pos + (this.savePick2 - pos) / 2) {
                         this.squares[this.position[i]] = 0;
                         this.position[i] = -1;
@@ -376,10 +372,10 @@ class MyGameOrchestrator extends CGFobject {
 
     playerswap() {
         this.player *= -1;
-        if (this.player == 1)
-            this.scene.camera.setPosition(vec3.fromValues(7, 16, -13));
-        else
-            this.scene.camera.setPosition(vec3.fromValues(7, 16, 30));
+        // if (this.player == 1)
+        //     this.scene.camera.setPosition(vec3.fromValues(7, 16, -13));
+        // else
+        //     this.scene.camera.setPosition(vec3.fromValues(7, 16, 30));
     }
 
     defaultdisp(mode) {

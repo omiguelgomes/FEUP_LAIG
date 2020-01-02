@@ -3,7 +3,7 @@
 
     <views default="defaultCamera">
         <perspective id="defaultCamera" near="0.1" far="500" angle="45">
-            <from x="0" y="10" z="10" />
+            <from x="0" y="20" z="1" />
             <to x="0" y="0" z="0" />
         </perspective>
 
@@ -149,11 +149,11 @@
             </materials>
             <texture id="backgroundTexture" />
             <children>
-                <!--<componentref id="board"/>
+                <componentref id="board"/>
                 <componentref id="whitePieces"/>
                 <componentref id="blackPieces"/>
                 <componentref id="table"/>
-                <componentref id="backgroundCube"/>-->
+                <componentref id="backgroundCube"/>
             </children>
         </component>
 
@@ -256,7 +256,7 @@
         <component id="backgroundCube">
             <transformation>
                 <scale x="50" y="15" z="50"/>
-                <translate x="-0.5" y="-0.25" z="-0.5"/>
+                <translate x="-0.5" y="-0.3" z="-0.5"/>
             </transformation>
             <animation>
             </animation>
@@ -278,8 +278,8 @@
 
         <component id="table">
             <transformation>
-                <translate x="-2.4" y="-4" z="-4"/>
-                <scale x="0.8" y="0.8" z="0.8"/>
+                <translate x="-3.6" y="-5.3" z="-5.5"/>
+                <scale x="1.2" y="1.1" z="1.2"/>
             </transformation>
             <animation>
             </animation>
@@ -299,7 +299,7 @@
         <component id="tableLeg">
             <transformation>
                 <scale x="1" y="4" z="1"/>
-                <translate x="0" y="0" z="-0.5"/>
+                <translate x="0" y="0.2" z="-0.5"/>
             </transformation>
             <animation>
             </animation>
@@ -376,7 +376,8 @@
         <!--GAME BOARD-->
         <component id="board">
             <transformation>
-                <translate x="-2.5" y="0" z="-2.5"/>
+                <translate x="-3.75" y="0.05" z="-3.7"/>
+                <scale x="7.5" y="0.5" z="7.5"/>
             </transformation>
             <animation>
             </animation>
