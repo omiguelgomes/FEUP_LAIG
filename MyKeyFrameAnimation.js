@@ -14,6 +14,12 @@ class MyKeyFrameAnimation extends MyAnimation {
         this.timePassedRatio;
     };
 
+    apply() {
+        while (!this.complete) {
+            this.update();
+        }
+    }
+
     update() {
         var d = new Date();
         if (!this.started) { //only runs in the first time
@@ -21,9 +27,7 @@ class MyKeyFrameAnimation extends MyAnimation {
             this.started = true;
         }
 
-        if (!this.complete) {
-            this.deltaTime = (d.getTime() - this.startTime);
-        }
+        this.deltaTime = (d.getTime() - this.startTime);
 
         for (var i = 0; i < this.keyFrames.length; i++) //for every time interval in the animation
         {
@@ -39,6 +43,9 @@ class MyKeyFrameAnimation extends MyAnimation {
                     this.updateMatrix(i, false);
                 }
             }
+        }
+        if ((this.deltaTime > this.keyFrames[this.keyFrames.length - 1][0] * 1000)) {
+            this.complete = true;
         }
     };
 
@@ -93,6 +100,4 @@ class MyKeyFrameAnimation extends MyAnimation {
                 prevTransf[2][2] + ((transf[2][2] - prevTransf[2][2]) * ratio));
         }
     };
-
-    apply() {};
 };

@@ -978,7 +978,8 @@ class MySceneGraph {
                     grandChildren[0].nodeName != 'cylinder' && grandChildren[0].nodeName != 'sphere' &&
                     grandChildren[0].nodeName != 'torus' && grandChildren[0].nodeName != 'plane' &&
                     grandChildren[0].nodeName != 'patch' && grandChildren[0].nodeName != 'cylinder2' &&
-                    grandChildren[0].nodeName != 'cuboid' && grandChildren[0].nodeName != 'board')) {
+                    grandChildren[0].nodeName != 'cuboid' && grandChildren[0].nodeName != 'board' &&
+                    grandChildren[0].nodeName != 'piece')) {
                 console.log(children);
                 return "There must be exactly 1 primitive type (rectangle, triangle, cylinder, sphere or torus)"
             }
@@ -1098,11 +1099,7 @@ class MySceneGraph {
 
             if (primitiveType == 'board') {
 
-                if (primitiveId == "pBoard1")
-                    var board = new MyBoard(this.scene, 0);
-                else if (primitiveId == "pBoard2")
-                    var board = new MyBoard(this.scene, 200);
-
+                var board = new MyBoard(this.scene);
                 this.primitives[primitiveId] = board;
             }
 
@@ -1168,6 +1165,36 @@ class MySceneGraph {
                 var cylinder2 = new MyCylinder2(this.scene, base, top, height, slices, stacks);
 
                 this.primitives[primitiveId] = cylinder2;
+            }
+            if (primitiveType == 'piece') { //piece
+                // base
+                var baseRadius = this.reader.getFloat(grandChildren[0], 'base');
+                if (!(baseRadius != null && !isNaN(baseRadius)))
+                    return "unable to parse base of the primitive coordinates for ID = " + primitiveId;
+
+                // top
+                var topRadius = this.reader.getFloat(grandChildren[0], 'top');
+                if (!(topRadius != null && !isNaN(topRadius)))
+                    return "unable to parse top of the primitive coordinates for ID = " + primitiveId;
+
+                // height
+                var height = this.reader.getFloat(grandChildren[0], 'height');
+                if (!(height != null && !isNaN(height)))
+                    return "unable to parse height of the primitive coordinates for ID = " + primitiveId;
+
+                // slices
+                var slices = this.reader.getFloat(grandChildren[0], 'slices');
+                if (!(slices != null && !isNaN(slices)))
+                    return "unable to parse slices of the primitive coordinates for ID = " + primitiveId;
+
+                // stacks
+                var stacks = this.reader.getFloat(grandChildren[0], 'stacks');
+                if (!(stacks != null && !isNaN(stacks)))
+                    return "unable to parse stacks of the primitive coordinates for ID = " + primitiveId;
+
+                var piece = new MyPiece(this.scene, primitiveId, baseRadius, topRadius, height, slices, stacks);
+
+                this.primitives[primitiveId] = piece;
             }
         }
 
@@ -1533,7 +1560,6 @@ class MySceneGraph {
             if (this.primitives[childID] != null) {
                 currentMaterial.apply();
                 currentTexture.bind();
-
                 this.primitives[child[i]].display();
 
             } else {
