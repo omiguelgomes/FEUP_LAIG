@@ -177,8 +177,6 @@ class MyGameOrchestrator extends CGFobject {
     drawPieces(mode) {
         var kickcount = [-1, -1];
         var zshift;
-        // console.log(mode);
-        // console.log(this.savePick);
 
         for (let i = 0; i < this.pieces.length; i++) {
             this.scene.pushMatrix();
@@ -376,6 +374,7 @@ class MyGameOrchestrator extends CGFobject {
         //     this.scene.camera.setPosition(vec3.fromValues(7, 16, -13));
         // else
         //     this.scene.camera.setPosition(vec3.fromValues(7, 16, 30));
+        this.scene.changeCamera();
     }
 
     defaultdisp(mode) {

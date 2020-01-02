@@ -10,9 +10,10 @@ class XMLscene extends CGFscene {
      */
     constructor(myinterface) {
         super();
-        this.earthCamera = false;
-        this.sunCamera = false;
+        //this.earthCamera = false;
+        //this.sunCamera = false;
         this.secondLight = false;
+        this.cameraAnimation = false;
         this.interface = myinterface;
     }
 
@@ -42,17 +43,14 @@ class XMLscene extends CGFscene {
         //Game
         this.setPickEnabled(true);
         this.game = new MyGameOrchestrator(this);
-        this.board = new MyBoard(this);
     }
 
     /**
      * Initializes the scene cameras.
      */
     initCameras() {
-        this.camera = new CGFcamera(0.4, 0.1, 500, vec3.fromValues(30, 30, 30), vec3.fromValues(0, 0, 0));
-
-		this.camera.setPosition(vec3.fromValues(7, 16, -13));
-		this.camera.setTarget(vec3.fromValues(7, 3.7, 9));
+        this.camera = new CGFcamera(0.4, 0.1, 500, vec3.fromValues(0, 12, -15), vec3.fromValues(0, 0, 0));
+        this.interface.setActiveCamera(this.camera);
     }
     
         /**
@@ -122,23 +120,48 @@ class XMLscene extends CGFscene {
     update(t) {
         this.checkKeys();
         if (this.sceneInitiated) {
-            this.updateCameras();
+            //this.updateCameras();
             this.updateLights();
             this.game.update(t);
+
+            if(this.cameraAnimation){
+                this.cameraAngle+=5;
+                this.camera.orbit(vec3.fromValues(0, 1, 0), this.cameraAngle * DEGREE_TO_RAD);
+                if(this.cameraAngle == 30) {
+                    this.cameraAnimation = false;
+                    if(this.game.player == 1) {
+                        this.camera.setPosition(vec3.fromValues(0, 12, -15));
+                    } else {
+                        this.camera.setPosition(vec3.fromValues(0, 12, 15));
+                    }
+                }
+            }
         }
     }
 
-    updateCameras() {
-        if (this.sunCamera) {
-            this.graph.scene.camera = this.graph.cameras["sunCamera"];
-            this.graph.scene.interface.setActiveCamera(this.graph.scene.camera);
-        } else if (this.earthCamera) {
-            this.graph.scene.camera = this.graph.cameras["earthCamera"];
-            this.graph.scene.interface.setActiveCamera(this.graph.scene.camera);
+    // updateCameras() {
+    //     if (this.sunCamera) {
+    //         this.graph.scene.camera = this.graph.cameras["sunCamera"];
+    //         this.graph.scene.interface.setActiveCamera(this.graph.scene.camera);
+    //     } else if (this.earthCamera) {
+    //         this.graph.scene.camera = this.graph.cameras["earthCamera"];
+    //         this.graph.scene.interface.setActiveCamera(this.graph.scene.camera);
+    //     } else {
+    //         this.graph.scene.camera = this.graph.cameras["defaultCamera"];
+    //         this.graph.scene.interface.setActiveCamera(this.graph.scene.camera);
+    //     }
+    // }
+
+    changeCamera() {
+        this.camera._up = vec3.fromValues(0,1,0);
+        if(this.game.currPlayer == this.game.player.white_player) {
+            this.camera.setPosition(vec3.fromValues(-11, 12, 2));
         } else {
-            this.graph.scene.camera = this.graph.cameras["defaultCamera"];
-            this.graph.scene.interface.setActiveCamera(this.graph.scene.camera);
+            this.camera.setPosition(vec3.fromValues(11, 12, 2));
         }
+        
+        this.cameraAnimation = true;
+        this.cameraAngle = 0;
     }
 
     updateLights() {
@@ -203,8 +226,6 @@ class XMLscene extends CGFscene {
 
         this.gl.disable(this.gl.DEPTH_TEST);
         this.gl.enable(this.gl.DEPTH_TEST);
-
-        //this.board.display();
 
         this.pushMatrix();
 		this.translate(0, -1, 3);

@@ -25,8 +25,8 @@ class MyInterface extends CGFinterface {
         this.initKeys();
 
         //Cameras
-        this.gui.add(this.scene, 'sunCamera').name("Sun Camera");
-        this.gui.add(this.scene, 'earthCamera').name("Earth Camera");
+        // this.gui.add(this.scene, 'sunCamera').name("Sun Camera");
+        // this.gui.add(this.scene, 'earthCamera').name("Earth Camera");
 
         //Lights
         this.gui.add(this.scene, 'secondLight').name("Second Light");
