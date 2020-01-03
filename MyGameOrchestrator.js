@@ -22,13 +22,6 @@ class MyGameOrchestrator extends CGFobject {
         this.framecount = -1;
         this.enviro = 0;
 
-        /*
-            Ao instanciar, em MySceneGraph, fazer:
-            pieces = this.nodes.blackPieces.children;
-            pieces.push(this.nodes.whitePieces.children)
-            MyGameOrchestrator(this, pieces);
-        */
-
         //pieces positions must be alternated
         this.position = [1, 3, 5, 7,
             8, 10, 12, 14,
@@ -43,8 +36,20 @@ class MyGameOrchestrator extends CGFobject {
             14, 0, 14
         ];
 
-        //TODO: deal with animations
-        this.move = new MyLinearAnimation(this.scene, this.points, this.moveTime * 7);
+        //Dummy keyFrameAnimation
+        var keyFrame1 = ["1.0", ["0.0", "0.0", "0.0"],
+            ["0.0", "0.0", "0.0"],
+            ["1.0", "1.0", "1.0"]
+        ];
+        var keyFrame2 = ["2.0", ["0.0", "0.0", "0.0"],
+            ["0.0", "0.0", "0.0"],
+            ["1.0", "1.0", "1.0"]
+        ];
+        var keyFrame3 = ["3.0", ["0.0", "0.0", "0.0"],
+            ["0.0", "0.0", "0.0"],
+            ["1.0", "1.0", "1.0"]
+        ];
+        this.move = new MyKeyFrameAnimation(this.scene, 100, [keyFrame1, keyFrame2, keyFrame3]);
 
         //creates a quad (tile) for every cell of the board (8x8)
         for (let i = 0; i < 64; i++) {
@@ -121,15 +126,10 @@ class MyGameOrchestrator extends CGFobject {
     }
 
     update(t) {
-
-        this.move.update(t);
+        this.move.update();
     }
 
     display() {
-        //this.scene.translate(7.5, 3.7, 7.5);
-        //this.scene.pushMatrix();
-        //this.scene.translate(-3.5, 0.01, -3.5);
-
         if (this.scene.customId == 150)
             this.undomode(4);
         else if (this.scene.customId == 200)
@@ -144,9 +144,6 @@ class MyGameOrchestrator extends CGFobject {
             this.pickedcylinder(1);
         else
             this.defaultdisp(3);
-
-        //this.scene.popMatrix();
-
     }
 
     drawSquares(mode) {
@@ -201,16 +198,27 @@ class MyGameOrchestrator extends CGFobject {
                 this.scene.translate(kickcount[zshift] % 2, Math.floor(kickcount[zshift] / 2) * 0.4, -1 * zshift);
                 this.pieces[i].display();
             } else if (i == (this.savePick - 101) && mode == 2) {
-
-                this.move.apply(this.player, this.left);
+                var keyFrame1 = ["1.0", ["0.0", "0.3", "0.0"],
+                    ["0.0", "0.0", "0.0"],
+                    ["1.0", "1.0", "1.0"]
+                ];
+                var keyFrame2 = ["2.0", ["-0.52", "0.3", "-0.52"],
+                    ["0.0", "0.0", "0.0"],
+                    ["1.0", "1.0", "1.0"]
+                ];
+                var keyFrame3 = ["3.0", ["-0.52", "0.0", "-0.52"],
+                    ["0.0", "0.0", "0.0"],
+                    ["1.0", "1.0", "1.0"]
+                ];
+                this.move = new MyKeyFrameAnimation(this.scene, 100, [keyFrame1, keyFrame2, keyFrame3]);
+                console.log("waddup who am i");
+                this.update();
                 this.pieces[i].display();
             } else {
                 this.scene.translate(-3.5, 2, -7.2);
                 this.pieces[i].display();
             }
-
             this.scene.popMatrix();
-
         }
 
         if (mode != 2)
@@ -310,7 +318,20 @@ class MyGameOrchestrator extends CGFobject {
         this.defaultdisp(mode);
 
         this.init = new Date();
-        this.move = new MyLinearAnimation(this.scene, this.points, this.moveTime * 10);
+        //this happens when you click a piece
+        // var keyFrame1 = ["1.0", ["0.0", "0.3", "0.0"],
+        //     ["0.0", "0.0", "0.0"],
+        //     ["1.0", "1.0", "1.0"]
+        // ];
+        // var keyFrame2 = ["2.0", ["-0.52", "0.3", "-0.52"],
+        //     ["0.0", "0.0", "0.0"],
+        //     ["1.0", "1.0", "1.0"]
+        // ];
+        // var keyFrame3 = ["3.0", ["-0.52", "0.0", "-0.52"],
+        //     ["0.0", "0.0", "0.0"],
+        //     ["1.0", "1.0", "1.0"]
+        // ];
+        // this.move = new MyKeyFrameAnimation(this.scene, 100, [keyFrame1, keyFrame2, keyFrame3]);
     }
 
     pickedsquare(mode) {
