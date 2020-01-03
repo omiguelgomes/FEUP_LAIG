@@ -1,7 +1,7 @@
 //Handles all game events (process turns, moves, ect)
 //see powerpoint on moodle for more info
 class MyGameOrchestrator extends CGFobject {
-    constructor(scene, pieces) {
+    constructor(scene) {
         super(scene);
         this.scene = scene;
 
@@ -21,6 +21,10 @@ class MyGameOrchestrator extends CGFobject {
         this.count = 0;
         this.framecount = -1;
         this.enviro = 0;
+
+        //new feature: time per move
+        this.clockspeed = 0;
+        this.clock = new MyClock(this.scene, this.clockspeed + 1);
 
         //pieces positions must be alternated
         this.position = [1, 3, 5, 7,
@@ -120,6 +124,7 @@ class MyGameOrchestrator extends CGFobject {
 
     update(t) {
         this.move.update();
+        this.clock.update(t);
         // for (let i = 0; i < this.pieces.length; i++) {
         //     this.pieces[i].display();
         // }
@@ -134,6 +139,8 @@ class MyGameOrchestrator extends CGFobject {
             this.resetgame();
         else if (this.scene.customId == 300)
             this.envirotoggle();
+        else if (this.scene.customId == 350)
+			this.timetoggle();
         else if (this.scene.customId < 100)
             this.pickedsquare(2);
         else if (this.scene.customId > 100)
@@ -251,6 +258,15 @@ class MyGameOrchestrator extends CGFobject {
 
         this.scene.registerForPick(100, this);
         this.scene.popMatrix();
+
+        this.scene.pushMatrix();
+		this.scene.translate(-3.9, 4.3, 4);
+		this.scene.registerForPick(350, this.clock);
+		this.scene.scale(0.4,0.6,0.6);
+		this.scene.rotate(Math.PI/2, 0,1,0);
+		this.clock.display();
+		this.scene.registerForPick(100, this);
+	    this.scene.popMatrix();
     }
 
     moviemode(mode) {
@@ -376,18 +392,33 @@ class MyGameOrchestrator extends CGFobject {
         // else
         //     this.scene.camera.setPosition(vec3.fromValues(7, 16, 30));
         this.scene.changeCamera();
+        this.clock.sec.angle = 0;
     }
 
     defaultdisp(mode) {
         this.drawSquares(mode);
         this.drawPieces(mode);
         this.drawObjects();
+
+        //for the time warning
+        if (this.clock.sec.angle >= 360){
+            this.playerswap();
+            alert("Time's up!");
+        }
     }
 
     envirotoggle() {
         this.enviro = (this.enviro + 1) % 2;
         this.defaultdisp(3);
         this.scene.customId = 100;
+    }
+
+    timetoggle()
+    {
+        this.clockspeed = (this.clockspeed + 1)%4;
+	    this.defaultdisp(3);
+	    this.clock = new MyClock(this.scene, (this.clockspeed + 1)*2);
+	    this.scene.customId = 100;
     }
 
 }
