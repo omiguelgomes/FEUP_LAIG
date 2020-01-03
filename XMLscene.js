@@ -52,10 +52,10 @@ class XMLscene extends CGFscene {
         this.camera = new CGFcamera(0.4, 0.1, 500, vec3.fromValues(0, 12, -15), vec3.fromValues(0, 0, 0));
         this.interface.setActiveCamera(this.camera);
     }
-    
-        /**
-         * Initializes the scene lights with the values read from the XML file.
-         */
+
+    /**
+     * Initializes the scene lights with the values read from the XML file.
+     */
     initLights() {
         var i = 0;
         // Lights index.
@@ -99,11 +99,11 @@ class XMLscene extends CGFscene {
     }
 
     setDefaultAppearance() {
-            this.setAmbient(0.2, 0.4, 0.8, 1.0);
-            this.setDiffuse(0.2, 0.4, 0.8, 1.0);
-            this.setSpecular(0.2, 0.4, 0.8, 1.0);
-            this.setShininess(10.0);
-        }
+        this.setAmbient(0.2, 0.4, 0.8, 1.0);
+        this.setDiffuse(0.2, 0.4, 0.8, 1.0);
+        this.setSpecular(0.2, 0.4, 0.8, 1.0);
+        this.setShininess(10.0);
+    }
 
     onGraphLoaded() {
         this.axis = new CGFaxis(this, this.graph.referenceLength);
@@ -124,12 +124,12 @@ class XMLscene extends CGFscene {
             this.updateLights();
             this.game.update(t);
 
-            if(this.cameraAnimation){
-                this.cameraAngle+=5;
+            if (this.cameraAnimation) {
+                this.cameraAngle += 5;
                 this.camera.orbit(vec3.fromValues(0, 1, 0), this.cameraAngle * DEGREE_TO_RAD);
-                if(this.cameraAngle == 30) {
+                if (this.cameraAngle == 30) {
                     this.cameraAnimation = false;
-                    if(this.game.player == 1) {
+                    if (this.game.player == 1) {
                         this.camera.setPosition(vec3.fromValues(0, 12, -15));
                     } else {
                         this.camera.setPosition(vec3.fromValues(0, 12, 15));
@@ -153,13 +153,13 @@ class XMLscene extends CGFscene {
     // }
 
     changeCamera() {
-        this.camera._up = vec3.fromValues(0,1,0);
-        if(this.game.currPlayer == this.game.player.white_player) {
+        this.camera._up = vec3.fromValues(0, 1, 0);
+        if (this.game.currPlayer == this.game.player.white_player) {
             this.camera.setPosition(vec3.fromValues(-11, 12, 2));
         } else {
             this.camera.setPosition(vec3.fromValues(11, 12, 2));
         }
-        
+
         this.cameraAnimation = true;
         this.cameraAngle = 0;
     }
@@ -177,29 +177,27 @@ class XMLscene extends CGFscene {
         }
     }
 
-    logPicking()
-    {
+    logPicking() {
         if (this.pickMode == false) {
             if (this.pickResults != null && this.pickResults.length > 0) {
                 for (var i = 0; i < this.pickResults.length; i++) {
                     var obj = this.pickResults[i][0];
-                    if (obj)
-                    {
+                    if (obj) {
                         //sets the new customId dependant on what we are picking
-                        this.customId = this.pickResults[i][1];				
+                        this.customId = this.pickResults[i][1];
                         console.log("Picked object: " + obj + ", with pick id " + this.customId);
                     }
                 }
-                this.pickResults.splice(0,this.pickResults.length);
-            }		
+                this.pickResults.splice(0, this.pickResults.length);
+            }
         }
     }
 
     display() {
-        
+
         //picking
         this.logPicking();
-	    this.clearPickRegistration();
+        this.clearPickRegistration();
 
         this.gl.viewport(0, 0, this.gl.canvas.width, this.gl.canvas.height);
         this.gl.clear(this.gl.COLOR_BUFFER_BIT | this.gl.DEPTH_BUFFER_BIT);
@@ -228,9 +226,9 @@ class XMLscene extends CGFscene {
         this.gl.enable(this.gl.DEPTH_TEST);
 
         this.pushMatrix();
-		this.translate(0, -1, 3);
-		this.scale(0.8,0.8,0.8);
-		this.game.display(this.customId);
-	    this.popMatrix();
+        this.translate(0, -1, 3);
+        this.scale(0.8, 0.8, 0.8);
+        this.game.display(this.customId);
+        this.popMatrix();
     }
 }

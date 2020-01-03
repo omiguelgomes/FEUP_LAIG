@@ -3,8 +3,19 @@
 
     <views default="defaultCamera">
         <perspective id="defaultCamera" near="0.1" far="500" angle="45">
+            <from x="0" y="6" z="15" />
+            <to x="0" y="0" z="3" />
+        </perspective>
+
+        <perspective id="sunCamera" near="0.1" far="500" angle="45">
             <from x="0" y="12" z="-15" />
             <to x="0" y="0" z="0" />
+        </perspective>
+
+        <!--desnecessaria (?)-->
+        <perspective id="earthCamera" near="0.1" far="500" angle="45">
+            <from x="35" y="8" z="-20" />
+            <to x="20" y="0" z="-20" />
         </perspective>
     </views>
 
@@ -31,11 +42,11 @@
 
     <textures>
         <texture id="backgroundTexture" file="img/backgroundTexture.jpg" />
-        <texture id="leftBackgroundTexture" file="img/leftBackgroundTexture.jpg" />
         <texture id="cuboidTexture" file="img/cuboidTexture.jpg" />
         <texture id="boardTexture" file="img/board.png"/>
         <texture id="blackTexture" file="img/black.png" />
         <texture id="whiteTexture" file="img/white.png" />
+        <texture id="scoreboard" file="img/scoreboard/0.jpg" />
     </textures>
 
     <materials>
@@ -142,11 +153,30 @@
                 <componentref id="table"/>
                 <componentref id="backgroundCube"/>
                 <componentref id="scoreboard"/>
+                <componentref id="scoreboard2"/>
             </children>
         </component>
 
         <!-- SCOREBOARD -->
         <component id="scoreboard">
+            <transformation>
+            <rotate angle="180" axis="y"/>
+                <translate x="0" y="0" z="-25"/>
+            </transformation>
+            <animation>
+            </animation>
+            <materials>
+                <material id="backgroundMaterial" />
+            </materials>
+            <texture id="whiteTexture"/>
+            <children>
+                <componentref id="p1Score"/>
+                <componentref id="dash"/>
+                <componentref id="p2Score"/>
+            </children>
+        </component>
+
+        <component id="scoreboard2">
             <transformation>
                 <translate x="0" y="0" z="-25"/>
             </transformation>
@@ -173,7 +203,7 @@
             <materials>
                 <material id="backgroundMaterial" />
             </materials>
-            <texture id="whiteTexture"/>
+            <texture id="scoreboard"/>
             <children>
                 <primitiveref id="cuboid"/>
             </children>
@@ -181,7 +211,7 @@
 
         <component id="dash">
             <transformation>
-                <translate x="-1.5" y="0" z="0"/>
+                <translate x="-1.5" y="0.2" z="0"/>
                 <scale x="3" y="0.3" z="0.1"/>
             </transformation>
             <animation>
@@ -205,7 +235,7 @@
             <materials>
                 <material id="backgroundMaterial" />
             </materials>
-            <texture id="whiteTexture"/>
+            <texture id="scoreboard"/>
             <children>
                 <primitiveref id="cuboid"/>
             </children>
