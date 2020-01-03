@@ -374,9 +374,9 @@
                 <translate x="-3.6" y="-5.3" z="-5.5"/>
                 <scale x="1.2" y="1.1" z="1.2"/>
             </transformation>
-            <!-- <animationref id="moveTest"/> -->
-            <animation>
-            </animation>
+            <animationref id="moveTest"/>
+            <!-- <animation>
+            </animation> -->
             <materials>
                 <material id="cuboidMaterial" />
             </materials>

@@ -1544,6 +1544,7 @@ class MySceneGraph {
         //animation
         if (node.animations.length == 1) { //each component has only 1 animation
             this.animations[node.animations[0]].update();
+
         }
 
         //scene transformations
@@ -1555,11 +1556,11 @@ class MySceneGraph {
 
         var currentMaterial = this.materials[mats[(this.scene.matCounter % mats.length)]];
         if (nodeID == 'p1Score') {
-            currentTexture = this.textures[String(this.scene.game.score[0])];
+            currentTexture = this.textures[String(this.scene.game.score[1])];
         }
 
         if (nodeID == 'p2Score') {
-            currentTexture = this.textures[String(this.scene.game.score[1])];
+            currentTexture = this.textures[String(this.scene.game.score[0])];
         }
 
         for (var i = 0; i < child.length; i++) {

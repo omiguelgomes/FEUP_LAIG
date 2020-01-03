@@ -37,19 +37,12 @@ class MyGameOrchestrator extends CGFobject {
         ];
 
         //Dummy keyFrameAnimation
-        var keyFrame1 = ["1.0", ["0.0", "0.0", "0.0"],
-            ["0.0", "0.0", "0.0"],
-            ["1.0", "1.0", "1.0"]
-        ];
-        var keyFrame2 = ["2.0", ["0.0", "0.0", "0.0"],
-            ["0.0", "0.0", "0.0"],
-            ["1.0", "1.0", "1.0"]
-        ];
-        var keyFrame3 = ["3.0", ["0.0", "0.0", "0.0"],
-            ["0.0", "0.0", "0.0"],
-            ["1.0", "1.0", "1.0"]
-        ];
-        this.move = new MyKeyFrameAnimation(this.scene, 100, [keyFrame1, keyFrame2, keyFrame3]);
+        var keyFrame1 = ["0.0", [
+            [0.0, 0.0, 0.0],
+            [0.0, 0.0, 0.0],
+            [1.0, 1.0, 1.0]
+        ]];
+        this.move = new MyKeyFrameAnimation(this.scene, 100, [keyFrame1]);
 
         //creates a quad (tile) for every cell of the board (8x8)
         for (let i = 0; i < 64; i++) {
@@ -198,21 +191,22 @@ class MyGameOrchestrator extends CGFobject {
                 this.scene.translate(kickcount[zshift] % 2, Math.floor(kickcount[zshift] / 2) * 0.4, -1 * zshift);
                 this.pieces[i].display();
             } else if (i == (this.savePick - 101) && mode == 2) {
-                var keyFrame1 = ["1.0", ["0.0", "0.3", "0.0"],
-                    ["0.0", "0.0", "0.0"],
-                    ["1.0", "1.0", "1.0"]
-                ];
-                var keyFrame2 = ["2.0", ["-0.52", "0.3", "-0.52"],
-                    ["0.0", "0.0", "0.0"],
-                    ["1.0", "1.0", "1.0"]
-                ];
-                var keyFrame3 = ["3.0", ["-0.52", "0.0", "-0.52"],
-                    ["0.0", "0.0", "0.0"],
-                    ["1.0", "1.0", "1.0"]
-                ];
+                var keyFrame1 = ["4.0", [
+                    [0.0, 0.3, 0.0],
+                    [0.0, 0.0, 0.0],
+                    [5.0, 5.0, 5.0]
+                ]];
+                var keyFrame2 = ["5.0", [
+                    [-0.52, 0.3, -0.52],
+                    [0.0, 0.0, 0.0],
+                    [10.0, 10.0, 10.0]
+                ]];
+                var keyFrame3 = ["6.0", [
+                    [-0.52, 0.0, -0.52],
+                    [0.0, 0.0, 0.0],
+                    [20.0, 20.0, 20.0]
+                ]];
                 this.move = new MyKeyFrameAnimation(this.scene, 100, [keyFrame1, keyFrame2, keyFrame3]);
-                console.log("waddup who am i");
-                this.update();
                 this.pieces[i].display();
             } else {
                 this.scene.translate(-3.5, 2, -7.2);
@@ -319,20 +313,6 @@ class MyGameOrchestrator extends CGFobject {
         this.defaultdisp(mode);
 
         this.init = new Date();
-        //this happens when you click a piece
-        // var keyFrame1 = ["1.0", ["0.0", "0.3", "0.0"],
-        //     ["0.0", "0.0", "0.0"],
-        //     ["1.0", "1.0", "1.0"]
-        // ];
-        // var keyFrame2 = ["2.0", ["-0.52", "0.3", "-0.52"],
-        //     ["0.0", "0.0", "0.0"],
-        //     ["1.0", "1.0", "1.0"]
-        // ];
-        // var keyFrame3 = ["3.0", ["-0.52", "0.0", "-0.52"],
-        //     ["0.0", "0.0", "0.0"],
-        //     ["1.0", "1.0", "1.0"]
-        // ];
-        // this.move = new MyKeyFrameAnimation(this.scene, 100, [keyFrame1, keyFrame2, keyFrame3]);
     }
 
     pickedsquare(mode) {
