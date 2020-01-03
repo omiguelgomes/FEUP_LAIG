@@ -1554,6 +1554,13 @@ class MySceneGraph {
         currentTexture = this.textures[texId];
 
         var currentMaterial = this.materials[mats[(this.scene.matCounter % mats.length)]];
+        if (nodeID == 'p1Score') {
+            currentTexture = this.textures[String(this.scene.game.score[0])];
+        }
+
+        if (nodeID == 'p2Score') {
+            currentTexture = this.textures[String(this.scene.game.score[1])];
+        }
 
         for (var i = 0; i < child.length; i++) {
             var childID = child[i];
