@@ -120,6 +120,9 @@ class MyGameOrchestrator extends CGFobject {
 
     update(t) {
         this.move.update();
+        // for (let i = 0; i < this.pieces.length; i++) {
+        //     this.pieces[i].display();
+        // }
     }
 
     display() {
@@ -191,7 +194,7 @@ class MyGameOrchestrator extends CGFobject {
                 this.scene.translate(kickcount[zshift] % 2, Math.floor(kickcount[zshift] / 2) * 0.4, -1 * zshift);
                 this.pieces[i].display();
             } else if (i == (this.savePick - 101) && mode == 2) {
-                var keyFrame1 = ["4.0", [
+                var keyFrame1 = ["0.1", [
                     [0.0, 0.3, 0.0],
                     [0.0, 0.0, 0.0],
                     [5.0, 5.0, 5.0]
@@ -222,7 +225,7 @@ class MyGameOrchestrator extends CGFobject {
     drawObjects() {
 
         this.scene.pushMatrix();
-        this.scene.translate(9.5, 0, -7);
+        this.scene.translate(9.5, 2, -7);
         if (this.count > 0) {
             this.scene.registerForPick(150, this.undocube);
             this.undoAppearance.apply();
@@ -231,7 +234,7 @@ class MyGameOrchestrator extends CGFobject {
         this.scene.popMatrix();
 
         this.scene.pushMatrix();
-        this.scene.translate(9.5, 0, -4);
+        this.scene.translate(9.5, 2, -4);
 
         if (this.count > 0) {
             this.scene.registerForPick(250, this.resetcube);
@@ -241,7 +244,7 @@ class MyGameOrchestrator extends CGFobject {
         this.scene.popMatrix();
 
         this.scene.pushMatrix();
-        this.scene.translate(9.5, 0, -1);
+        this.scene.translate(9.5, 2, -1);
         this.scene.registerForPick(200, this.moviecube);
         this.movieAppearance.apply();
         this.moviecube.display();
@@ -329,38 +332,36 @@ class MyGameOrchestrator extends CGFobject {
         var time = new Date();
         var timepermove = this.moveTime * (Math.abs(Math.floor(this.savePick2 / 8) - Math.floor(pos / 8))) * 800;
 
-        if (time - this.init >= timepermove) {
-            this.position[this.savePick - 101] = this.savePick2;
-            this.squares[this.savePick2] = this.squares[pos];
-            this.squares[pos] = 0;
+        this.position[this.savePick - 101] = this.savePick2;
+        this.squares[this.savePick2] = this.squares[pos];
+        this.squares[pos] = 0;
 
-            //Jumping elimination
-            if (Math.abs(Math.floor(this.savePick2 / 8) - Math.floor(pos / 8)) == 2) {
-                for (let i = 0; i < 24; i++)
-                    if (this.position[i] == pos + (this.savePick2 - pos) / 2) {
-                        this.squares[this.position[i]] = 0;
-                        this.position[i] = -1;
-                    }
-            }
-
-            this.gameScene[++this.count] = [];
-            for (let i = 0; i < 24; i++) {
-                this.gameScene[this.count].push(this.position[i]);
-
-                if (i >= 12 && this.position[i] < 8 && this.position[i] != -1) {
-                    alert("Black wins!!");
-                    this.score[0]++;
-                    this.resetgame();
-                } else if (i < 12 && this.position[i] > 55) {
-                    alert("White wins!!");
-                    this.score[1]++;
-                    this.resetgame();
+        //Jumping elimination
+        if (Math.abs(Math.floor(this.savePick2 / 8) - Math.floor(pos / 8)) == 2) {
+            for (let i = 0; i < 24; i++)
+                if (this.position[i] == pos + (this.savePick2 - pos) / 2) {
+                    this.squares[this.position[i]] = 0;
+                    this.position[i] = -1;
                 }
-            }
-
-            this.scene.customId = 100;
-            this.playerswap();
         }
+
+        this.gameScene[++this.count] = [];
+        for (let i = 0; i < 24; i++) {
+            this.gameScene[this.count].push(this.position[i]);
+
+            if (i >= 12 && this.position[i] < 8 && this.position[i] != -1) {
+                alert("Black wins!!");
+                this.score[0]++;
+                this.resetgame();
+            } else if (i < 12 && this.position[i] > 55) {
+                alert("White wins!!");
+                this.score[1]++;
+                this.resetgame();
+            }
+        }
+
+        this.scene.customId = 100;
+        this.playerswap();
     }
 
     resetgame() {

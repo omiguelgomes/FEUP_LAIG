@@ -58,8 +58,8 @@ class MyKeyFrameAnimation extends MyAnimation {
         var ratio; //ranges 0 to 1, equals to time passed since the beggining of the keyFrame
         //divided by the total time of the keyFrame
         var prevTransf, transf;
-
         transf = this.keyFrames[keyFrameIndex][1];
+        //console.log("updating");
         /*transf[0][0] is translate in x
         transf[0][1] is translate in y
         transf[0][2] is translate in z
@@ -74,17 +74,17 @@ class MyKeyFrameAnimation extends MyAnimation {
 
         if (isFirst) { //again, different confition for first keyFrame, cant access keyFrameIndex-1
             ratio = this.deltaTime / (this.keyFrames[keyFrameIndex][0] * 1000);
-            this.trans.x = transf[0][0] * ratio;
-            this.trans.y = transf[0][1] * ratio;
-            this.trans.z = transf[0][2] * ratio;
+            // this.trans.x = transf[0][0] * ratio;
+            // this.trans.y = transf[0][1] * ratio;
+            // this.trans.z = transf[0][2] * ratio;
 
-            this.rot.x = transf[1][0] * ratio;
-            this.rot.y = transf[1][1] * ratio;
-            this.rot.z = transf[1][2] * ratio;
+            // this.rot.x = transf[1][0] * ratio;
+            // this.rot.y = transf[1][1] * ratio;
+            // this.rot.z = transf[1][2] * ratio;
 
-            this.scale.x = 1 + ((transf[2][0] - 1) * ratio);
-            this.scale.y = 1 + ((transf[2][1] - 1) * ratio);
-            this.scale.z = 1 + ((transf[2][2] - 1) * ratio);
+            // this.scale.x = 1 + ((transf[2][0] - 1) * ratio);
+            // this.scale.y = 1 + ((transf[2][1] - 1) * ratio);
+            // this.scale.z = 1 + ((transf[2][2] - 1) * ratio);
 
             this.scene.translate(transf[0][0] * ratio, transf[0][1] * ratio, transf[0][2] * ratio);
 
@@ -95,22 +95,24 @@ class MyKeyFrameAnimation extends MyAnimation {
             this.scene.scale(1 + ((transf[2][0] - 1) * ratio),
                 1 + ((transf[2][1] - 1) * ratio),
                 1 + ((transf[2][2] - 1) * ratio));
+            //console.log("scaling: " + prevTransf[2][0] + ((transf[2][0] - prevTransf[2][0]) * ratio));
+
 
         } else {
             ratio = (this.deltaTime - this.keyFrames[keyFrameIndex - 1][0] * 1000) / (this.keyFrames[keyFrameIndex][0] * 1000 - this.keyFrames[keyFrameIndex - 1][0] * 1000);
             prevTransf = this.keyFrames[keyFrameIndex - 1][1];
 
-            this.trans.x = prevTransf[0][0] + (transf[0][0] - prevTransf[0][0]) * ratio;
-            this.trans.x = prevTransf[0][1] + (transf[0][1] - prevTransf[0][1]) * ratio;
-            this.trans.x = prevTransf[0][2] + (transf[0][2] - prevTransf[0][2]) * ratio;
+            // this.trans.x = prevTransf[0][0] + (transf[0][0] - prevTransf[0][0]) * ratio;
+            // this.trans.y = prevTransf[0][1] + (transf[0][1] - prevTransf[0][1]) * ratio;
+            // this.trans.z = prevTransf[0][2] + (transf[0][2] - prevTransf[0][2]) * ratio;
 
-            this.rot.x = prevTransf[1][0] + (transf[1][0] - prevTransf[1][0]) * ratio;
-            this.rot.x = prevTransf[1][1] + (transf[1][1] - prevTransf[1][1]) * ratio;
-            this.rot.x = prevTransf[1][2] + (transf[1][2] - prevTransf[1][2]) * ratio;
+            // this.rot.x = prevTransf[1][0] + (transf[1][0] - prevTransf[1][0]) * ratio;
+            // this.rot.y = prevTransf[1][1] + (transf[1][1] - prevTransf[1][1]) * ratio;
+            // this.rot.z = prevTransf[1][2] + (transf[1][2] - prevTransf[1][2]) * ratio;
 
-            this.scale.x = prevTransf[2][0] + ((transf[2][0] - prevTransf[2][0]) * ratio);
-            this.scale.x = prevTransf[2][1] + ((transf[2][1] - prevTransf[2][1]) * ratio);
-            this.scale.x = prevTransf[2][2] + ((transf[2][2] - prevTransf[2][2]) * ratio);
+            // this.scale.x = prevTransf[2][0] + ((transf[2][0] - prevTransf[2][0]) * ratio);
+            // this.scale.y = prevTransf[2][1] + ((transf[2][1] - prevTransf[2][1]) * ratio);
+            // this.scale.z = prevTransf[2][2] + ((transf[2][2] - prevTransf[2][2]) * ratio);
 
             this.scene.translate(prevTransf[0][0] + (transf[0][0] - prevTransf[0][0]) * ratio,
                 prevTransf[0][1] + (transf[0][1] - prevTransf[0][1]) * ratio,
@@ -126,6 +128,7 @@ class MyKeyFrameAnimation extends MyAnimation {
             this.scene.scale(prevTransf[2][0] + ((transf[2][0] - prevTransf[2][0]) * ratio),
                 prevTransf[2][1] + ((transf[2][1] - prevTransf[2][1]) * ratio),
                 prevTransf[2][2] + ((transf[2][2] - prevTransf[2][2]) * ratio));
+            //console.log("scaling: " + prevTransf[2][0] + ((transf[2][0] - prevTransf[2][0]) * ratio));
         }
     };
 };

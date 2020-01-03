@@ -159,11 +159,11 @@
             </materials>
             <texture id="backgroundTexture" />
             <children>
-                <componentref id="board"/>
+                <componentref id="board"/> 
                 <componentref id="table"/>
                 <componentref id="backgroundCube"/>
                 <componentref id="scoreboard"/>
-                <componentref id="scoreboard2"/>
+                <componentref id="scoreboard2"/> 
             </children>
         </component>
 
@@ -371,12 +371,12 @@
 
         <component id="table">
             <transformation>
-                <translate x="-3.6" y="-5.3" z="-5.5"/>
-                <scale x="1.2" y="1.1" z="1.2"/>
+                <translate x="-6.6" y="-5.3" z="-5.5"/>
+                <scale x="2.2" y="1.1" z="1.2"/>
             </transformation>
-            <animationref id="moveTest"/>
-            <!-- <animation>
-            </animation> -->
+            <!-- <animationref id="moveTest"/> -->
+            <animation>
+            </animation>
             <materials>
                 <material id="cuboidMaterial" />
             </materials>
@@ -483,5 +483,7 @@
                 <primitiveref id="pBoard1"/>
             </children>
         </component>
+
+       
     </components>
 </lxs>
