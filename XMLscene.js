@@ -153,15 +153,15 @@ class XMLscene extends CGFscene {
     // }
 
     changeCamera() {
-        // this.camera._up = vec3.fromValues(0, 1, 0);
-        // if (this.game.currPlayer == this.game.player.white_player) {
-        //     this.camera.setPosition(vec3.fromValues(-11, 12, 2));
-        // } else {
-        //     this.camera.setPosition(vec3.fromValues(11, 12, 2));
-        // }
+        this.camera._up = vec3.fromValues(0, 1, 0);
+        if (this.game.currPlayer == this.game.player.white_player) {
+            this.camera.setPosition(vec3.fromValues(-11, 12, 2));
+        } else {
+            this.camera.setPosition(vec3.fromValues(11, 12, 2));
+        }
 
-        // this.cameraAnimation = true;
-        // this.cameraAngle = 0;
+        this.cameraAnimation = true;
+        this.cameraAngle = 0;
     }
 
     updateLights() {
