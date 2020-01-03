@@ -220,19 +220,18 @@ class MyGameOrchestrator extends CGFobject {
     }
 
     drawObjects() {
-        this.scene.pushMatrix();
-        this.scene.translate(9.5, 0, 1);
 
+        this.scene.pushMatrix();
+        this.scene.translate(9.5, 0, -7);
         if (this.count > 0) {
             this.scene.registerForPick(150, this.undocube);
             this.undoAppearance.apply();
             this.undocube.display();
         }
-
         this.scene.popMatrix();
 
         this.scene.pushMatrix();
-        this.scene.translate(-2, 0, 1);
+        this.scene.translate(9.5, 0, -4);
 
         if (this.count > 0) {
             this.scene.registerForPick(250, this.resetcube);
@@ -242,7 +241,7 @@ class MyGameOrchestrator extends CGFobject {
         this.scene.popMatrix();
 
         this.scene.pushMatrix();
-        this.scene.translate(9.5, 0, 6);
+        this.scene.translate(9.5, 0, -1);
         this.scene.registerForPick(200, this.moviecube);
         this.movieAppearance.apply();
         this.moviecube.display();
