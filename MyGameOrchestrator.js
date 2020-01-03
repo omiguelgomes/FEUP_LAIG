@@ -16,7 +16,7 @@ class MyGameOrchestrator extends CGFobject {
         this.selSquare = [];
         this.cells = [];
         this.score = [0, 0];
-        this.player = 1;
+        this.player = -1;
         this.gameScene = [];
         this.count = 0;
         this.framecount = -1;

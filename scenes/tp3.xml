@@ -3,8 +3,8 @@
 
     <views default="defaultCamera">
         <perspective id="defaultCamera" near="0.1" far="500" angle="45">
-            <from x="0" y="6" z="15" />
-            <to x="0" y="0" z="3" />
+            <from x="0" y="7" z="13" />
+            <to x="0" y="2" z="3" />
         </perspective>
 
         <perspective id="sunCamera" near="0.1" far="500" angle="45">
