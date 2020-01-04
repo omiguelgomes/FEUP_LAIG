@@ -1192,7 +1192,7 @@ class MySceneGraph {
                 if (!(stacks != null && !isNaN(stacks)))
                     return "unable to parse stacks of the primitive coordinates for ID = " + primitiveId;
 
-                var piece = new MyPiece(this.scene, primitiveId, baseRadius, topRadius, height, slices, stacks);
+                var piece = new MyPiece(this.scene, baseRadius, topRadius, height, slices, stacks);
 
                 this.primitives[primitiveId] = piece;
             }
@@ -1541,13 +1541,15 @@ class MySceneGraph {
             mats = node.materials;
         }
 
-        //animation
-        if (node.animations.length == 1) { //each component has only 1 animation
-            this.animations[node.animations[0]].update();
-        }
-
         //scene transformations
         this.scene.multMatrix(node.transformMatrix);
+
+        //animation
+        if (node.animations.length >= 1) { //each component has only 1 animation
+            for (var i = 0; i < node.animations.length; i++) {
+                this.animations[node.animations[i]].update();
+            }
+        }
 
         //textures
         var currentTexture = [];

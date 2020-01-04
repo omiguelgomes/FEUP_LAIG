@@ -21,6 +21,7 @@ class MyGameOrchestrator extends CGFobject {
         this.count = 0;
         this.framecount = -1;
         this.enviro = 0;
+        this.hiddenIndex = 1000;
 
         //pieces positions must be alternated
         this.position = [1, 3, 5, 7,
@@ -55,6 +56,7 @@ class MyGameOrchestrator extends CGFobject {
             this.pieces[j] = new MyPiece(this.scene, 0.2, 0.2, 0.1, 10, 10);
             this.squares[this.position[j]] = j <= 11 ? 1 : -1;
         }
+
 
         this.gameScene[0] = [];
         for (let i = 0; i < 24; i++) {
@@ -120,9 +122,6 @@ class MyGameOrchestrator extends CGFobject {
 
     update(t) {
         this.move.update();
-        // for (let i = 0; i < this.pieces.length; i++) {
-        //     this.pieces[i].display();
-        // }
     }
 
     display() {
@@ -173,14 +172,15 @@ class MyGameOrchestrator extends CGFobject {
 
         for (let i = 0; i < this.pieces.length; i++) {
             this.scene.pushMatrix();
-
-            if (mode == 1 && i == (this.savePick - 101))
-                this.selpieceAppearance.apply();
-            else if (i >= 12)
+            // if (mode == 1 && i == (this.savePick - 101))commented to avoid highlighting bug
+            // //this.selpieceAppearance.apply();
+            /*else*/
+            if (i >= 12)
                 this.pieceAppearance.apply();
 
-            if (this.position[i] != -1)
+            if (this.position[i] != -1) {
                 this.scene.translate(this.position[i] % 8, 0, Math.floor(this.position[i] / 8));
+            }
 
             if ((this.player == 1 && i < 12) || (this.player == -1 && i >= 12) && this.position[i] != -1)
                 this.scene.registerForPick(i + 1 + 100, this.pieces[i]);
@@ -192,25 +192,14 @@ class MyGameOrchestrator extends CGFobject {
                 zshift = i >= 12 ? 1 : 0;
                 kickcount[zshift]++;
                 this.scene.translate(kickcount[zshift] % 2, Math.floor(kickcount[zshift] / 2) * 0.4, -1 * zshift);
-                this.pieces[i].display();
+                //this.pieces[i].display();
             } else if (i == (this.savePick - 101) && mode == 2) {
-                var keyFrame1 = ["0.1", [
-                    [0.0, 0.3, 0.0],
-                    [0.0, 0.0, 0.0],
-                    [5.0, 5.0, 5.0]
-                ]];
-                var keyFrame2 = ["5.0", [
-                    [-0.52, 0.3, -0.52],
-                    [0.0, 0.0, 0.0],
-                    [10.0, 10.0, 10.0]
-                ]];
-                var keyFrame3 = ["6.0", [
-                    [-0.52, 0.0, -0.52],
-                    [0.0, 0.0, 0.0],
-                    [20.0, 20.0, 20.0]
-                ]];
-                this.move = new MyKeyFrameAnimation(this.scene, 100, [keyFrame1, keyFrame2, keyFrame3]);
-                this.pieces[i].display();
+                this.scene.makeMove(i, this.position[this.savePick - 101], this.savePick2);
+                //this.pieces[i].display();
+                this.hiddenIndex = i;
+                //this.position[i] = 2;
+                console.log(this.position);
+
             } else {
                 this.scene.translate(-3.5, 2, -7.2);
                 this.pieces[i].display();
@@ -269,9 +258,11 @@ class MyGameOrchestrator extends CGFobject {
             }
 
             for (let j = 0; j < 24; j++) {
+                if (this.position[j] != this.gameScene[this.framecount][j]) { //buggy atm
+                    this.scene.makeMove(j, this.position[j], this.gameScene[this.framecount][j]);
+                }
                 this.position[j] = this.gameScene[this.framecount][j];
             }
-
             this.defaultdisp(mode);
         }
     }
@@ -281,6 +272,9 @@ class MyGameOrchestrator extends CGFobject {
             this.squares[i] = 0;
 
         for (let i = 0; i < 24; i++) {
+            if (this.position[i] != this.gameScene[this.count - 1][i]) {
+                this.scene.makeMove(i, this.position[i], this.gameScene[this.count - 1][i]);
+            }
             this.position[i] = this.gameScene[this.count - 1][i];
             this.squares[this.position[i]] = i <= 11 ? 1 : -1;
         }
@@ -293,13 +287,12 @@ class MyGameOrchestrator extends CGFobject {
 
     pickedcylinder(mode) {
         this.savePick = this.scene.customId;
-
+        //this.position[this.hiddenIndex] = this.hiddenIndex;
         //desselect all cells
         for (let i = 0; i < 64; i++)
             this.selSquare[i] = 0;
 
         var pos = this.position[this.savePick - 101];
-
         if (this.squares[pos + 7 * this.player] == 0 && (Math.floor(pos / 8) - Math.floor((pos + 7 * this.player) / 8)) == -1 * this.player)
             this.selSquare[pos + 7 * this.player] = 1;
 
@@ -320,6 +313,7 @@ class MyGameOrchestrator extends CGFobject {
     pickedsquare(mode) {
         this.savePick2 = this.scene.customId;
         var pos = this.position[this.savePick - 101];
+        //console.log("to: " + this.savePick2);
 
         if (this.savePick2 - pos == 9 || this.savePick2 - pos == -9 ||
             this.savePick2 - pos == 18 || this.savePick2 - pos == -18)
@@ -341,7 +335,8 @@ class MyGameOrchestrator extends CGFobject {
             for (let i = 0; i < 24; i++)
                 if (this.position[i] == pos + (this.savePick2 - pos) / 2) {
                     this.squares[this.position[i]] = 0;
-                    this.position[i] = -1;
+                    this.position[i] = -1; //TODO: Make this piece go to side of the table
+                    this.scene.makeMove(i, this.position[i], 8 - this.position[i] % 8);
                 }
         }
 
@@ -375,7 +370,7 @@ class MyGameOrchestrator extends CGFobject {
         //     this.scene.camera.setPosition(vec3.fromValues(7, 16, -13));
         // else
         //     this.scene.camera.setPosition(vec3.fromValues(7, 16, 30));
-        this.scene.changeCamera();
+        //this.scene.changeCamera();
     }
 
     defaultdisp(mode) {

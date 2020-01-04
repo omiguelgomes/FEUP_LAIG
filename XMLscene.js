@@ -230,4 +230,43 @@ class XMLscene extends CGFscene {
         this.game.display(this.customId);
         this.popMatrix();
     }
+
+    makeMove(index, from, to) { //T, R, S
+        var tileSize = 0.5;
+        var deltaX = (to % 8 - from % 8) * tileSize;
+        var deltaZ = (Math.floor(to / 8) - Math.floor(from / 8)) * tileSize;
+        if (index < 12) {
+            deltaX *= -1;
+            deltaZ *= -1;
+        }
+        var keyFrame0 = ["0.1", [
+            [0.0, 0.0, 0.0],
+            [0.0, 0.0, 0.0],
+            [2.1, 1, 2.1]
+        ]];
+        var keyFrame1 = ["1.0", [
+            [0.0, 0.5, 0.0],
+            [0.0, 0.0, 0.0],
+            [2.1, 1, 2.1]
+        ]];
+        var keyFrame2 = ["2.0", [
+            [deltaX, 0.5, deltaZ],
+            [0.0, 0.0, 0.0],
+            [2.1, 1.0, 2.1]
+        ]];
+        var keyFrame3 = ["3.0", [
+            [deltaX, 0.0, deltaZ],
+            [0.0, 0.0, 0.0],
+            [2.1, 1.0, 2.1]
+        ]];
+
+        let move = new MyKeyFrameAnimation(this, 100, [keyFrame0, keyFrame1, keyFrame2, keyFrame3]);
+        let moveName = 'move' + String(Object.keys(this.graph.animations).length);
+
+        this.graph.animations[moveName] = move;
+
+        this.graph.nodes['piece' + String(index)].animations.push(moveName);
+
+        move.changePos(index, deltaX, deltaZ);
+    }
 }

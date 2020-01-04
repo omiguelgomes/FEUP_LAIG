@@ -11,6 +11,10 @@ class MyKeyFrameAnimation extends MyAnimation {
         this.startTime = 0;
         this.complete = false;
         this.started = false;
+        this.changePosBool = false;
+        this.index = 0;
+        this.deltaX = 0;
+        this.deltaZ = 0;
         this.timePassedRatio;
         this.trans = { x: 0.0, y: 0.0, z: 0.0 };
         this.rot = { x: 0.0, y: 0.0, z: 0.0 };
@@ -25,6 +29,13 @@ class MyKeyFrameAnimation extends MyAnimation {
         // this.scene.scale(this.scale.x, this.scale.y, this.scale.z);
     }
 
+    changePos(index, deltaX, deltaZ) {
+        this.changePosBool = true;
+        this.index = index;
+        this.deltaX = deltaX;
+        this.deltaZ = deltaZ;
+    }
+
     update() {
         var d = new Date();
         if (!this.started) { //only runs in the first time
@@ -33,24 +44,31 @@ class MyKeyFrameAnimation extends MyAnimation {
         }
 
         this.deltaTime = (d.getTime() - this.startTime);
-
-        for (var i = 0; i < this.keyFrames.length; i++) //for every time interval in the animation
-        {
-            if (i == 0) //different condition for first keyFrame, because we can't access keyFrames[i-1]
+        if (!this.complete) {
+            for (var i = 0; i < this.keyFrames.length; i++) //for every time interval in the animation
             {
-                if (this.keyFrames[i][0] * 1000 > this.deltaTime) { //keyFrame time tells us when the keyFrame should end, not how long it takes
-                    //process keyFrame0
-                    this.updateMatrix(i, true);
-                }
-            } else {
-                if ((this.keyFrames[i - 1][0] * 1000 < this.deltaTime) && (this.deltaTime < this.keyFrames[i][0] * 1000)) {
-                    //process keyFrame[i]
-                    this.updateMatrix(i, false);
+                if (i == 0) //different condition for first keyFrame, because we can't access keyFrames[i-1]
+                {
+                    if (this.keyFrames[i][0] * 1000 > this.deltaTime) { //keyFrame time tells us when the keyFrame should end, not how long it takes
+                        //process keyFrame0
+                        this.updateMatrix(i, true);
+                    }
+                } else {
+                    if ((this.keyFrames[i - 1][0] * 1000 < this.deltaTime) && (this.deltaTime < this.keyFrames[i][0] * 1000)) {
+                        //process keyFrame[i]
+                        this.updateMatrix(i, false);
+                    }
                 }
             }
         }
+
         if ((this.deltaTime > this.keyFrames[this.keyFrames.length - 1][0] * 1000)) {
             this.complete = true;
+            if (this.changePosBool) {
+                this.scene.graph.nodes['piece' + String(this.index)].transformMatrix[12] += this.deltaX;
+                this.scene.graph.nodes['piece' + String(this.index)].transformMatrix[14] += this.deltaZ;
+                this.changePosBool = false;
+            }
         }
     };
 
