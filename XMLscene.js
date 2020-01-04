@@ -260,6 +260,7 @@ class XMLscene extends CGFscene {
             [2.1, 1.0, 2.1]
         ]];
 
+
         let move = new MyKeyFrameAnimation(this, 100, [keyFrame0, keyFrame1, keyFrame2, keyFrame3]);
         let moveName = 'move' + String(Object.keys(this.graph.animations).length);
 
@@ -268,5 +269,9 @@ class XMLscene extends CGFscene {
         this.graph.nodes['piece' + String(index)].animations.push(moveName);
 
         move.changePos(index, deltaX, deltaZ);
+    }
+
+    leaveBoard(index) {
+        this.graph.nodes['piece' + String(index)].transformMatrix[13] -= 1;
     }
 }

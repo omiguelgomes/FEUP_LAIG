@@ -21,7 +21,8 @@ class MyGameOrchestrator extends CGFobject {
         this.count = 0;
         this.framecount = -1;
         this.enviro = 0;
-        this.hiddenIndex = 1000;
+        this.hiddenIndex = 24;
+        this.notLeft = true;
 
         //new feature: time per move
         this.clockspeed = 0;
@@ -125,11 +126,7 @@ class MyGameOrchestrator extends CGFobject {
     }
 
     update(t) {
-        this.move.update();
         this.clock.update(t);
-        // for (let i = 0; i < this.pieces.length; i++) {
-        //     this.pieces[i].display();
-        // }
     }
 
     display() {
@@ -191,8 +188,7 @@ class MyGameOrchestrator extends CGFobject {
             if (this.position[i] != -1) {
                 this.scene.translate(this.position[i] % 8, 0, Math.floor(this.position[i] / 8));
             }
-
-            if ((this.player == 1 && i < 12) || (this.player == -1 && i >= 12) && this.position[i] != -1)
+            if ((this.player == 1 && i < 12) || (this.player == -1 && i >= 12) && this.position[i] != -1 && this.clock.sec.angle >= 19)
                 this.scene.registerForPick(i + 1 + 100, this.pieces[i]);
             else
                 this.scene.registerForPick(100, this);
@@ -202,14 +198,14 @@ class MyGameOrchestrator extends CGFobject {
                 zshift = i >= 12 ? 1 : 0;
                 kickcount[zshift]++;
                 this.scene.translate(kickcount[zshift] % 2, Math.floor(kickcount[zshift] / 2) * 0.4, -1 * zshift);
-                //this.pieces[i].display();
+
+                if (i != this.hiddenIndex)
+                    this.scene.leaveBoard(i);
+
             } else if (i == (this.savePick - 101) && mode == 2) {
                 this.scene.makeMove(i, this.position[this.savePick - 101], this.savePick2);
-                //this.pieces[i].display();
                 this.hiddenIndex = i;
-                //this.position[i] = 2;
-                console.log(this.position);
-
+                this.position[i] = -1;
             } else {
                 this.scene.translate(-3.5, 2, -7.2);
                 this.pieces[i].display();
@@ -332,7 +328,6 @@ class MyGameOrchestrator extends CGFobject {
     pickedsquare(mode) {
         this.savePick2 = this.scene.customId;
         var pos = this.position[this.savePick - 101];
-        //console.log("to: " + this.savePick2);
 
         if (this.savePick2 - pos == 9 || this.savePick2 - pos == -9 ||
             this.savePick2 - pos == 18 || this.savePick2 - pos == -18)
@@ -345,7 +340,8 @@ class MyGameOrchestrator extends CGFobject {
         var time = new Date();
         var timepermove = this.moveTime * (Math.abs(Math.floor(this.savePick2 / 8) - Math.floor(pos / 8))) * 800;
 
-        this.position[this.savePick - 101] = this.savePick2;
+        //this.position[this.savePick - 101] = this.savePick2;
+        this.hiddenPos = this.savePick2;
         this.squares[this.savePick2] = this.squares[pos];
         this.squares[pos] = 0;
 
@@ -355,7 +351,6 @@ class MyGameOrchestrator extends CGFobject {
                 if (this.position[i] == pos + (this.savePick2 - pos) / 2) {
                     this.squares[this.position[i]] = 0;
                     this.position[i] = -1; //TODO: Make this piece go to side of the table
-                    this.scene.makeMove(i, this.position[i], 8 - this.position[i] % 8);
                 }
         }
 
@@ -385,10 +380,6 @@ class MyGameOrchestrator extends CGFobject {
 
     playerswap() {
         this.player *= -1;
-        // if (this.player == 1)
-        //     this.scene.camera.setPosition(vec3.fromValues(7, 16, -13));
-        // else
-        //     this.scene.camera.setPosition(vec3.fromValues(7, 16, 30));
         this.scene.changeCamera();
         this.clock.sec.angle = 0;
     }
@@ -402,6 +393,9 @@ class MyGameOrchestrator extends CGFobject {
         if (this.clock.sec.angle >= 360) {
             this.playerswap();
             alert("Time's up!");
+        }
+        if (this.clock.sec.angle >= 19) {
+            this.position[this.hiddenIndex] = this.hiddenPos;
         }
     }
 

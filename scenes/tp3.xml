@@ -60,13 +60,6 @@
     </textures>
 
     <materials>
-        <material id="planetMaterial" shininess="1">
-            <emission r="0.0" g="0.0" b="0.0" a="0.0" />
-            <ambient r="0.0" g="0.0" b="0.0" a="1.0" />
-            <diffuse r="0.6" g="0.0" b="0.0" a="1.0" />
-            <specular r="0.6" g="0.0" b="0.0" a="1.0" />
-        </material>
-
         <material id="backgroundMaterial" shininess="1">
             <emission r="0.0" g="0.0" b="0.0" a="0.0" />
             <ambient r="0.0" g="0.0" b="0.0" a="1.0" />
@@ -74,18 +67,18 @@
             <specular r="0.0" g="0.0" b="0.0" a="1.0" />
         </material>
 
-        <material id="beltMaterial" shininess="1">
+        <material id="cuboidMaterial" shininess="1">
             <emission r="0.0" g="0.0" b="0.0" a="1.0" />
             <ambient r="1.0" g="0.0" b="0.0" a="1.0" />
             <diffuse r="0.6" g="0.0" b="0.0" a="1.0" />
             <specular r="0.6" g="0.0" b="0.0" a="1.0" />
         </material>
 
-        <material id="cuboidMaterial" shininess="1">
+        <material id="pieceMaterial" shininess="5">
             <emission r="0.0" g="0.0" b="0.0" a="1.0" />
-            <ambient r="1.0" g="0.0" b="0.0" a="1.0" />
-            <diffuse r="0.6" g="0.0" b="0.0" a="1.0" />
-            <specular r="0.6" g="0.0" b="0.0" a="1.0" />
+            <ambient r="1.0" g="1.0" b="1.0" a="1.0" />
+            <diffuse r="0.0" g="0.0" b="0.0" a="1.0" />
+            <specular r="1.0" g="1.0" b="1.0" a="1.0" />
         </material>
 
     </materials>
@@ -155,15 +148,15 @@
             <animation>
             </animation>
             <materials>
-                <material id="planetMaterial" />
+                <material id="cuboidMaterial" />
             </materials>
             <texture id="backgroundTexture" />
             <children>
-                <!-- <componentref id="board"/> 
+                <componentref id="board"/> 
                 <componentref id="table"/>
                 <componentref id="backgroundCube"/>
                 <componentref id="scoreboard"/>
-                <componentref id="scoreboard2"/> -->
+                <componentref id="scoreboard2"/>
                 <componentref id="whitePieces"/>  
                 <componentref id="blackPieces"/>
             </children>
@@ -523,7 +516,7 @@
             <animation>	
             </animation>	
             <materials>	
-                <material id="cuboidMaterial" />	
+                <material id="pieceMaterial" />	
             </materials>	
             <texture id="whiteTexture"/>	
             <children>	
@@ -542,14 +535,30 @@
             </children>	
         </component>	
 
-        <component id="piece3">	
+
+        <component id="piece0">	
             <transformation>	
-                <translate x="-1.8" y="0" z="1.8"/>	
+                <translate x="1.3" y="0" z="1.8"/>	
             </transformation>	
-            <animation>
-            </animation>	
+            <animation>	
+            </animation>
             <materials>	
-                <material id="cuboidMaterial" />	
+                <material id="pieceMaterial" />	
+            </materials>	
+            <texture id="inherit"/>	
+            <children>	
+                <componentref id="piece"/>	
+            </children>	
+        </component>
+
+        <component id="piece1">	
+            <transformation>	
+                <translate x="0.25" y="0" z="1.8"/>	
+            </transformation>	
+            <animation>	
+            </animation>
+            <materials>	
+                <material id="pieceMaterial" />	
             </materials>	
             <texture id="inherit"/>	
             <children>	
@@ -564,7 +573,7 @@
             <animation>	
             </animation>
             <materials>	
-                <material id="cuboidMaterial" />	
+                <material id="pieceMaterial" />	
             </materials>	
             <texture id="inherit"/>	
             <children>	
@@ -572,35 +581,20 @@
             </children>	
         </component>	
 
-        <component id="piece1">	
+        <component id="piece3">	
             <transformation>	
-                <translate x="0.25" y="0" z="1.8"/>	
+                <translate x="-1.8" y="0" z="1.8"/>	
             </transformation>	
-            <animation>	
-            </animation>
+            <animation>
+            </animation>	
             <materials>	
-                <material id="cuboidMaterial" />	
+                <material id="pieceMaterial" />	
             </materials>	
             <texture id="inherit"/>	
             <children>	
                 <componentref id="piece"/>	
             </children>	
-        </component>	
-
-        <component id="piece0">	
-            <transformation>	
-                <translate x="1.3" y="0" z="1.8"/>	
-            </transformation>	
-            <animation>	
-            </animation>
-            <materials>	
-                <material id="cuboidMaterial" />	
-            </materials>	
-            <texture id="inherit"/>	
-            <children>	
-                <componentref id="piece"/>	
-            </children>	
-        </component>	
+        </component>		
 
         <component id="piece7">	
             <transformation>	
@@ -609,7 +603,7 @@
             <animation>	
             </animation>	
             <materials>	
-                <material id="cuboidMaterial" />	
+                <material id="pieceMaterial" />	
             </materials>	
             <texture id="inherit"/>	
             <children>	
@@ -624,7 +618,7 @@
             <animation>	
             </animation>	
             <materials>	
-                <material id="cuboidMaterial" />	
+                <material id="pieceMaterial" />	
             </materials>	
             <texture id="inherit"/>	
             <children>	
@@ -639,7 +633,7 @@
             <animation>	
             </animation>	
             <materials>	
-                <material id="cuboidMaterial" />	
+                <material id="pieceMaterial" />	
             </materials>	
             <texture id="inherit"/>	
             <children>	
@@ -654,7 +648,7 @@
             <animation>	
             </animation>	
             <materials>	
-                <material id="cuboidMaterial" />	
+                <material id="pieceMaterial" />	
             </materials>	
             <texture id="inherit"/>	
             <children>	
@@ -669,7 +663,7 @@
             <animation>	
             </animation>	
             <materials>	
-                <material id="cuboidMaterial" />	
+                <material id="pieceMaterial" />	
             </materials>	
             <texture id="inherit"/>	
             <children>	
@@ -684,7 +678,7 @@
             <animation>	
             </animation>	
             <materials>	
-                <material id="cuboidMaterial" />	
+                <material id="pieceMaterial" />	
             </materials>	
             <texture id="inherit"/>	
             <children>	
@@ -699,7 +693,7 @@
             <animation>	
             </animation>	
             <materials>	
-                <material id="cuboidMaterial" />	
+                <material id="pieceMaterial" />	
             </materials>	
             <texture id="inherit"/>	
             <children>	
@@ -714,7 +708,7 @@
             <animation>	
             </animation>	
             <materials>	
-                <material id="cuboidMaterial" />	
+                <material id="pieceMaterial" />	
             </materials>	
             <texture id="inherit"/>	
             <children>	
@@ -729,7 +723,7 @@
             <animation>	
             </animation>	
             <materials>	
-                <material id="cuboidMaterial" />	
+                <material id="pieceMaterial" />	
             </materials>	
             <texture id="inherit"/>	
             <children>	
@@ -744,7 +738,7 @@
             <animation>	
             </animation>	
             <materials>	
-                <material id="cuboidMaterial" />	
+                <material id="pieceMaterial" />	
             </materials>	
             <texture id="inherit"/>	
             <children>	
@@ -759,7 +753,7 @@
             <animation>	
             </animation>	
             <materials>	
-                <material id="cuboidMaterial" />	
+                <material id="pieceMaterial" />	
             </materials>	
             <texture id="inherit"/>	
             <children>	
@@ -774,7 +768,7 @@
             <animation>	
             </animation>	
             <materials>	
-                <material id="cuboidMaterial" />	
+                <material id="pieceMaterial" />	
             </materials>	
             <texture id="inherit"/>	
             <children>	
@@ -789,7 +783,7 @@
             <animation>	
             </animation>	
             <materials>	
-                <material id="cuboidMaterial" />	
+                <material id="pieceMaterial" />	
             </materials>	
             <texture id="inherit"/>	
             <children>	
@@ -804,7 +798,7 @@
             <animation>	
             </animation>	
             <materials>	
-                <material id="cuboidMaterial" />	
+                <material id="pieceMaterial" />	
             </materials>	
             <texture id="inherit"/>	
             <children>	
@@ -819,7 +813,7 @@
             <animation>	
             </animation>	
             <materials>	
-                <material id="cuboidMaterial" />	
+                <material id="pieceMaterial" />	
             </materials>	
             <texture id="inherit"/>	
             <children>	
@@ -834,7 +828,7 @@
             <animation>	
             </animation>	
             <materials>	
-                <material id="cuboidMaterial" />	
+                <material id="pieceMaterial" />	
             </materials>	
             <texture id="inherit"/>	
             <children>	
@@ -849,7 +843,7 @@
             <animation>	
             </animation>	
             <materials>	
-                <material id="cuboidMaterial" />	
+                <material id="pieceMaterial" />	
             </materials>	
             <texture id="inherit"/>	
             <children>	
@@ -864,7 +858,7 @@
             <animation>	
             </animation>	
             <materials>	
-                <material id="cuboidMaterial" />	
+                <material id="pieceMaterial" />	
             </materials>	
             <texture id="inherit"/>	
             <children>	
@@ -879,7 +873,7 @@
             <animation>	
             </animation>	
             <materials>	
-                <material id="cuboidMaterial" />	
+                <material id="pieceMaterial" />	
             </materials>	
             <texture id="inherit"/>	
             <children>	
@@ -894,7 +888,7 @@
             <animation>
             </animation>    
             <materials>	
-                <material id="cuboidMaterial" />	
+                <material id="pieceMaterial" />	
             </materials>	
             <texture id="inherit"/>	
             <children>	
