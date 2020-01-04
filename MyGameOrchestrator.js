@@ -252,9 +252,9 @@ class MyGameOrchestrator extends CGFobject {
         this.scene.popMatrix();
 
         this.scene.pushMatrix();
-        this.scene.translate(-3.9, 4.3, 4);
+        this.scene.translate(-8.4, 3.5, -2);
         this.scene.registerForPick(350, this.clock);
-        this.scene.scale(0.4, 0.6, 0.6);
+        this.scene.scale(1, 1.4, 1.4);
         this.scene.rotate(Math.PI / 2, 0, 1, 0);
         this.clock.display();
         this.scene.registerForPick(100, this);

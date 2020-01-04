@@ -43,6 +43,7 @@
     <textures>
         <texture id="backgroundTexture" file="img/backgroundTexture.jpg" />
         <texture id="cuboidTexture" file="img/cuboidTexture.jpg" />
+        <texture id="clockBlockTexture" file="img/marble.jpg"/>
         <texture id="boardTexture" file="img/board.png"/>
         <texture id="blackTexture" file="img/black.png" />
         <texture id="whiteTexture" file="img/white.png" />
@@ -159,13 +160,14 @@
             </materials>
             <texture id="backgroundTexture" />
             <children>
-                <!-- <componentref id="board"/> 
+                <componentref id="board"/> 
                 <componentref id="table"/>
                 <componentref id="backgroundCube"/>
                 <componentref id="scoreboard"/>
-                <componentref id="scoreboard2"/> -->
+                <componentref id="scoreboard2"/>
                 <componentref id="whitePieces"/>  
                 <componentref id="blackPieces"/>
+                <componentref id="clockBlock"/> 
             </children>
         </component>
 
@@ -900,6 +902,22 @@
             <children>	
                 <componentref id="piece"/>	
             </children>	
+        </component>
+
+        <component id="clockBlock">
+            <transformation>
+                <translate x="-8" y="0.5" z="0"/>
+                <scale x="2" y="2.5" z="2.5"/>
+            </transformation>
+            <animation>
+            </animation>
+            <materials>
+                <material id="cuboidMaterial" />
+            </materials>
+            <texture id="clockBlockTexture"/>
+            <children>
+                <primitiveref id="cuboid"/>
+            </children>
         </component>
 
        
