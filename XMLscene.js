@@ -137,10 +137,6 @@ class XMLscene extends CGFscene {
                 }
             }
         }
-        if (this.game.reset) {
-            this.game = new MyGameOrchestrator(this);
-            this.game.reset = false;
-        }
     }
 
     // updateCameras() {

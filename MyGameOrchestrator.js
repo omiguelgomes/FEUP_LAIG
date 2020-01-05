@@ -23,7 +23,6 @@ class MyGameOrchestrator extends CGFobject {
         this.enviro = 0;
         this.hiddenIndex = 24;
         this.notLeft = true;
-        this.reset = false;
 
         //new feature: time per move
         this.clockspeed = 0;
