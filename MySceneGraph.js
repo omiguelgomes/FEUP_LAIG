@@ -1293,7 +1293,6 @@ class MySceneGraph {
 
             this.nodes[componentID] = new MyComponent(this, componentID);
 
-
             if (this.components[componentID] != null)
                 return "ID must be unique for each component (conflict: ID = " + componentID + ")";
 

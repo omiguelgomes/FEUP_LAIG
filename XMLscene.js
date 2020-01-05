@@ -233,7 +233,7 @@ class XMLscene extends CGFscene {
         this.popMatrix();
     }
 
-    makeMove(index, from, to) { //T, R, S
+    makeMove(index, from, to) {
         var tileSize = 0.5;
         var deltaX = (to % 8 - from % 8) * tileSize;
         var deltaZ = (Math.floor(to / 8) - Math.floor(from / 8)) * tileSize;
@@ -275,5 +275,8 @@ class XMLscene extends CGFscene {
 
     leaveBoard(index) {
         this.graph.nodes['piece' + String(index)].transformMatrix[13] -= 1;
+    }
+    returnToBoard(index) {
+        this.graph.nodes['piece' + String(index)].transformMatrix[13] += 1;
     }
 }
