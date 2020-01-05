@@ -23,6 +23,7 @@ class MyGameOrchestrator extends CGFobject {
         this.enviro = 0;
         this.hiddenIndex = 24;
         this.notLeft = true;
+        this.reset = false;
 
         //new feature: time per move
         this.clockspeed = 0;
@@ -41,14 +42,6 @@ class MyGameOrchestrator extends CGFobject {
         this.points = [0, 0, 0,
             14, 0, 14
         ];
-
-        //Dummy keyFrameAnimation
-        var keyFrame1 = ["0.0", [
-            [0.0, 0.0, 0.0],
-            [0.0, 0.0, 0.0],
-            [1.0, 1.0, 1.0]
-        ]];
-        this.move = new MyKeyFrameAnimation(this.scene, 100, [keyFrame1]);
 
         //creates a quad (tile) for every cell of the board (8x8)
         for (let i = 0; i < 64; i++) {
