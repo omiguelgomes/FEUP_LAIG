@@ -93,12 +93,6 @@ class MyGameOrchestrator extends CGFobject {
         this.pieceAppearance.setDiffuse(0, 0, 0, 1);
         this.pieceAppearance.setShininess(5);
 
-        this.selpieceAppearance = new CGFappearance(this.scene);
-        this.selpieceAppearance.setAmbient(1, 1, 1, 1);
-        this.selpieceAppearance.setSpecular(1, 1, 1, 1);
-        this.selpieceAppearance.setDiffuse(1, 0.3, 0, 1);
-        this.selpieceAppearance.setShininess(5);
-
         this.undoAppearance = new CGFappearance(this.scene);
         this.undoAppearance.setAmbient(0.4, 0.2, 0.1, 0.5);
         this.undoAppearance.setSpecular(0.1, 0.1, 0.1, 0.1);
