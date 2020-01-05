@@ -49,7 +49,7 @@ class XMLscene extends CGFscene {
      * Initializes the scene cameras.
      */
     initCameras() {
-        this.camera = new CGFcamera(0.4, 0.1, 500, vec3.fromValues(0, 12, -15), vec3.fromValues(0, 0, 0));
+        this.camera = new CGFcamera(0.4, 0.1, 500, vec3.fromValues(0, 12, -15), vec3.fromValues(0, 10, 0));
         this.interface.setActiveCamera(this.camera);
     }
 
@@ -131,8 +131,10 @@ class XMLscene extends CGFscene {
                     this.cameraAnimation = false;
                     if (this.game.player == 1) {
                         this.camera.setPosition(vec3.fromValues(0, 12, -15));
+                        this.camera.setTarget(vec3.fromValues(0, 0, 8));
                     } else {
                         this.camera.setPosition(vec3.fromValues(0, 12, 15));
+                        this.camera.setTarget(vec3.fromValues(0, 0, -8));
                     }
                 }
             }
