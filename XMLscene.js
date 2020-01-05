@@ -10,8 +10,6 @@ class XMLscene extends CGFscene {
      */
     constructor(myinterface) {
         super();
-        //this.earthCamera = false;
-        //this.sunCamera = false;
         this.secondLight = false;
         this.cameraAnimation = false;
         this.interface = myinterface;
