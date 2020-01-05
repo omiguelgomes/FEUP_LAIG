@@ -194,10 +194,11 @@ class MyGameOrchestrator extends CGFobject {
                 this.scene.registerForPick(100, this);
 
             if (this.position[i] == -1) {
-                this.scene.translate(9, 0, 4);
+                this.scene.translate(9, 1, 4);
                 zshift = i >= 12 ? 1 : 0;
                 kickcount[zshift]++;
-                this.scene.translate(kickcount[zshift] % 2, Math.floor(kickcount[zshift] / 2) * 0.4, -1 * zshift);
+                this.scene.translate(kickcount[zshift] % 2, (Math.floor(kickcount[zshift] / 2) * 0.4) + 1, -1 * zshift);
+                this.pieces[i].display();
 
                 if (i != this.hiddenIndex)
                     this.scene.leaveBoard(i);
@@ -206,6 +207,7 @@ class MyGameOrchestrator extends CGFobject {
                 this.scene.makeMove(i, this.position[this.savePick - 101], this.savePick2);
                 this.hiddenIndex = i;
                 this.position[i] = -1;
+                this.pieces[i].display();
             } else {
                 this.scene.translate(-3.5, 2, -7.2);
                 this.pieces[i].display();
