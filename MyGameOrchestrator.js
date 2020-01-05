@@ -78,7 +78,7 @@ class MyGameOrchestrator extends CGFobject {
         this.boxBappearance.setSpecular(0.1, 0.1, 0.1, 0.1);
         this.boxBappearance.setDiffuse(0.8, 0.8, 0.8, 1);
         this.boxBappearance.setShininess(5);
-        this.boxBappearance.loadTexture("img/glass.png");
+        this.boxBappearance.loadTexture("img/beige.jpg");
 
         this.selAppearance = new CGFappearance(this.scene);
         this.selAppearance.setAmbient(0.4, 0.2, 0.1, 0.5);
