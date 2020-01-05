@@ -273,10 +273,9 @@ class MyGameOrchestrator extends CGFobject {
             }
 
             for (let j = 0; j < 24; j++) {
-                if (this.position[j] != this.gameScene[this.framecount][j]) { //buggy atm
-                    this.scene.makeMove(j, this.position[j], this.gameScene[this.framecount][j]);
-                }
+                this.scene.leaveBoard(j);
                 this.position[j] = this.gameScene[this.framecount][j];
+                this.scene.returnToBoard(j);
             }
             this.defaultdisp(mode);
         }
@@ -287,9 +286,6 @@ class MyGameOrchestrator extends CGFobject {
             this.squares[i] = 0;
 
         for (let i = 0; i < 24; i++) {
-            if (this.position[i] != this.gameScene[this.count - 1][i]) {
-                this.scene.makeMove(i, this.position[i], this.gameScene[this.count - 1][i]);
-            }
             this.position[i] = this.gameScene[this.count - 1][i];
             this.squares[this.position[i]] = i <= 11 ? 1 : -1;
         }
