@@ -42,6 +42,7 @@
 
     <textures>
         <texture id="backgroundTexture" file="img/backgroundTexture.jpg" />
+        <texture id="clockBlockTexture" file="img/marble.jpg"/>
         <texture id="cuboidTexture" file="img/cuboidTexture.jpg" />
         <texture id="boardTexture" file="img/board.png"/>
         <texture id="blackTexture" file="img/black.png" />
@@ -163,7 +164,8 @@
                 <componentref id="table"/>
                 <componentref id="backgroundCube"/>
                 <componentref id="scoreboard"/>
-                <componentref id="scoreboard2"/> 
+                <componentref id="scoreboard2"/>
+                <componentref id="clockBlock"/>  
             </children>
         </component>
 
@@ -393,7 +395,7 @@
         <component id="tableLeg">
             <transformation>
                 <scale x="1" y="4" z="1"/>
-                <translate x="0" y="0.2" z="-0.5"/>
+                <translate x="0" y="-0.1" z="-0.5"/>
             </transformation>
             <animation>
             </animation>
@@ -408,7 +410,7 @@
 
         <component id="tableLeg1">
             <transformation>
-                <translate x="5.0" y="0.0" z="0.0"/>
+                <translate x="5.0" y="0" z="0.0"/>
             </transformation>
             <animation>
             </animation>
@@ -423,7 +425,7 @@
 
         <component id="tableLeg2">
             <transformation>
-                <translate x="5.0" y="0.0" z="10.0"/>
+                <translate x="5.0" y="0" z="10.0"/>
             </transformation>
             <animation>
             </animation>
@@ -438,7 +440,7 @@
 
         <component id="tableLeg3">
             <transformation>
-                <translate x="0.0" y="0.0" z="10.0"/>
+                <translate x="0.0" y="0" z="10.0"/>
             </transformation>
             <animation>
             </animation>
@@ -453,7 +455,7 @@
 
         <component id="tableTop">
             <transformation>
-                <translate x="-1" y="4" z="-1"/>
+                <translate x="-1" y="3" z="-1"/>
                 <scale x="8" y="1" z="12"/>
             </transformation>
             <animation>
@@ -470,7 +472,7 @@
         <!--GAME BOARD-->
         <component id="board">
             <transformation>
-                <translate x="-3.75" y="0.05" z="-3.7"/>
+                <translate x="-3.75" y="-0.95" z="-3.7"/>
                 <scale x="7.5" y="0.5" z="7.5"/>
             </transformation>
             <animation>
@@ -484,6 +486,21 @@
             </children>
         </component>
 
-       
+       <component id="clockBlock">
+            <transformation>
+                <translate x="-8" y="-0.5" z="0"/>
+                <scale x="2" y="2.5" z="2.5"/>
+            </transformation>
+            <animation>
+            </animation>
+            <materials>
+                <material id="cuboidMaterial" />
+            </materials>
+            <texture id="clockBlockTexture"/>
+            <children>
+                <primitiveref id="cuboid"/>
+            </children>
+        </component>
+
     </components>
 </lxs>

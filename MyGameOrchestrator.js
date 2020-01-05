@@ -165,7 +165,7 @@ class MyGameOrchestrator extends CGFobject {
             else
                 this.boxBappearance.apply();
 
-            this.scene.translate(-3.5, 2, -7.2);
+            this.scene.translate(-3.5, 0.7, -7.2);
             this.scene.rotate(-Math.PI / 2, 1, 0, 0);
             this.cells[i].display();
             this.scene.popMatrix();
@@ -181,9 +181,9 @@ class MyGameOrchestrator extends CGFobject {
         for (let i = 0; i < this.pieces.length; i++) {
             this.scene.pushMatrix();
 
-            if (mode == 1 && i == (this.savePick - 101))
-                this.selpieceAppearance.apply();
-            else if (i >= 12)
+            // if (mode == 1 && i == (this.savePick - 101))
+            //     this.selpieceAppearance.apply();
+            /*else*/ if (i >= 12)
                 this.pieceAppearance.apply();
 
             if (this.position[i] != -1)
@@ -201,25 +201,9 @@ class MyGameOrchestrator extends CGFobject {
                 this.scene.translate(kickcount[zshift] % 2, Math.floor(kickcount[zshift] / 2) * 0.4, -1 * zshift);
                 this.pieces[i].display();
             } else if (i == (this.savePick - 101) && mode == 2) {
-                var keyFrame1 = ["0.1", [
-                    [0.0, 0.3, 0.0],
-                    [0.0, 0.0, 0.0],
-                    [5.0, 5.0, 5.0]
-                ]];
-                var keyFrame2 = ["5.0", [
-                    [-0.52, 0.3, -0.52],
-                    [0.0, 0.0, 0.0],
-                    [10.0, 10.0, 10.0]
-                ]];
-                var keyFrame3 = ["6.0", [
-                    [-0.52, 0.0, -0.52],
-                    [0.0, 0.0, 0.0],
-                    [20.0, 20.0, 20.0]
-                ]];
-                this.move = new MyKeyFrameAnimation(this.scene, 100, [keyFrame1, keyFrame2, keyFrame3]);
                 this.pieces[i].display();
             } else {
-                this.scene.translate(-3.5, 2, -7.2);
+                this.scene.translate(-3.5, 0.7, -7.2);
                 this.pieces[i].display();
             }
             this.scene.popMatrix();
@@ -232,7 +216,7 @@ class MyGameOrchestrator extends CGFobject {
     drawObjects() {
 
         this.scene.pushMatrix();
-        this.scene.translate(9.5, 2, -7);
+        this.scene.translate(9.5, 0.7, -7);
         if (this.count > 0) {
             this.scene.registerForPick(150, this.undocube);
             this.undoAppearance.apply();
@@ -241,7 +225,7 @@ class MyGameOrchestrator extends CGFobject {
         this.scene.popMatrix();
 
         this.scene.pushMatrix();
-        this.scene.translate(9.5, 2, -4);
+        this.scene.translate(9.5, 0.7, -4);
 
         if (this.count > 0) {
             this.scene.registerForPick(250, this.resetcube);
@@ -251,7 +235,7 @@ class MyGameOrchestrator extends CGFobject {
         this.scene.popMatrix();
 
         this.scene.pushMatrix();
-        this.scene.translate(9.5, 2, -1);
+        this.scene.translate(9.5, 0.7, -1);
         this.scene.registerForPick(200, this.moviecube);
         this.movieAppearance.apply();
         this.moviecube.display();
@@ -260,13 +244,13 @@ class MyGameOrchestrator extends CGFobject {
         this.scene.popMatrix();
 
         this.scene.pushMatrix();
-		this.scene.translate(-3.9, 4.3, 4);
-		this.scene.registerForPick(350, this.clock);
-		this.scene.scale(0.4,0.6,0.6);
-		this.scene.rotate(Math.PI/2, 0,1,0);
-		this.clock.display();
-		this.scene.registerForPick(100, this);
-	    this.scene.popMatrix();
+        this.scene.translate(-8.4, 2.3, -2);
+        this.scene.registerForPick(350, this.clock);
+        this.scene.scale(1, 1.4, 1.4);
+        this.scene.rotate(Math.PI / 2, 0, 1, 0);
+        this.clock.display();
+        this.scene.registerForPick(100, this);
+        this.scene.popMatrix();
     }
 
     moviemode(mode) {
