@@ -73,7 +73,7 @@ class MyGameOrchestrator extends CGFobject {
         this.boxBappearance.setSpecular(0.1, 0.1, 0.1, 0.1);
         this.boxBappearance.setDiffuse(0.8, 0.8, 0.8, 1);
         this.boxBappearance.setShininess(5);
-        this.boxBappearance.loadTexture("img/glass.png");
+        this.boxBappearance.loadTexture("img/beige.jpg");
 
         this.selAppearance = new CGFappearance(this.scene);
         this.selAppearance.setAmbient(0.4, 0.2, 0.1, 0.5);
@@ -87,12 +87,6 @@ class MyGameOrchestrator extends CGFobject {
         this.pieceAppearance.setSpecular(1, 1, 1, 1);
         this.pieceAppearance.setDiffuse(0, 0, 0, 1);
         this.pieceAppearance.setShininess(5);
-
-        this.selpieceAppearance = new CGFappearance(this.scene);
-        this.selpieceAppearance.setAmbient(1, 1, 1, 1);
-        this.selpieceAppearance.setSpecular(1, 1, 1, 1);
-        this.selpieceAppearance.setDiffuse(1, 0.3, 0, 1);
-        this.selpieceAppearance.setShininess(5);
 
         this.undoAppearance = new CGFappearance(this.scene);
         this.undoAppearance.setAmbient(0.4, 0.2, 0.1, 0.5);
@@ -156,7 +150,7 @@ class MyGameOrchestrator extends CGFobject {
             else
                 this.boxBappearance.apply();
 
-            this.scene.translate(-3.5, 2, -7.2);
+            this.scene.translate(-3.5, 0.7, -7.2);
             this.scene.rotate(-Math.PI / 2, 1, 0, 0);
             this.cells[i].display();
             this.scene.popMatrix();
@@ -171,8 +165,9 @@ class MyGameOrchestrator extends CGFobject {
 
         for (let i = 0; i < this.pieces.length; i++) {
             this.scene.pushMatrix();
-            // if (mode == 1 && i == (this.savePick - 101))commented to avoid highlighting bug
-            // //this.selpieceAppearance.apply();
+
+            // if (mode == 1 && i == (this.savePick - 101))
+            //     this.selpieceAppearance.apply();
             /*else*/
             if (i >= 12)
                 this.pieceAppearance.apply();
@@ -201,7 +196,7 @@ class MyGameOrchestrator extends CGFobject {
                 this.position[i] = -1;
                 this.pieces[i].display();
             } else {
-                this.scene.translate(-3.5, 2, -7.2);
+                this.scene.translate(-3.5, 0.7, -7.2);
                 this.pieces[i].display();
             }
             this.scene.popMatrix();
@@ -214,7 +209,7 @@ class MyGameOrchestrator extends CGFobject {
     drawObjects() {
 
         this.scene.pushMatrix();
-        this.scene.translate(9.5, 2, -7);
+        this.scene.translate(9.5, 0.7, -7);
         if (this.count > 0) {
             this.scene.registerForPick(150, this.undocube);
             this.undoAppearance.apply();
@@ -223,7 +218,7 @@ class MyGameOrchestrator extends CGFobject {
         this.scene.popMatrix();
 
         this.scene.pushMatrix();
-        this.scene.translate(9.5, 2, -4);
+        this.scene.translate(9.5, 0.7, -4);
 
         if (this.count > 0) {
             this.scene.registerForPick(250, this.resetcube);
@@ -233,7 +228,7 @@ class MyGameOrchestrator extends CGFobject {
         this.scene.popMatrix();
 
         this.scene.pushMatrix();
-        this.scene.translate(9.5, 2, -1);
+        this.scene.translate(9.5, 0.7, -1);
         this.scene.registerForPick(200, this.moviecube);
         this.movieAppearance.apply();
         this.moviecube.display();
