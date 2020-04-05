@@ -10,9 +10,8 @@ class XMLscene extends CGFscene {
      */
     constructor(myinterface) {
         super();
-        this.earthCamera = false;
-        this.sunCamera = false;
         this.secondLight = false;
+        this.cameraAnimation = false;
         this.interface = myinterface;
     }
 
@@ -38,17 +37,23 @@ class XMLscene extends CGFscene {
         this.setUpdatePeriod(100);
 
         this.matCounter = 0;
+
+        //Game
+        this.setPickEnabled(true);
+        this.game = new MyGameOrchestrator(this);
     }
 
     /**
      * Initializes the scene cameras.
      */
     initCameras() {
-            this.camera = new CGFcamera(0.4, 0.1, 500, vec3.fromValues(15, 15, 15), vec3.fromValues(0, 0, 0));
-        }
-        /**
-         * Initializes the scene lights with the values read from the XML file.
-         */
+        this.camera = new CGFcamera(0.4, 0.1, 500, vec3.fromValues(0, 12, -15), vec3.fromValues(0, 10, 0));
+        this.interface.setActiveCamera(this.camera);
+    }
+
+    /**
+     * Initializes the scene lights with the values read from the XML file.
+     */
     initLights() {
         var i = 0;
         // Lights index.
@@ -92,14 +97,12 @@ class XMLscene extends CGFscene {
     }
 
     setDefaultAppearance() {
-            this.setAmbient(0.2, 0.4, 0.8, 1.0);
-            this.setDiffuse(0.2, 0.4, 0.8, 1.0);
-            this.setSpecular(0.2, 0.4, 0.8, 1.0);
-            this.setShininess(10.0);
-        }
-        /** Handler called when the graph is finally loaded. 
-         * As loading is asynchronous, this may be called already after the application has started the run loop
-         */
+        this.setAmbient(0.2, 0.4, 0.8, 1.0);
+        this.setDiffuse(0.2, 0.4, 0.8, 1.0);
+        this.setSpecular(0.2, 0.4, 0.8, 1.0);
+        this.setShininess(10.0);
+    }
+
     onGraphLoaded() {
         this.axis = new CGFaxis(this, this.graph.referenceLength);
 
@@ -112,28 +115,55 @@ class XMLscene extends CGFscene {
         this.sceneInitiated = true;
     }
 
-    update() {
+    update(t) {
         this.checkKeys();
         if (this.sceneInitiated) {
-            this.updateCameras();
+            //this.updateCameras();
             this.updateLights();
+            this.game.update(t);
+
+            if (this.cameraAnimation) {
+                this.cameraAngle += 5;
+                this.camera.orbit(vec3.fromValues(0, 1, 0), this.cameraAngle * DEGREE_TO_RAD);
+                if (this.cameraAngle == 30) {
+                    this.cameraAnimation = false;
+                    if (this.game.player == 1) {
+                        this.camera.setPosition(vec3.fromValues(0, 12, -15));
+                        this.camera.setTarget(vec3.fromValues(0, 0, 8));
+                    } else {
+                        this.camera.setPosition(vec3.fromValues(0, 12, 15));
+                        this.camera.setTarget(vec3.fromValues(0, 0, -8));
+                    }
+                }
+            }
         }
     }
 
-    updateCameras() {
-        if (this.sunCamera) {
-            this.graph.scene.camera = this.graph.cameras["sunCamera"];
-            this.graph.scene.interface.setActiveCamera(this.graph.scene.camera);
-        } else if (this.earthCamera) {
-            this.graph.scene.camera = this.graph.cameras["earthCamera"];
-            this.graph.scene.interface.setActiveCamera(this.graph.scene.camera);
+    // updateCameras() {
+    //     if (this.sunCamera) {
+    //         this.graph.scene.camera = this.graph.cameras["sunCamera"];
+    //         this.graph.scene.interface.setActiveCamera(this.graph.scene.camera);
+    //     } else if (this.earthCamera) {
+    //         this.graph.scene.camera = this.graph.cameras["earthCamera"];
+    //         this.graph.scene.interface.setActiveCamera(this.graph.scene.camera);
+    //     } else {
+    //         this.graph.scene.camera = this.graph.cameras["defaultCamera"];
+    //         this.graph.scene.interface.setActiveCamera(this.graph.scene.camera);
+    //     }
+    // }
+
+    changeCamera() {
+        this.camera._up = vec3.fromValues(0, 1, 0);
+        if (this.game.currPlayer == this.game.player.white_player) {
+            this.camera.setPosition(vec3.fromValues(-11, 12, 2));
         } else {
-            this.graph.scene.camera = this.graph.cameras["defaultCamera"];
-            this.graph.scene.interface.setActiveCamera(this.graph.scene.camera);
+            this.camera.setPosition(vec3.fromValues(11, 12, 2));
         }
+        this.cameraAnimation = true;
+        this.cameraAngle = 0;
     }
 
-    updateLights() { //only works for 2 lights atm
+    updateLights() {
         if (this.secondLight) {
             this.lights[0].disable();
             this.lights[1].enable();
@@ -146,18 +176,34 @@ class XMLscene extends CGFscene {
         }
     }
 
-    display() {
-        // ---- BEGIN Background, camera and axis setup
+    logPicking() {
+        if (this.pickMode == false) {
+            if (this.pickResults != null && this.pickResults.length > 0) {
+                for (var i = 0; i < this.pickResults.length; i++) {
+                    var obj = this.pickResults[i][0];
+                    if (obj) {
+                        //sets the new customId dependant on what we are picking
+                        this.customId = this.pickResults[i][1];
+                        console.log("Picked object: " + obj + ", with pick id " + this.customId);
+                    }
+                }
+                this.pickResults.splice(0, this.pickResults.length);
+            }
+        }
+    }
 
-        // Clear image and depth buffer everytime we update the scene
+    display() {
+
+        //picking
+        this.logPicking();
+        this.clearPickRegistration();
+
         this.gl.viewport(0, 0, this.gl.canvas.width, this.gl.canvas.height);
         this.gl.clear(this.gl.COLOR_BUFFER_BIT | this.gl.DEPTH_BUFFER_BIT);
 
-        // Initialize Model-View matrix as identity (no transformation
         this.updateProjectionMatrix();
         this.loadIdentity();
 
-        // Apply transformations corresponding to the camera position relative to the origin
         this.applyViewMatrix();
 
         this.pushMatrix();
@@ -169,14 +215,66 @@ class XMLscene extends CGFscene {
         }
 
         if (this.sceneInitiated) {
-            // Draw axis
             this.setDefaultAppearance();
-
-            // Displays the scene (MySceneGraph function).
             this.graph.displayScene();
         }
 
         this.popMatrix();
-        // ---- END Background, camera and axis setup
+
+        this.gl.disable(this.gl.DEPTH_TEST);
+        this.gl.enable(this.gl.DEPTH_TEST);
+
+        this.pushMatrix();
+        this.translate(0, -1, 3);
+        this.scale(0.8, 0.8, 0.8);
+        this.game.display(this.customId);
+        this.popMatrix();
+    }
+
+    makeMove(index, from, to) {
+        var tileSize = 0.5;
+        var deltaX = (to % 8 - from % 8) * tileSize;
+        var deltaZ = (Math.floor(to / 8) - Math.floor(from / 8)) * tileSize;
+        if (index < 12) {
+            deltaX *= -1;
+            deltaZ *= -1;
+        }
+        var keyFrame0 = ["0.1", [
+            [0.0, 0.0, 0.0],
+            [0.0, 0.0, 0.0],
+            [2.1, 1, 2.1]
+        ]];
+        var keyFrame1 = ["1.0", [
+            [0.0, 0.5, 0.0],
+            [0.0, 0.0, 0.0],
+            [2.1, 1, 2.1]
+        ]];
+        var keyFrame2 = ["2.0", [
+            [deltaX, 0.5, deltaZ],
+            [0.0, 0.0, 0.0],
+            [2.1, 1.0, 2.1]
+        ]];
+        var keyFrame3 = ["3.0", [
+            [deltaX, 0.0, deltaZ],
+            [0.0, 0.0, 0.0],
+            [2.1, 1.0, 2.1]
+        ]];
+
+
+        let move = new MyKeyFrameAnimation(this, 100, [keyFrame0, keyFrame1, keyFrame2, keyFrame3]);
+        let moveName = 'move' + String(Object.keys(this.graph.animations).length);
+
+        this.graph.animations[moveName] = move;
+
+        this.graph.nodes['piece' + String(index)].animations.push(moveName);
+
+        move.changePos(index, deltaX, deltaZ);
+    }
+
+    leaveBoard(index) {
+        this.graph.nodes['piece' + String(index)].transformMatrix[13] -= 1;
+    }
+    returnToBoard(index) {
+        this.graph.nodes['piece' + String(index)].transformMatrix[13] += 1;
     }
 }
