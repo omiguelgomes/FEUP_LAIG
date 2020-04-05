@@ -40,7 +40,7 @@ class XMLscene extends CGFscene {
 
         //Game
         this.setPickEnabled(true);
-        this.game = new MyGameOrchestrator(this);
+        //this.game = new MyGameOrchestrator(this);
     }
 
     /**
@@ -72,14 +72,7 @@ class XMLscene extends CGFscene {
                 this.lights[i].setSpecular(light[5][0], light[5][1], light[5][2], light[5][3]);
 
                 if (light[1] == "spot") {
-                    this.lights[i].setSpotCutOff(light[6]);
-                    this.lights[i].setSpotExponent(light[7]);
-                    this.lights[i].setSpotDirection(light[8][0], light[8][1], light[8][2]);
-                }
-
-                this.lights[i].setVisible(true);
-                if (light[0]) {
-                    this.lights[i].enable();
+                    this.lights[iGameO].enable();
                 } else
                     this.lights[i].disable();
 
@@ -120,7 +113,7 @@ class XMLscene extends CGFscene {
         if (this.sceneInitiated) {
             //this.updateCameras();
             this.updateLights();
-            this.game.update(t);
+            //this.game.update(t);
 
             if (this.cameraAnimation) {
                 this.cameraAngle += 5;
@@ -227,7 +220,7 @@ class XMLscene extends CGFscene {
         this.pushMatrix();
         this.translate(0, -1, 3);
         this.scale(0.8, 0.8, 0.8);
-        this.game.display(this.customId);
+        //this.game.display(this.customId);
         this.popMatrix();
     }
 

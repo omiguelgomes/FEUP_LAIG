@@ -41,20 +41,20 @@
 
     <textures>
         <texture id="backgroundTexture" file="img/backgroundTexture.jpg" />
-        <texture id="beltTexture" file="img/beltTexture.png" />
-        <texture id="orbitTexture" file="img/orbitTexture.jpg" />
-        <texture id="sunTexture" file="img/sunTexture.jpg" />
-        <texture id="mercuryTexture" file="img/mercuryTexture.jpg" />
-        <texture id="venusTexture" file="img/venusTexture.jpg" />
-        <texture id="earthTexture" file="img/earthTexture.jpg" />
-        <texture id="moonTexture" file="img/moonTexture.jpg" />
-        <texture id="marsTexture" file="img/marsTexture.jpg" />
-        <texture id="jupiterTexture" file="img/jupiterTexture.jpg" />
-        <texture id="saturnTexture" file="img/saturnTexture.jpg" />
-        <texture id="saturnRingTexture" file="img/saturnRingTexture.png" />
-        <texture id="uranusTexture" file="img/uranusTexture.jpg" />
-        <texture id="neptuneTexture" file="img/neptuneTexture.jpg" />
-        <texture id="neptuneRingTexture" file="img/neptuneRingTexture.jpg" />
+        <texture id="beltTexture" file="img/backgroundTexture.jpg" />
+        <texture id="orbitTexture" file="img/white.png" />
+        <texture id="sunTexture" file="img/sunTexture.png" />
+        <texture id="mercuryTexture" file="img/planetTexture.png" />
+        <texture id="venusTexture" file="img/planetTexture.png" />
+        <texture id="earthTexture" file="img/planetTexture.png" />
+        <texture id="moonTexture" file="img/planetTexture.png" />
+        <texture id="marsTexture" file="img/planetTexture.png" />
+        <texture id="jupiterTexture" file="img/planetTexture.png" />
+        <texture id="saturnTexture" file="img/planetTexture.png" />
+        <texture id="saturnRingTexture" file="img/planetTexture.png" />
+        <texture id="uranusTexture" file="img/planetTexture.png" />
+        <texture id="neptuneTexture" file="img/planetTexture.png" />
+        <texture id="neptuneRingTexture" file="img/backgroundTexture.jpg" />
     </textures>
 
     <materials>
@@ -114,6 +114,14 @@
         </animation>
 
         <animation id="orbit">
+            <keyframe instant="30.0">
+                <translate x="0.0" y="0.0" z="0.0" />
+                <rotate angle_x="0.0" angle_y="720.0" angle_z="0.0" />
+                <scale x="1.0" y="1.0" z="1.0" />
+            </keyframe>
+        </animation>
+
+        <animation id="orbitSun">
             <keyframe instant="30.0">
                 <translate x="0.0" y="0.0" z="0.0" />
                 <rotate angle_x="0.0" angle_y="720.0" angle_z="0.0" />
@@ -235,15 +243,28 @@
         <component id="demoRoot">
             <transformation>
             </transformation>
-            <animation>
-            </animation>
+            <animations>
+            </animations>
+            <materials>
+                <material id="sunMaterial" />
+            </materials>
+            <texture id="backgroundTexture" />
+            <children>
+                <componentref id="backgroundCube" /> 
+                <componentref id="planets" /> 
+            </children>
+        </component> 
+
+        <component id="planets">
+            <transformation>
+            </transformation>
+            <animationref id="orbitSun"/>
             <materials>
                 <material id="sunMaterial" />
             </materials>
             <texture id="backgroundTexture" />
             <children>
                 <componentref id="sun" /> 
-                <componentref id="ggplane"/>
                 <componentref id="mercury" />
                 <componentref id="venus" />
                 <componentref id="earth" />
@@ -257,7 +278,6 @@
                 <componentref id="kuiperBelt" />
                 <componentref id="asteroidBelt" />
                 <componentref id="orbits" />
-                <componentref id="backgroundCube" />
             </children>
         </component> 
 
