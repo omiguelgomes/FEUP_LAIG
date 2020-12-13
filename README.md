@@ -3,6 +3,8 @@
 ## TP 1/2: Solar System
 Graphical representation of the solar system
 
+Final grade: 19
+
 <img width="75%" src=https://i.imgur.com/cDSB3rh.gif/>
 
 ### Showcase of some other possible animations
@@ -11,6 +13,8 @@ Graphical representation of the solar system
 ## TP3: Checkers game
 
 Fully functional checkers game
+
+Final grade: 20
 
 <img width="75%" src=https://i.imgur.com/urjJg0N.png/>
 
