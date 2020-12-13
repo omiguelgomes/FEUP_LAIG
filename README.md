@@ -6,10 +6,12 @@ Graphical representation of the solar system
 <img width="75%" src=https://i.imgur.com/cDSB3rh.gif/>
 
 ### Showcase of some other possible animations
-<img width="75%" src=https://i.imgur.com/d8UFTPy.gif/>
+<img width="75%" src=https://i.imgur.com/p83fm7M.gif/>
 
 ## TP3: Checkers game
+
 Fully functional checkers game
+
 <img width="75%" src=https://i.imgur.com/urjJg0N.png/>
 
 
