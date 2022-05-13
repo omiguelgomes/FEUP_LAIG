@@ -1,4 +1,4 @@
-# FEUP-LAIG: Projects developed for LAIG, using WebCGF
+# FEUP-LAIG: Projects developed for LAIG, using WebGL
 
 ## TP 1/2: Solar System
 Graphical representation of the solar system
